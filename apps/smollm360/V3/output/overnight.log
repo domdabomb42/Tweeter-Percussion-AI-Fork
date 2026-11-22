@@ -1,0 +1,430 @@
+V3 overnight log: C:\Users\jklus\Downloads\APCSA Code\L2ORK ftgu\pd-l2ork\apps\V3\output\overnight.log
+{
+  "baseline_training_plan": {
+    "mode": "rhythm",
+    "starting_adapter": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\initial_feature_adapter",
+    "train_pairs": 67,
+    "validation_pairs": 10,
+    "max_length": 8192,
+    "epochs": 20,
+    "completed_epochs": 0,
+    "additional_epochs": 20,
+    "resume": false,
+    "restart_from_feature": false,
+    "patience": 3,
+    "min_delta": 0.005,
+    "progress_seconds": 180,
+    "optimizer_state": "new optimizer for a fresh percussion run",
+    "loss_scope": "target tokens and EOS only; conditioning labels are -100",
+    "checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\checkpoints\\rhythm\\best_adapter"
+  },
+  "next_stage": "copy best baseline adapter, then run constrained-decoding evaluation",
+  "constrained_checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\checkpoints\\constrained\\best_adapter"
+}
+V3 overnight log: C:\Users\jklus\Downloads\APCSA Code\L2ORK ftgu\pd-l2ork\apps\V3\output\overnight.log
+{
+  "baseline_training_plan": {
+    "mode": "rhythm",
+    "starting_adapter": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\initial_feature_adapter",
+    "train_pairs": 67,
+    "validation_pairs": 10,
+    "max_length": 8192,
+    "epochs": 20,
+    "completed_epochs": 0,
+    "additional_epochs": 20,
+    "resume": false,
+    "restart_from_feature": false,
+    "patience": 3,
+    "min_delta": 0.005,
+    "progress_seconds": 180,
+    "optimizer_state": "new optimizer for a fresh percussion run",
+    "loss_scope": "target tokens and EOS only; conditioning labels are -100",
+    "checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\checkpoints\\rhythm\\best_adapter"
+  },
+  "next_stage": "copy best baseline adapter, then run constrained-decoding evaluation",
+  "constrained_checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\checkpoints\\constrained\\best_adapter"
+}
+V3 overnight log: C:\Users\jklus\Downloads\APCSA Code\L2ORK ftgu\pd-l2ork\apps\V3\output\overnight.log
+rhythm: loading model; progress reports about every 180 seconds
+V3: CUDA error: CUBLAS_STATUS_EXECUTION_FAILED when calling `cublasSgemm( handle, opa, opb, m, n, k, &alpha, a, lda, b, ldb, &beta, c, ldc)`
+V3 overnight log: C:\Users\jklus\Downloads\APCSA Code\L2ORK ftgu\pd-l2ork\apps\V3\output\overnight.log
+{
+  "baseline_training_plan": {
+    "mode": "rhythm",
+    "starting_adapter": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\initial_feature_adapter",
+    "train_pairs": 67,
+    "validation_pairs": 10,
+    "max_length": 8192,
+    "epochs": 20,
+    "completed_epochs": 0,
+    "additional_epochs": 20,
+    "resume": false,
+    "restart_from_feature": false,
+    "patience": 3,
+    "min_delta": 0.005,
+    "progress_seconds": 180,
+    "optimizer_state": "new optimizer for a fresh percussion run",
+    "loss_scope": "target tokens and EOS only; conditioning labels are -100",
+    "activation_memory": "CUDA saved tensors offloaded to CPU with gradient checkpointing",
+    "optimizer_state_memory": "Adam moments on CPU between optimizer updates",
+    "checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\checkpoints\\rhythm\\best_adapter"
+  },
+  "next_stage": "copy best baseline adapter, then run constrained-decoding evaluation",
+  "constrained_checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\checkpoints\\constrained\\best_adapter"
+}
+V3 overnight log: C:\Users\jklus\Downloads\APCSA Code\L2ORK ftgu\pd-l2ork\apps\V3\output\overnight.log
+rhythm: loading model; progress reports about every 180 seconds
+V3: [enforce fail at alloc_cpu.cpp:116] data. DefaultCPUAllocator: not enough memory: you tried to allocate 1516044288 bytes.
+V3 overnight log: C:\Users\jklus\Downloads\APCSA Code\L2ORK ftgu\pd-l2ork\apps\V3\output\overnight.log
+{
+  "baseline_training_plan": {
+    "mode": "rhythm",
+    "starting_adapter": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\initial_feature_adapter",
+    "train_pairs": 67,
+    "validation_pairs": 10,
+    "max_length": 8192,
+    "epochs": 20,
+    "completed_epochs": 0,
+    "additional_epochs": 20,
+    "resume": false,
+    "restart_from_feature": false,
+    "patience": 3,
+    "min_delta": 0.005,
+    "progress_seconds": 180,
+    "optimizer_state": "new optimizer for a fresh percussion run",
+    "loss_scope": "target tokens and EOS only; conditioning labels are -100",
+    "training_memory": "full conditioning prefix cached without gradients; gradients through last prefix token and rhythm target",
+    "optimizer_state_memory": "Adam moments on CPU between optimizer updates",
+    "checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\checkpoints\\rhythm\\best_adapter"
+  },
+  "next_stage": "copy best baseline adapter, then run constrained-decoding evaluation",
+  "constrained_checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\checkpoints\\constrained\\best_adapter"
+}
+V3 overnight log: C:\Users\jklus\Downloads\APCSA Code\L2ORK ftgu\pd-l2ork\apps\V3\output\overnight.log
+rhythm: loading model; progress reports about every 180 seconds
+rhythm epoch 1: train 1.1353 validation 1.6469
+rhythm epoch 2 training pair 12/67 running target loss 1.0723 elapsed 3.1 min
+rhythm epoch 2: train 0.8023 validation 1.1288
+rhythm epoch 3 training pair 13/67 running target loss 0.6699 elapsed 6.1 min
+rhythm epoch 3: train 0.6178 validation 0.8598
+rhythm epoch 4 training pair 9/67 running target loss 0.3433 elapsed 9.1 min
+rhythm epoch 4: train 0.5144 validation 0.7348
+rhythm epoch 5 training pair 12/67 running target loss 0.4958 elapsed 12.2 min
+rhythm epoch 5: train 0.4471 validation 0.6522
+rhythm epoch 6 training pair 8/67 running target loss 0.2991 elapsed 15.2 min
+rhythm epoch 6: train 0.3950 validation 0.6220
+rhythm epoch 7 training pair 16/67 running target loss 0.3944 elapsed 18.2 min
+rhythm epoch 7: train 0.3661 validation 0.5909
+rhythm epoch 8 training pair 23/67 running target loss 0.4064 elapsed 21.2 min
+rhythm epoch 8: train 0.3391 validation 0.5705
+rhythm epoch 9 training pair 32/67 running target loss 0.3184 elapsed 24.2 min
+rhythm epoch 9: train 0.3135 validation 0.5882
+rhythm epoch 10 training pair 46/67 running target loss 0.3062 elapsed 27.3 min
+rhythm epoch 10: train 0.2912 validation 0.6440
+rhythm epoch 11 training pair 54/67 running target loss 0.2594 elapsed 30.3 min
+rhythm epoch 11: train 0.2680 validation 0.6143
+Saved separate constrained adapter at C:\Users\jklus\Downloads\APCSA Code\L2ORK ftgu\pd-l2ork\apps\V3\output\checkpoints\constrained\best_adapter
+V3 greedy jamminlicious-002-session-coll.txt requested 11: generated 4
+V3 greedy jamminlicious-002-session-coll.txt requested 5: generated 4
+V3 greedy jamminlicious-002-session-coll.txt requested 8: generated 4
+V3 greedy jamminlicious-002-session-coll.txt requested 10: generated 4
+V3 greedy jamminlicious-002-session-coll.txt requested 12: generated 29
+V3 greedy jamminlicious-002-session-coll.txt requested 16: generated 4
+V3 greedy jamminlicious-002-session-coll.txt requested 20: generated 4
+V3 greedy jamminlicious-002-session-coll.txt requested 6: generated 4
+V3 greedy jamminlicious-002-session-coll.txt requested 5: generated 4
+V3 greedy jamminlicious-002-session-coll.txt requested 8: generated 4
+V3 greedy jamminlicious-002-session-coll.txt requested 10: generated 6
+V3 greedy jamminlicious-002-session-coll.txt requested 12: generated 4
+V3 greedy jamminlicious-002-session-coll.txt requested 16: generated 4
+V3 greedy jamminlicious-002-session-coll.txt requested 20: generated 13
+V3 greedy mus3314-spring-2025-2nd-take-session-coll.txt requested 5: generated 4
+V3 greedy mus3314-spring-2025-2nd-take-session-coll.txt requested 5: generated 4
+V3 greedy mus3314-spring-2025-2nd-take-session-coll.txt requested 8: generated 4
+V3 greedy mus3314-spring-2025-2nd-take-session-coll.txt requested 10: generated 4
+V3 greedy mus3314-spring-2025-2nd-take-session-coll.txt requested 12: generated 4
+V3 greedy mus3314-spring-2025-2nd-take-session-coll.txt requested 16: generated 4
+V3 greedy mus3314-spring-2025-2nd-take-session-coll.txt requested 20: generated 4
+V3 greedy mus3314-spring-2025-2nd-take-session-coll.txt requested 7: generated 4
+V3 greedy mus3314-spring-2025-2nd-take-session-coll.txt requested 5: generated 4
+V3 greedy mus3314-spring-2025-2nd-take-session-coll.txt requested 8: generated 4
+V3 greedy mus3314-spring-2025-2nd-take-session-coll.txt requested 10: generated 4
+V3 greedy mus3314-spring-2025-2nd-take-session-coll.txt requested 12: generated 4
+V3 greedy mus3314-spring-2025-2nd-take-session-coll.txt requested 16: generated 4
+V3 greedy mus3314-spring-2025-2nd-take-session-coll.txt requested 20: generated 4
+V3 greedy spring-2025-1st-take-session-coll.txt requested 7: generated 4
+V3 greedy spring-2025-1st-take-session-coll.txt requested 5: generated 4
+V3 greedy spring-2025-1st-take-session-coll.txt requested 8: generated 4
+V3 greedy spring-2025-1st-take-session-coll.txt requested 10: generated 4
+V3 greedy spring-2025-1st-take-session-coll.txt requested 12: generated 4
+V3 greedy spring-2025-1st-take-session-coll.txt requested 16: generated 4
+V3 greedy spring-2025-1st-take-session-coll.txt requested 20: generated 4
+V3 constrained jamminlicious-002-session-coll.txt requested 11: generated 11
+V3 constrained jamminlicious-002-session-coll.txt requested 5: generated 5
+V3 constrained jamminlicious-002-session-coll.txt requested 8: generated 8
+V3 constrained jamminlicious-002-session-coll.txt requested 10: generated 10
+V3 constrained jamminlicious-002-session-coll.txt requested 12: generated 12
+V3 constrained jamminlicious-002-session-coll.txt requested 16: generated 16
+V3 constrained jamminlicious-002-session-coll.txt requested 20: generated 20
+V3 constrained jamminlicious-002-session-coll.txt requested 6: generated 6
+V3 constrained jamminlicious-002-session-coll.txt requested 5: generated 5
+V3 constrained jamminlicious-002-session-coll.txt requested 8: generated 8
+V3 constrained jamminlicious-002-session-coll.txt requested 10: generated 10
+V3 constrained jamminlicious-002-session-coll.txt requested 12: generated 12
+V3 constrained jamminlicious-002-session-coll.txt requested 16: generated 16
+V3 constrained jamminlicious-002-session-coll.txt requested 20: generated 20
+V3 constrained mus3314-spring-2025-2nd-take-session-coll.txt requested 5: generated 5
+V3 constrained mus3314-spring-2025-2nd-take-session-coll.txt requested 5: generated 5
+V3 constrained mus3314-spring-2025-2nd-take-session-coll.txt requested 8: generated 8
+V3 constrained mus3314-spring-2025-2nd-take-session-coll.txt requested 10: generated 10
+V3 constrained mus3314-spring-2025-2nd-take-session-coll.txt requested 12: generated 12
+V3 constrained mus3314-spring-2025-2nd-take-session-coll.txt requested 16: generated 16
+V3 constrained mus3314-spring-2025-2nd-take-session-coll.txt requested 20: generated 20
+V3 constrained mus3314-spring-2025-2nd-take-session-coll.txt requested 7: generated 7
+V3 constrained mus3314-spring-2025-2nd-take-session-coll.txt requested 5: generated 5
+V3 constrained mus3314-spring-2025-2nd-take-session-coll.txt requested 8: generated 8
+V3 constrained mus3314-spring-2025-2nd-take-session-coll.txt requested 10: generated 10
+V3 constrained mus3314-spring-2025-2nd-take-session-coll.txt requested 12: generated 12
+V3 constrained mus3314-spring-2025-2nd-take-session-coll.txt requested 16: generated 16
+V3 constrained mus3314-spring-2025-2nd-take-session-coll.txt requested 20: generated 20
+V3 constrained spring-2025-1st-take-session-coll.txt requested 7: generated 7
+V3 constrained spring-2025-1st-take-session-coll.txt requested 5: generated 5
+V3 constrained spring-2025-1st-take-session-coll.txt requested 8: generated 8
+V3 constrained spring-2025-1st-take-session-coll.txt requested 10: generated 10
+V3 constrained spring-2025-1st-take-session-coll.txt requested 12: generated 12
+V3 constrained spring-2025-1st-take-session-coll.txt requested 16: generated 16
+V3 constrained spring-2025-1st-take-session-coll.txt requested 20: generated 20
+v1 jamminlicious-002-session-coll.txt requested 11: 4
+v1 jamminlicious-002-session-coll.txt requested 6: 4
+v1 mus3314-spring-2025-2nd-take-session-coll.txt requested 5: 6
+v1 mus3314-spring-2025-2nd-take-session-coll.txt requested 7: invalid
+v1 spring-2025-1st-take-session-coll.txt requested 7: 6
+v2 jamminlicious-002-session-coll.txt requested 11: invalid
+v2 jamminlicious-002-session-coll.txt requested 5: invalid
+v2 jamminlicious-002-session-coll.txt requested 8: invalid
+v2 jamminlicious-002-session-coll.txt requested 10: invalid
+v2 jamminlicious-002-session-coll.txt requested 12: invalid
+v2 jamminlicious-002-session-coll.txt requested 16: invalid
+v2 jamminlicious-002-session-coll.txt requested 20: invalid
+v2 jamminlicious-002-session-coll.txt requested 6: 6
+v2 jamminlicious-002-session-coll.txt requested 5: 6
+v2 jamminlicious-002-session-coll.txt requested 8: 6
+v2 jamminlicious-002-session-coll.txt requested 10: 6
+v2 jamminlicious-002-session-coll.txt requested 12: invalid
+v2 jamminlicious-002-session-coll.txt requested 16: 6
+v2 jamminlicious-002-session-coll.txt requested 20: 6
+v2 mus3314-spring-2025-2nd-take-session-coll.txt requested 5: invalid
+v2 mus3314-spring-2025-2nd-take-session-coll.txt requested 5: invalid
+v2 mus3314-spring-2025-2nd-take-session-coll.txt requested 8: invalid
+v2 mus3314-spring-2025-2nd-take-session-coll.txt requested 10: invalid
+v2 mus3314-spring-2025-2nd-take-session-coll.txt requested 12: invalid
+v2 mus3314-spring-2025-2nd-take-session-coll.txt requested 16: invalid
+v2 mus3314-spring-2025-2nd-take-session-coll.txt requested 20: invalid
+v2 mus3314-spring-2025-2nd-take-session-coll.txt requested 7: 6
+v2 mus3314-spring-2025-2nd-take-session-coll.txt requested 5: 6
+v2 mus3314-spring-2025-2nd-take-session-coll.txt requested 8: 6
+v2 mus3314-spring-2025-2nd-take-session-coll.txt requested 10: 6
+v2 mus3314-spring-2025-2nd-take-session-coll.txt requested 12: 6
+v2 mus3314-spring-2025-2nd-take-session-coll.txt requested 16: 6
+v2 mus3314-spring-2025-2nd-take-session-coll.txt requested 20: 6
+v2 spring-2025-1st-take-session-coll.txt requested 7: 5
+v2 spring-2025-1st-take-session-coll.txt requested 5: 5
+v2 spring-2025-1st-take-session-coll.txt requested 8: 5
+v2 spring-2025-1st-take-session-coll.txt requested 10: 5
+v2 spring-2025-1st-take-session-coll.txt requested 12: 3
+v2 spring-2025-1st-take-session-coll.txt requested 16: 5
+v2 spring-2025-1st-take-session-coll.txt requested 20: 5
+{
+  "best_epoch": 8,
+  "best_validation_loss": 0.5704629612200468,
+  "baseline_checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\checkpoints\\rhythm\\best_adapter",
+  "constrained_checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\checkpoints\\constrained\\best_adapter",
+  "constrained_decoding_config": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\checkpoints\\constrained\\decoding_config.json",
+  "baseline_evaluation": {
+    "report": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\evaluation\\v3_greedy_test.json",
+    "reference_summary": {
+      "attempts": 5,
+      "parse_valid": 5,
+      "export_valid": 5,
+      "median_generated_note_count": 4,
+      "mean_absolute_count_error": 3.2,
+      "exact_count_fraction": 0.0,
+      "within_one_fraction": 0.2,
+      "unique_patterns": 3,
+      "diversity_fraction": 0.6,
+      "mean_melody_alignment": 0.95,
+      "mean_reference_onset_f1": 0.17212121212121212,
+      "loop_valid_fraction": 1.0,
+      "loop_ms_match_fraction": 1.0,
+      "mean_wrap_gap_ratio": 0.7375,
+      "mean_generated_tokens": 20,
+      "mean_input_tokens": 6057,
+      "mean_prefill_seconds": 0.9332934999983991,
+      "mean_decode_seconds": 4.614516460002051,
+      "mean_total_seconds": 6.375191780005116
+    },
+    "sweep_summary": {
+      "attempts": 30,
+      "parse_valid": 30,
+      "export_valid": 30,
+      "median_generated_note_count": 4.0,
+      "mean_absolute_count_error": 7.766666666666667,
+      "exact_count_fraction": 0.0,
+      "within_one_fraction": 0.16666666666666666,
+      "unique_patterns": 5,
+      "diversity_fraction": 0.16666666666666666,
+      "mean_melody_alignment": 0.9977011494252873,
+      "mean_reference_onset_f1": 0.1778522062732589,
+      "loop_valid_fraction": 1.0,
+      "loop_ms_match_fraction": 1.0,
+      "mean_wrap_gap_ratio": 0.7733333333333333,
+      "mean_generated_tokens": 23.6,
+      "mean_input_tokens": 6057.466666666666,
+      "mean_prefill_seconds": 0.8626620833325432,
+      "mean_decode_seconds": 4.934521196668114,
+      "mean_total_seconds": 6.633093076667865
+    }
+  },
+  "constrained_evaluation": {
+    "report": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\evaluation\\v3_constrained_test.json",
+    "reference_summary": {
+      "attempts": 5,
+      "parse_valid": 5,
+      "export_valid": 5,
+      "median_generated_note_count": 7,
+      "mean_absolute_count_error": 0,
+      "exact_count_fraction": 1.0,
+      "within_one_fraction": 1.0,
+      "unique_patterns": 5,
+      "diversity_fraction": 1.0,
+      "mean_melody_alignment": 0.8857142857142857,
+      "mean_reference_onset_f1": 0.17922077922077922,
+      "loop_valid_fraction": 1.0,
+      "loop_ms_match_fraction": 1.0,
+      "mean_wrap_gap_ratio": 0.5590686274509804,
+      "mean_generated_tokens": 29.6,
+      "mean_input_tokens": 6057,
+      "mean_prefill_seconds": 0.897329280001577,
+      "mean_decode_seconds": 6.2391168199974345,
+      "mean_total_seconds": 8.045868720000726
+    },
+    "sweep_summary": {
+      "attempts": 30,
+      "parse_valid": 30,
+      "export_valid": 30,
+      "median_generated_note_count": 11.0,
+      "mean_absolute_count_error": 0,
+      "exact_count_fraction": 1.0,
+      "within_one_fraction": 1.0,
+      "unique_patterns": 18,
+      "diversity_fraction": 0.6,
+      "mean_melody_alignment": 0.7902777777777777,
+      "mean_reference_onset_f1": 0.19520156331708344,
+      "loop_valid_fraction": 1.0,
+      "loop_ms_match_fraction": 1.0,
+      "mean_wrap_gap_ratio": 1.38125,
+      "mean_generated_tokens": 43.5,
+      "mean_input_tokens": 6057.466666666666,
+      "mean_prefill_seconds": 0.8952798266662285,
+      "mean_decode_seconds": 9.496141186666986,
+      "mean_total_seconds": 11.236728343332167
+    }
+  },
+  "v1_v2_v3_comparison": {
+    "report": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\evaluation\\comparison_test.json",
+    "summaries": {
+      "v1": {
+        "attempts": 5,
+        "parse_valid": 4,
+        "export_valid": 4,
+        "median_generated_note_count": 5.0,
+        "mean_absolute_count_error": 2.75,
+        "exact_count_fraction": 0.0,
+        "within_one_fraction": 0.4,
+        "unique_patterns": 3,
+        "diversity_fraction": 0.75,
+        "mean_melody_alignment": 0.9583333333333334,
+        "mean_reference_onset_f1": 0.22564102564102564,
+        "loop_valid_fraction": 0.8,
+        "loop_ms_match_fraction": 0.6,
+        "mean_wrap_gap_ratio": 0.4583333333333333,
+        "mean_generated_tokens": 75.2,
+        "mean_input_tokens": null,
+        "mean_prefill_seconds": null,
+        "mean_decode_seconds": null,
+        "mean_total_seconds": 18.103851100002068
+      },
+      "v2": {
+        "attempts": 35,
+        "parse_valid": 20,
+        "export_valid": 20,
+        "median_generated_note_count": 6.0,
+        "mean_absolute_count_error": 5.7,
+        "exact_count_fraction": 0.05714285714285714,
+        "within_one_fraction": 0.14285714285714285,
+        "unique_patterns": 4,
+        "diversity_fraction": 0.2,
+        "mean_melody_alignment": 0.9416666666666667,
+        "mean_reference_onset_f1": 0.2530769230769231,
+        "loop_valid_fraction": 0.5714285714285714,
+        "loop_ms_match_fraction": 0.5714285714285714,
+        "mean_wrap_gap_ratio": 0.2708333333333333,
+        "mean_generated_tokens": 80.1923076923077,
+        "mean_input_tokens": null,
+        "mean_prefill_seconds": null,
+        "mean_decode_seconds": null,
+        "mean_total_seconds": 17.962596999999032
+      },
+      "v3": {
+        "attempts": 35,
+        "parse_valid": 35,
+        "export_valid": 35,
+        "median_generated_note_count": 4,
+        "mean_absolute_count_error": 7.114285714285714,
+        "exact_count_fraction": 0.0,
+        "within_one_fraction": 0.17142857142857143,
+        "unique_patterns": 6,
+        "diversity_fraction": 0.17142857142857143,
+        "mean_melody_alignment": 0.9908866995073892,
+        "mean_reference_onset_f1": 0.17703349282296652,
+        "loop_valid_fraction": 1.0,
+        "loop_ms_match_fraction": 1.0,
+        "mean_wrap_gap_ratio": 0.7682142857142857,
+        "mean_generated_tokens": 23.085714285714285,
+        "mean_input_tokens": 6057.4,
+        "mean_prefill_seconds": 0.8727522857133798,
+        "mean_decode_seconds": 4.888806234287248,
+        "mean_total_seconds": 6.596250034287472
+      },
+      "v3_constrained": {
+        "attempts": 35,
+        "parse_valid": 35,
+        "export_valid": 35,
+        "median_generated_note_count": 10,
+        "mean_absolute_count_error": 0,
+        "exact_count_fraction": 1.0,
+        "within_one_fraction": 1.0,
+        "unique_patterns": 22,
+        "diversity_fraction": 0.6285714285714286,
+        "mean_melody_alignment": 0.8039115646258503,
+        "mean_reference_onset_f1": 0.19291859416046855,
+        "loop_valid_fraction": 1.0,
+        "loop_ms_match_fraction": 1.0,
+        "mean_wrap_gap_ratio": 1.2637955182072829,
+        "mean_generated_tokens": 41.51428571428571,
+        "mean_input_tokens": 6057.4,
+        "mean_prefill_seconds": 0.8955726057141354,
+        "mean_decode_seconds": 9.030851991428477,
+        "mean_total_seconds": 10.780891254284818
+      }
+    }
+  }
+}
+V3 overnight log: C:\Users\jklus\Downloads\APCSA Code\L2ORK ftgu\Tweeter-Percussion-AI\apps\smollm360\V3\output\overnight.log
+V3: constrained experiment already exists: C:\Users\jklus\Downloads\APCSA Code\L2ORK ftgu\Tweeter-Percussion-AI\apps\smollm360\V3\output\checkpoints\constrained\best_adapter
+V3 overnight log: C:\Users\jklus\Downloads\APCSA Code\L2ORK ftgu\Tweeter-Percussion-AI\apps\smollm360\V3\output\overnight.log
+{
+  "status": "existing checkpoints; a fresh overnight run would not overwrite them",
+  "baseline_checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\Tweeter-Percussion-AI\\apps\\smollm360\\V3\\output\\checkpoints\\rhythm\\best_adapter",
+  "constrained_checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\Tweeter-Percussion-AI\\apps\\smollm360\\V3\\output\\checkpoints\\constrained\\best_adapter"
+}

@@ -1,0 +1,148 @@
+{
+  "plan": {
+    "mode": "rhythm",
+    "starting_adapter": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\initial_feature_adapter",
+    "train_pairs": 67,
+    "validation_pairs": 10,
+    "max_length": 8192,
+    "epochs": 20,
+    "completed_epochs": 0,
+    "additional_epochs": 20,
+    "resume": false,
+    "restart_from_feature": false,
+    "patience": 3,
+    "min_delta": 0.005,
+    "progress_seconds": 180,
+    "optimizer_state": "new optimizer for a fresh percussion run",
+    "loss_scope": "target tokens and EOS only; conditioning labels are -100",
+    "training_memory": "full conditioning prefix cached without gradients; gradients through last prefix token and rhythm target",
+    "optimizer_state_memory": "Adam moments on CPU between optimizer updates",
+    "checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\checkpoints\\rhythm\\best_adapter"
+  },
+  "epochs": [
+    {
+      "epoch": 1,
+      "train_target_loss": 1.1352791498065573,
+      "validation": {
+        "loss": 1.6468679251022709,
+        "perplexity": 5.190696689684577,
+        "target_tokens": 206,
+        "pairs": 10
+      },
+      "elapsed_seconds": 154.6946167999995
+    },
+    {
+      "epoch": 2,
+      "train_target_loss": 0.8023433860971972,
+      "validation": {
+        "loss": 1.1287970910373244,
+        "perplexity": 3.091934945969525,
+        "target_tokens": 206,
+        "pairs": 10
+      },
+      "elapsed_seconds": 333.46488749999844
+    },
+    {
+      "epoch": 3,
+      "train_target_loss": 0.6177537578675985,
+      "validation": {
+        "loss": 0.8598293433490308,
+        "perplexity": 2.3627574390261303,
+        "target_tokens": 206,
+        "pairs": 10
+      },
+      "elapsed_seconds": 522.5913559000037
+    },
+    {
+      "epoch": 4,
+      "train_target_loss": 0.5143668998581775,
+      "validation": {
+        "loss": 0.7347620168646563,
+        "perplexity": 2.0849857420137146,
+        "target_tokens": 206,
+        "pairs": 10
+      },
+      "elapsed_seconds": 701.2200481000036
+    },
+    {
+      "epoch": 5,
+      "train_target_loss": 0.44706032937872653,
+      "validation": {
+        "loss": 0.6521584420528227,
+        "perplexity": 1.9196798782351459,
+        "target_tokens": 206,
+        "pairs": 10
+      },
+      "elapsed_seconds": 887.5017444999976
+    },
+    {
+      "epoch": 6,
+      "train_target_loss": 0.39504129507365987,
+      "validation": {
+        "loss": 0.6219915199337653,
+        "perplexity": 1.8626338229407668,
+        "target_tokens": 206,
+        "pairs": 10
+      },
+      "elapsed_seconds": 1053.2003109999932
+    },
+    {
+      "epoch": 7,
+      "train_target_loss": 0.3661232048960763,
+      "validation": {
+        "loss": 0.5908560783973018,
+        "perplexity": 1.805533432142633,
+        "target_tokens": 206,
+        "pairs": 10
+      },
+      "elapsed_seconds": 1210.2207658999978
+    },
+    {
+      "epoch": 8,
+      "train_target_loss": 0.33905364016354483,
+      "validation": {
+        "loss": 0.5704629612200468,
+        "perplexity": 1.769085880033554,
+        "target_tokens": 206,
+        "pairs": 10
+      },
+      "elapsed_seconds": 1385.2929701999965
+    },
+    {
+      "epoch": 9,
+      "train_target_loss": 0.31350482115267875,
+      "validation": {
+        "loss": 0.5881601848359247,
+        "perplexity": 1.8006724614619123,
+        "target_tokens": 206,
+        "pairs": 10
+      },
+      "elapsed_seconds": 1539.4122370999976
+    },
+    {
+      "epoch": 10,
+      "train_target_loss": 0.29118597790431694,
+      "validation": {
+        "loss": 0.6440488396628389,
+        "perplexity": 1.9041749919121822,
+        "target_tokens": 206,
+        "pairs": 10
+      },
+      "elapsed_seconds": 1699.7084112000011
+    },
+    {
+      "epoch": 11,
+      "train_target_loss": 0.2680149979939094,
+      "validation": {
+        "loss": 0.6143040293194715,
+        "perplexity": 1.848369740655965,
+        "target_tokens": 206,
+        "pairs": 10
+      },
+      "elapsed_seconds": 1858.9325599000003
+    }
+  ],
+  "best_epoch": 8,
+  "best_validation_loss": 0.5704629612200468,
+  "early_stopped": true
+}

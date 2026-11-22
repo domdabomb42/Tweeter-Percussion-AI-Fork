@@ -1,0 +1,2707 @@
+{
+  "sessions": 51,
+  "tracks": 629,
+  "notes": 6408,
+  "duration_note": "No recorded end time; max_track_loop_ms is a cycle length proxy, not total playback duration.",
+  "files": [
+    {
+      "file": "0s-and-1s-apart-A-session-coll.txt",
+      "tracks": 14,
+      "notes": 207,
+      "max_track_loop_ms": 24000,
+      "distinct_track_loop_ms": [
+        3000,
+        6000,
+        12000,
+        24000
+      ],
+      "family": "0s-and-1s-apart"
+    },
+    {
+      "file": "0s-and-1s-apart-AI-session-coll.txt",
+      "tracks": 14,
+      "notes": 207,
+      "max_track_loop_ms": 24000,
+      "distinct_track_loop_ms": [
+        3000,
+        6000,
+        12000,
+        24000
+      ],
+      "family": "0s-and-1s-apart"
+    },
+    {
+      "file": "0s-and-1s-apart-B-session-coll.txt",
+      "tracks": 14,
+      "notes": 227,
+      "max_track_loop_ms": 24000,
+      "distinct_track_loop_ms": [
+        3000,
+        6000,
+        12000,
+        24000
+      ],
+      "family": "0s-and-1s-apart"
+    },
+    {
+      "file": "0s-and-1s-apart-C-session-coll.txt",
+      "tracks": 14,
+      "notes": 209,
+      "max_track_loop_ms": 24000,
+      "distinct_track_loop_ms": [
+        6000,
+        12000,
+        24000
+      ],
+      "family": "0s-and-1s-apart"
+    },
+    {
+      "file": "0s-and-1s-apart-D-session-coll.txt",
+      "tracks": 14,
+      "notes": 220,
+      "max_track_loop_ms": 24000,
+      "distinct_track_loop_ms": [
+        6000,
+        12000,
+        24000
+      ],
+      "family": "0s-and-1s-apart"
+    },
+    {
+      "file": "0s-and-1s-apart-E-session-coll.txt",
+      "tracks": 14,
+      "notes": 63,
+      "max_track_loop_ms": 24000,
+      "distinct_track_loop_ms": [
+        6000,
+        12000,
+        24000
+      ],
+      "family": "0s-and-1s-apart"
+    },
+    {
+      "file": "1st-beat-fall-2021-session-coll.txt",
+      "tracks": 12,
+      "notes": 20,
+      "max_track_loop_ms": 6000,
+      "distinct_track_loop_ms": [
+        750,
+        1500,
+        3000,
+        6000
+      ],
+      "family": "beat-sequence"
+    },
+    {
+      "file": "2nd-beat-fall-2021-final-session-coll.txt",
+      "tracks": 12,
+      "notes": 69,
+      "max_track_loop_ms": 12000,
+      "distinct_track_loop_ms": [
+        1500,
+        3000,
+        6000,
+        12000
+      ],
+      "family": "beat-sequence"
+    },
+    {
+      "file": "3rd-beat-session-coll.txt",
+      "tracks": 12,
+      "notes": 93,
+      "max_track_loop_ms": 2000,
+      "distinct_track_loop_ms": [
+        2000
+      ],
+      "family": "3rd-beat"
+    },
+    {
+      "file": "4th-beat-droplets-6-session-coll.txt",
+      "tracks": 12,
+      "notes": 78,
+      "max_track_loop_ms": 2000,
+      "distinct_track_loop_ms": [
+        1500,
+        2000
+      ],
+      "family": "beat-sequence"
+    },
+    {
+      "file": "4th-beat-final-10-session-coll.txt",
+      "tracks": 12,
+      "notes": 60,
+      "max_track_loop_ms": 2000,
+      "distinct_track_loop_ms": [
+        1500,
+        2000
+      ],
+      "family": "beat-sequence"
+    },
+    {
+      "file": "4th-beat-post-accel-2-session-coll.txt",
+      "tracks": 7,
+      "notes": 22,
+      "max_track_loop_ms": 2000,
+      "distinct_track_loop_ms": [
+        2000
+      ],
+      "family": "beat-sequence"
+    },
+    {
+      "file": "canada-end-session-coll.txt",
+      "tracks": 12,
+      "notes": 210,
+      "max_track_loop_ms": 11429,
+      "distinct_track_loop_ms": [
+        1500,
+        5714.5,
+        11429
+      ],
+      "family": "canada"
+    },
+    {
+      "file": "canada-mid-session-coll.txt",
+      "tracks": 12,
+      "notes": 190,
+      "max_track_loop_ms": 11429,
+      "distinct_track_loop_ms": [
+        1500,
+        5714.5,
+        11429
+      ],
+      "family": "canada"
+    },
+    {
+      "file": "canada-start-24-3-session-coll.txt",
+      "tracks": 12,
+      "notes": 164,
+      "max_track_loop_ms": 11429,
+      "distinct_track_loop_ms": [
+        1500,
+        5714.5,
+        11429
+      ],
+      "family": "canada"
+    },
+    {
+      "file": "canada-start-session-coll.txt",
+      "tracks": 12,
+      "notes": 119,
+      "max_track_loop_ms": 11429,
+      "distinct_track_loop_ms": [
+        1500,
+        5714.5,
+        11429
+      ],
+      "family": "canada"
+    },
+    {
+      "file": "coffin-dance-session-coll.txt",
+      "tracks": 12,
+      "notes": 269,
+      "max_track_loop_ms": 7742,
+      "distinct_track_loop_ms": [
+        3871,
+        7742
+      ],
+      "family": "coffin-dance"
+    },
+    {
+      "file": "CramRadio-mid-session-coll.txt",
+      "tracks": 14,
+      "notes": 104,
+      "max_track_loop_ms": 9000,
+      "distinct_track_loop_ms": [
+        1500,
+        4500,
+        9000
+      ],
+      "family": "cramradio-mid"
+    },
+    {
+      "file": "empty-session-coll.txt",
+      "tracks": 12,
+      "notes": 0,
+      "max_track_loop_ms": 1500,
+      "distinct_track_loop_ms": [
+        1500
+      ],
+      "family": "empty"
+    },
+    {
+      "file": "foolin-around-007-session-coll.txt",
+      "tracks": 12,
+      "notes": 119,
+      "max_track_loop_ms": 6000,
+      "distinct_track_loop_ms": [
+        1500,
+        3000,
+        6000
+      ],
+      "family": "foolin-around-007"
+    },
+    {
+      "file": "gamelan-session-coll.txt",
+      "tracks": 12,
+      "notes": 273,
+      "max_track_loop_ms": 15752,
+      "distinct_track_loop_ms": [
+        1500,
+        15752
+      ],
+      "family": "gamelan"
+    },
+    {
+      "file": "grapevine-end-session-coll.txt",
+      "tracks": 12,
+      "notes": 213,
+      "max_track_loop_ms": 7804,
+      "distinct_track_loop_ms": [
+        1500,
+        3902,
+        7804
+      ],
+      "family": "grapevine"
+    },
+    {
+      "file": "grapevine-mid-session-coll.txt",
+      "tracks": 12,
+      "notes": 230,
+      "max_track_loop_ms": 7804,
+      "distinct_track_loop_ms": [
+        1500,
+        7804
+      ],
+      "family": "grapevine"
+    },
+    {
+      "file": "grapevine-start-24-3-session-coll.txt",
+      "tracks": 12,
+      "notes": 192,
+      "max_track_loop_ms": 7804,
+      "distinct_track_loop_ms": [
+        1500,
+        3902,
+        7804
+      ],
+      "family": "grapevine"
+    },
+    {
+      "file": "grapevine-start-session-coll.txt",
+      "tracks": 12,
+      "notes": 192,
+      "max_track_loop_ms": 7804,
+      "distinct_track_loop_ms": [
+        1500,
+        3902,
+        7804
+      ],
+      "family": "grapevine"
+    },
+    {
+      "file": "insterstellar-end-session-coll.txt",
+      "tracks": 12,
+      "notes": 54,
+      "max_track_loop_ms": 48000,
+      "distinct_track_loop_ms": [
+        1500,
+        24000,
+        48000
+      ],
+      "family": "interstellar"
+    },
+    {
+      "file": "insterstellar-end-stasis-session-coll.txt",
+      "tracks": 12,
+      "notes": 30,
+      "max_track_loop_ms": 24000,
+      "distinct_track_loop_ms": [
+        1500,
+        6000,
+        24000
+      ],
+      "family": "interstellar"
+    },
+    {
+      "file": "interstellar-intro-session-coll.txt",
+      "tracks": 12,
+      "notes": 27,
+      "max_track_loop_ms": 158366,
+      "distinct_track_loop_ms": [
+        3000,
+        6000,
+        24000,
+        60000,
+        89342,
+        94014,
+        101000,
+        111457,
+        127000,
+        133000,
+        158366
+      ],
+      "family": "interstellar"
+    },
+    {
+      "file": "interstellar-mid-session-coll.txt",
+      "tracks": 12,
+      "notes": 103,
+      "max_track_loop_ms": 6000,
+      "distinct_track_loop_ms": [
+        1500,
+        6000
+      ],
+      "family": "interstellar"
+    },
+    {
+      "file": "interstellar-start-2-session-coll.txt",
+      "tracks": 12,
+      "notes": 90,
+      "max_track_loop_ms": 36000,
+      "distinct_track_loop_ms": [
+        1500,
+        3415.43,
+        12000,
+        24000,
+        36000
+      ],
+      "family": "interstellar"
+    },
+    {
+      "file": "interstellar-start-session-coll.txt",
+      "tracks": 12,
+      "notes": 104,
+      "max_track_loop_ms": 36000,
+      "distinct_track_loop_ms": [
+        1500,
+        6200,
+        12000,
+        24000,
+        36000
+      ],
+      "family": "interstellar"
+    },
+    {
+      "file": "jamminlicious-001-session-coll.txt",
+      "tracks": 12,
+      "notes": 49,
+      "max_track_loop_ms": 24000,
+      "distinct_track_loop_ms": [
+        500,
+        1200,
+        1500,
+        2700,
+        5400,
+        24000
+      ],
+      "family": "jamminlicious"
+    },
+    {
+      "file": "jamminlicious-002-session-coll.txt",
+      "tracks": 12,
+      "notes": 85,
+      "max_track_loop_ms": 10800,
+      "distinct_track_loop_ms": [
+        1500,
+        2700,
+        5400,
+        10800
+      ],
+      "family": "jamminlicious"
+    },
+    {
+      "file": "L2Ork-001.3-session-coll.txt",
+      "tracks": 12,
+      "notes": 45,
+      "max_track_loop_ms": 6000,
+      "distinct_track_loop_ms": [
+        1500,
+        3000,
+        6000
+      ],
+      "family": "l2ork-001"
+    },
+    {
+      "file": "L2Ork-001.4-session-coll.txt",
+      "tracks": 12,
+      "notes": 104,
+      "max_track_loop_ms": 12000,
+      "distinct_track_loop_ms": [
+        1500,
+        3000,
+        6000,
+        12000
+      ],
+      "family": "l2ork-001"
+    },
+    {
+      "file": "mus3314+L2Ork-IE-2025-2nd-take-session-coll.txt",
+      "tracks": 12,
+      "notes": 52,
+      "max_track_loop_ms": 9000,
+      "distinct_track_loop_ms": [
+        4500,
+        9000
+      ],
+      "family": "mus3314-ie"
+    },
+    {
+      "file": "mus3314+L2Ork-IE-2025-3rd-take-session-coll.txt",
+      "tracks": 12,
+      "notes": 140,
+      "max_track_loop_ms": 4500,
+      "distinct_track_loop_ms": [
+        2500,
+        4500
+      ],
+      "family": "mus3314-ie"
+    },
+    {
+      "file": "mus3314+L2Ork-IE-2025-4th-take-session-coll.txt",
+      "tracks": 12,
+      "notes": 162,
+      "max_track_loop_ms": 4500,
+      "distinct_track_loop_ms": [
+        4500
+      ],
+      "family": "mus3314-ie"
+    },
+    {
+      "file": "mus3314+L2Ork-IE-2025-5h-take-session-coll.txt",
+      "tracks": 12,
+      "notes": 65,
+      "max_track_loop_ms": 9000,
+      "distinct_track_loop_ms": [
+        4500,
+        9000
+      ],
+      "family": "mus3314-ie"
+    },
+    {
+      "file": "mus3314-spring-2025-2nd-take-session-coll.txt",
+      "tracks": 12,
+      "notes": 68,
+      "max_track_loop_ms": 9000,
+      "distinct_track_loop_ms": [
+        1500,
+        3000,
+        4500,
+        6000,
+        9000
+      ],
+      "family": "spring-2025"
+    },
+    {
+      "file": "new-era-005a1-session-coll.txt",
+      "tracks": 14,
+      "notes": 207,
+      "max_track_loop_ms": 24000,
+      "distinct_track_loop_ms": [
+        3000,
+        6000,
+        12000,
+        24000
+      ],
+      "family": "new-era"
+    },
+    {
+      "file": "new-era-005b1-session-coll.txt",
+      "tracks": 14,
+      "notes": 207,
+      "max_track_loop_ms": 24000,
+      "distinct_track_loop_ms": [
+        3000,
+        6000,
+        12000,
+        24000
+      ],
+      "family": "new-era"
+    },
+    {
+      "file": "new-era-005c-session-coll.txt",
+      "tracks": 14,
+      "notes": 61,
+      "max_track_loop_ms": 24000,
+      "distinct_track_loop_ms": [
+        6000,
+        12000,
+        24000
+      ],
+      "family": "new-era"
+    },
+    {
+      "file": "raye-end-session-coll.txt",
+      "tracks": 12,
+      "notes": 102,
+      "max_track_loop_ms": 15752,
+      "distinct_track_loop_ms": [
+        1500,
+        7876,
+        15752
+      ],
+      "family": "raye"
+    },
+    {
+      "file": "raye-mid-session-coll.txt",
+      "tracks": 12,
+      "notes": 90,
+      "max_track_loop_ms": 15752,
+      "distinct_track_loop_ms": [
+        1500,
+        3938,
+        7876,
+        15752
+      ],
+      "family": "raye"
+    },
+    {
+      "file": "raye-start-24-2-session-coll.txt",
+      "tracks": 12,
+      "notes": 136,
+      "max_track_loop_ms": 15752,
+      "distinct_track_loop_ms": [
+        1500,
+        1969,
+        3938,
+        7876,
+        15752
+      ],
+      "family": "raye"
+    },
+    {
+      "file": "raye-start-session-coll.txt",
+      "tracks": 12,
+      "notes": 145,
+      "max_track_loop_ms": 15752,
+      "distinct_track_loop_ms": [
+        1500,
+        1969,
+        3938,
+        7876,
+        15752
+      ],
+      "family": "raye"
+    },
+    {
+      "file": "slowbeat-session-coll.txt",
+      "tracks": 12,
+      "notes": 97,
+      "max_track_loop_ms": 6000,
+      "distinct_track_loop_ms": [
+        3000,
+        6000
+      ],
+      "family": "slowbeat"
+    },
+    {
+      "file": "spring-2025-1st-take-session-coll.txt",
+      "tracks": 12,
+      "notes": 108,
+      "max_track_loop_ms": 12000,
+      "distinct_track_loop_ms": [
+        1500,
+        3000,
+        6000,
+        12000
+      ],
+      "family": "spring-2025"
+    },
+    {
+      "file": "when-presets-go-wild-session-coll.txt",
+      "tracks": 14,
+      "notes": 171,
+      "max_track_loop_ms": 8000,
+      "distinct_track_loop_ms": [
+        1500,
+        8000
+      ],
+      "family": "when-presets-go-wild"
+    },
+    {
+      "file": "yazoo-like-session-coll.txt",
+      "tracks": 12,
+      "notes": 156,
+      "max_track_loop_ms": 8000,
+      "distinct_track_loop_ms": [
+        1500,
+        8000
+      ],
+      "family": "yazoo-like"
+    }
+  ],
+  "waveform_combinations": {
+    "pink_noise/pink_noise": 1,
+    "pink_noise/sawtooth": 3,
+    "pink_noise/sine": 2,
+    "pink_noise/triangle": 2,
+    "sawtooth/pink_noise": 14,
+    "sawtooth/sawtooth": 9,
+    "sawtooth/sine": 30,
+    "sawtooth/square": 6,
+    "sawtooth/triangle": 13,
+    "sine/pink_noise": 33,
+    "sine/sawtooth": 26,
+    "sine/sine": 108,
+    "sine/square": 63,
+    "sine/triangle": 190,
+    "square/pink_noise": 5,
+    "square/sawtooth": 9,
+    "square/sine": 10,
+    "square/square": 4,
+    "square/triangle": 3,
+    "triangle/pink_noise": 11,
+    "triangle/sawtooth": 9,
+    "triangle/sine": 51,
+    "triangle/square": 5,
+    "triangle/triangle": 19
+  },
+  "distinct_waveform_combinations": 24,
+  "numeric_distributions": {
+    "synth.harmonicity": {
+      "count": 626,
+      "distinct": 87,
+      "min": 0,
+      "median": 40.0,
+      "max": 99999
+    },
+    "synth.mod_amplitude": {
+      "count": 626,
+      "distinct": 94,
+      "min": 1,
+      "median": 1000.0,
+      "max": 9999
+    },
+    "effects.reverb.amplitude": {
+      "count": 617,
+      "distinct": 65,
+      "min": 0,
+      "median": 0.722222,
+      "max": 1
+    },
+    "effects.reverb.type": {
+      "count": 617,
+      "distinct": 4,
+      "min": 0,
+      "median": 2,
+      "max": 3
+    },
+    "effects.echo.amplitude": {
+      "count": 618,
+      "distinct": 62,
+      "min": 0,
+      "median": 0.314815,
+      "max": 1
+    },
+    "effects.echo.feedback": {
+      "count": 618,
+      "distinct": 59,
+      "min": 0,
+      "median": 0.73075,
+      "max": 0.999
+    },
+    "effects.echo.delay_ms": {
+      "count": 618,
+      "distinct": 79,
+      "min": 0.001,
+      "median": 250.0,
+      "max": 5000
+    },
+    "effects.flanger.amplitude": {
+      "count": 618,
+      "distinct": 63,
+      "min": 0,
+      "median": 0.343333,
+      "max": 1
+    },
+    "effects.flanger.frequency_hz": {
+      "count": 618,
+      "distinct": 46,
+      "min": 0.001,
+      "median": 0.01,
+      "max": 100
+    },
+    "effects.flanger.mod_amplitude": {
+      "count": 618,
+      "distinct": 45,
+      "min": 0,
+      "median": 33.3333,
+      "max": 100
+    },
+    "effects.flanger.delay_ms": {
+      "count": 618,
+      "distinct": 37,
+      "min": 0.001,
+      "median": 0.001,
+      "max": 50
+    },
+    "effects.overdrive.level": {
+      "count": 626,
+      "distinct": 167,
+      "min": 0,
+      "median": 1.0,
+      "max": 11
+    }
+  },
+  "tokenizer": {
+    "model_id": "HuggingFaceTB/SmolLM2-135M",
+    "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2",
+    "vocab_size": 49152,
+    "model_max_length": 8192,
+    "added_custom_tokens": 0
+  },
+  "token_counts": {
+    "full_compositions": 1061803,
+    "prepared_segments_including_eos": 1072332,
+    "per_split": {
+      "train": 868829,
+      "validation": 111167,
+      "test": 92336
+    },
+    "segments_per_split": {
+      "train": 276,
+      "validation": 40,
+      "test": 28
+    },
+    "per_composition": {
+      "mean": 20819.666666666668,
+      "median": 20585,
+      "max": 26650,
+      "min": 6604
+    },
+    "per_track": {
+      "mean": 1682.985691573927,
+      "median": 1643,
+      "max": 2498
+    },
+    "field_token_categories": {
+      "structure_or_missing": 323008,
+      "other_values": 18970,
+      "synthesis": 662731,
+      "timing_playback": 14957,
+      "effects": 27926,
+      "notes": 24396
+    },
+    "fit_without_segmentation": {
+      "2048": {
+        "count": 0,
+        "percent": 0.0
+      },
+      "4096": {
+        "count": 0,
+        "percent": 0.0
+      },
+      "8192": {
+        "count": 1,
+        "percent": 1.9607843137254901
+      }
+    },
+    "files": [
+      {
+        "file": "0s-and-1s-apart-A-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 25362,
+        "track_tokens": [
+          2128,
+          2132,
+          2444,
+          1555,
+          1181,
+          1274,
+          1168,
+          1253,
+          1845,
+          1866,
+          2147,
+          2174,
+          2010,
+          1999
+        ],
+        "segments": 8
+      },
+      {
+        "file": "0s-and-1s-apart-AI-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 25319,
+        "track_tokens": [
+          2131,
+          2123,
+          2441,
+          1553,
+          1180,
+          1270,
+          1170,
+          1248,
+          1844,
+          1863,
+          2144,
+          2162,
+          2009,
+          1995
+        ],
+        "segments": 8
+      },
+      {
+        "file": "0s-and-1s-apart-B-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 25590,
+        "track_tokens": [
+          2130,
+          2131,
+          2446,
+          1676,
+          1280,
+          1274,
+          1168,
+          1253,
+          1846,
+          1867,
+          2147,
+          2174,
+          2013,
+          1999
+        ],
+        "segments": 9
+      },
+      {
+        "file": "0s-and-1s-apart-C-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 26074,
+        "track_tokens": [
+          2128,
+          2141,
+          2231,
+          1676,
+          1247,
+          1446,
+          2059,
+          1997,
+          1623,
+          1889,
+          2147,
+          2185,
+          2189,
+          929
+        ],
+        "segments": 9
+      },
+      {
+        "file": "0s-and-1s-apart-D-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 25607,
+        "track_tokens": [
+          2128,
+          2126,
+          2216,
+          1599,
+          1268,
+          1875,
+          2203,
+          2028,
+          1552,
+          1898,
+          2231,
+          2185,
+          1046,
+          1064
+        ],
+        "segments": 10
+      },
+      {
+        "file": "0s-and-1s-apart-E-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 26650,
+        "track_tokens": [
+          2128,
+          2126,
+          1432,
+          1478,
+          2082,
+          1334,
+          2207,
+          1183,
+          2158,
+          1874,
+          2060,
+          2139,
+          2204,
+          2059
+        ],
+        "segments": 9
+      },
+      {
+        "file": "1st-beat-fall-2021-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 17086,
+        "track_tokens": [
+          1346,
+          1296,
+          1114,
+          1298,
+          1345,
+          1311,
+          1850,
+          1180,
+          1597,
+          1320,
+          1681,
+          1712
+        ],
+        "segments": 5
+      },
+      {
+        "file": "2nd-beat-fall-2021-final-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 20625,
+        "track_tokens": [
+          1294,
+          1346,
+          1999,
+          2028,
+          971,
+          2226,
+          2044,
+          1890,
+          1881,
+          1255,
+          1563,
+          2093
+        ],
+        "segments": 6
+      },
+      {
+        "file": "3rd-beat-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 20895,
+        "track_tokens": [
+          1819,
+          1936,
+          1137,
+          1632,
+          1924,
+          1933,
+          1350,
+          1912,
+          1908,
+          2198,
+          1354,
+          1757
+        ],
+        "segments": 7
+      },
+      {
+        "file": "4th-beat-droplets-6-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 20246,
+        "track_tokens": [
+          1950,
+          1492,
+          2064,
+          1880,
+          1969,
+          1401,
+          1518,
+          1296,
+          1659,
+          1470,
+          1523,
+          1986
+        ],
+        "segments": 6
+      },
+      {
+        "file": "4th-beat-final-10-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 19404,
+        "track_tokens": [
+          2007,
+          1493,
+          1139,
+          1921,
+          1134,
+          1984,
+          1389,
+          1680,
+          1813,
+          1547,
+          2129,
+          1132
+        ],
+        "segments": 6
+      },
+      {
+        "file": "4th-beat-post-accel-2-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 6604,
+        "track_tokens": [
+          2010,
+          1495,
+          260,
+          304,
+          1990,
+          243,
+          265
+        ],
+        "segments": 2
+      },
+      {
+        "file": "CramRadio-mid-session-coll.txt",
+        "split": "validation",
+        "whole_composition_tokens": 23343,
+        "track_tokens": [
+          748,
+          1075,
+          1661,
+          1367,
+          1656,
+          1296,
+          1296,
+          1971,
+          2498,
+          2252,
+          2175,
+          1985,
+          1839,
+          1486
+        ],
+        "segments": 9
+      },
+      {
+        "file": "L2Ork-001.3-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 17941,
+        "track_tokens": [
+          1304,
+          1304,
+          1469,
+          1588,
+          1649,
+          1960,
+          1164,
+          1297,
+          1185,
+          1297,
+          2041,
+          1641
+        ],
+        "segments": 6
+      },
+      {
+        "file": "L2Ork-001.4-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 18959,
+        "track_tokens": [
+          1304,
+          1304,
+          1621,
+          1297,
+          1817,
+          1527,
+          2372,
+          1297,
+          1649,
+          1297,
+          1414,
+          2020
+        ],
+        "segments": 6
+      },
+      {
+        "file": "canada-end-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 20970,
+        "track_tokens": [
+          1534,
+          1556,
+          2191,
+          1296,
+          2343,
+          2316,
+          1455,
+          1296,
+          1296,
+          1852,
+          1613,
+          2184
+        ],
+        "segments": 7
+      },
+      {
+        "file": "canada-mid-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 19252,
+        "track_tokens": [
+          1261,
+          1227,
+          2263,
+          1296,
+          2321,
+          2317,
+          1456,
+          1296,
+          1296,
+          1554,
+          1612,
+          1315
+        ],
+        "segments": 7
+      },
+      {
+        "file": "canada-start-24-3-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 18903,
+        "track_tokens": [
+          2181,
+          1805,
+          2180,
+          1178,
+          2176,
+          955,
+          1410,
+          1296,
+          940,
+          1248,
+          1296,
+          2201
+        ],
+        "segments": 6
+      },
+      {
+        "file": "canada-start-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 20363,
+        "track_tokens": [
+          2181,
+          1805,
+          2180,
+          1296,
+          2182,
+          1296,
+          1406,
+          1296,
+          1296,
+          1248,
+          2018,
+          2120
+        ],
+        "segments": 6
+      },
+      {
+        "file": "coffin-dance-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 22140,
+        "track_tokens": [
+          2368,
+          1416,
+          1473,
+          793,
+          1803,
+          2317,
+          2156,
+          2288,
+          1247,
+          1567,
+          2323,
+          2324
+        ],
+        "segments": 8
+      },
+      {
+        "file": "empty-session-coll.txt",
+        "split": "test",
+        "whole_composition_tokens": 15601,
+        "track_tokens": [
+          1297,
+          1297,
+          1297,
+          1296,
+          1296,
+          1296,
+          1296,
+          1296,
+          1296,
+          1296,
+          1296,
+          1296
+        ],
+        "segments": 4
+      },
+      {
+        "file": "foolin-around-007-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 18998,
+        "track_tokens": [
+          1313,
+          1251,
+          1813,
+          1156,
+          1884,
+          2117,
+          1532,
+          1659,
+          2028,
+          1538,
+          1290,
+          1381
+        ],
+        "segments": 6
+      },
+      {
+        "file": "gamelan-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 25447,
+        "track_tokens": [
+          2411,
+          2414,
+          1297,
+          1302,
+          2414,
+          1296,
+          2409,
+          2413,
+          2411,
+          2411,
+          2414,
+          2217
+        ],
+        "segments": 9
+      },
+      {
+        "file": "grapevine-end-session-coll.txt",
+        "split": "test",
+        "whole_composition_tokens": 20407,
+        "track_tokens": [
+          1751,
+          1421,
+          2256,
+          1296,
+          2450,
+          1296,
+          2473,
+          1886,
+          1582,
+          1382,
+          1246,
+          1331
+        ],
+        "segments": 6
+      },
+      {
+        "file": "grapevine-mid-session-coll.txt",
+        "split": "test",
+        "whole_composition_tokens": 17950,
+        "track_tokens": [
+          1970,
+          1666,
+          1215,
+          1296,
+          2443,
+          1296,
+          1487,
+          1694,
+          1285,
+          1215,
+          1199,
+          1147
+        ],
+        "segments": 6
+      },
+      {
+        "file": "grapevine-start-24-3-session-coll.txt",
+        "split": "test",
+        "whole_composition_tokens": 18328,
+        "track_tokens": [
+          1425,
+          1561,
+          1426,
+          1296,
+          1547,
+          1296,
+          2473,
+          1307,
+          1577,
+          1357,
+          1248,
+          1778
+        ],
+        "segments": 6
+      },
+      {
+        "file": "grapevine-start-session-coll.txt",
+        "split": "test",
+        "whole_composition_tokens": 19256,
+        "track_tokens": [
+          1421,
+          1558,
+          2383,
+          1296,
+          1543,
+          1296,
+          2469,
+          1304,
+          1573,
+          1353,
+          1242,
+          1781
+        ],
+        "segments": 6
+      },
+      {
+        "file": "insterstellar-end-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 21009,
+        "track_tokens": [
+          2007,
+          2006,
+          1946,
+          2087,
+          2203,
+          1260,
+          1296,
+          1296,
+          1296,
+          2122,
+          2282,
+          1170
+        ],
+        "segments": 6
+      },
+      {
+        "file": "insterstellar-end-stasis-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 20331,
+        "track_tokens": [
+          1913,
+          2009,
+          2119,
+          1599,
+          2255,
+          1219,
+          1296,
+          1296,
+          1296,
+          1296,
+          2023,
+          1971
+        ],
+        "segments": 6
+      },
+      {
+        "file": "interstellar-intro-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 22285,
+        "track_tokens": [
+          2105,
+          2136,
+          1377,
+          1612,
+          2169,
+          1193,
+          2103,
+          1514,
+          2023,
+          1957,
+          2134,
+          1927
+        ],
+        "segments": 7
+      },
+      {
+        "file": "interstellar-mid-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 18446,
+        "track_tokens": [
+          1315,
+          1252,
+          1811,
+          1179,
+          1881,
+          2118,
+          1296,
+          1296,
+          1296,
+          1532,
+          2029,
+          1403
+        ],
+        "segments": 6
+      },
+      {
+        "file": "interstellar-start-2-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 22503,
+        "track_tokens": [
+          2011,
+          2011,
+          2042,
+          1677,
+          2163,
+          1838,
+          1296,
+          1511,
+          2013,
+          1965,
+          1964,
+          1976
+        ],
+        "segments": 6
+      },
+      {
+        "file": "interstellar-start-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 21493,
+        "track_tokens": [
+          2009,
+          2009,
+          2051,
+          1675,
+          2161,
+          1835,
+          1296,
+          1296,
+          1236,
+          1963,
+          1962,
+          1963
+        ],
+        "segments": 6
+      },
+      {
+        "file": "jamminlicious-001-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 16629,
+        "track_tokens": [
+          1304,
+          1304,
+          1273,
+          1272,
+          1272,
+          1272,
+          1272,
+          1017,
+          1742,
+          1376,
+          1999,
+          1467
+        ],
+        "segments": 5
+      },
+      {
+        "file": "jamminlicious-002-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 17379,
+        "track_tokens": [
+          1304,
+          1304,
+          1290,
+          1289,
+          1289,
+          1289,
+          1289,
+          1525,
+          944,
+          2079,
+          1335,
+          2383
+        ],
+        "segments": 5
+      },
+      {
+        "file": "mus3314+L2Ork-IE-2025-2nd-take-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 19739,
+        "track_tokens": [
+          1155,
+          1881,
+          2130,
+          966,
+          2086,
+          1896,
+          1187,
+          2032,
+          1834,
+          1822,
+          1438,
+          1272
+        ],
+        "segments": 6
+      },
+      {
+        "file": "mus3314+L2Ork-IE-2025-3rd-take-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 21230,
+        "track_tokens": [
+          1643,
+          1083,
+          1897,
+          954,
+          2200,
+          1815,
+          2497,
+          2244,
+          2271,
+          1852,
+          1552,
+          1187
+        ],
+        "segments": 8
+      },
+      {
+        "file": "mus3314+L2Ork-IE-2025-4th-take-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 21745,
+        "track_tokens": [
+          2015,
+          1091,
+          2211,
+          1020,
+          2244,
+          1943,
+          918,
+          2245,
+          2280,
+          1985,
+          2237,
+          1521
+        ],
+        "segments": 8
+      },
+      {
+        "file": "mus3314+L2Ork-IE-2025-5h-take-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 21664,
+        "track_tokens": [
+          1202,
+          2009,
+          2134,
+          1031,
+          2103,
+          1932,
+          1563,
+          2152,
+          2042,
+          1909,
+          1919,
+          1633
+        ],
+        "segments": 6
+      },
+      {
+        "file": "mus3314-spring-2025-2nd-take-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 19485,
+        "track_tokens": [
+          1556,
+          1583,
+          2198,
+          1296,
+          1683,
+          2213,
+          1191,
+          1351,
+          1837,
+          1826,
+          1442,
+          1272
+        ],
+        "segments": 6
+      },
+      {
+        "file": "new-era-005a1-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 25322,
+        "track_tokens": [
+          2129,
+          2133,
+          2444,
+          1556,
+          1182,
+          1275,
+          1169,
+          1254,
+          1847,
+          1867,
+          2148,
+          2175,
+          2011,
+          1997
+        ],
+        "segments": 8
+      },
+      {
+        "file": "new-era-005b1-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 25329,
+        "track_tokens": [
+          2131,
+          2132,
+          2447,
+          1556,
+          1182,
+          1275,
+          1169,
+          1254,
+          1847,
+          1867,
+          2148,
+          2175,
+          2014,
+          1997
+        ],
+        "segments": 8
+      },
+      {
+        "file": "new-era-005c-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 26450,
+        "track_tokens": [
+          2129,
+          2133,
+          1428,
+          1481,
+          2083,
+          1336,
+          2210,
+          1186,
+          2160,
+          1875,
+          2061,
+          2140,
+          2011,
+          2057
+        ],
+        "segments": 9
+      },
+      {
+        "file": "raye-end-session-coll.txt",
+        "split": "validation",
+        "whole_composition_tokens": 22978,
+        "track_tokens": [
+          2072,
+          2057,
+          1297,
+          2006,
+          2179,
+          2160,
+          1296,
+          2057,
+          2450,
+          2047,
+          1675,
+          1644
+        ],
+        "segments": 9
+      },
+      {
+        "file": "raye-mid-session-coll.txt",
+        "split": "validation",
+        "whole_composition_tokens": 22394,
+        "track_tokens": [
+          2063,
+          1167,
+          1297,
+          2001,
+          2238,
+          2168,
+          1296,
+          2023,
+          2155,
+          2227,
+          2221,
+          1500
+        ],
+        "segments": 8
+      },
+      {
+        "file": "raye-start-24-2-session-coll.txt",
+        "split": "validation",
+        "whole_composition_tokens": 20585,
+        "track_tokens": [
+          2225,
+          1442,
+          1297,
+          1302,
+          2230,
+          1172,
+          1378,
+          1363,
+          2249,
+          2223,
+          2040,
+          1627
+        ],
+        "segments": 7
+      },
+      {
+        "file": "raye-start-session-coll.txt",
+        "split": "validation",
+        "whole_composition_tokens": 20650,
+        "track_tokens": [
+          2228,
+          1447,
+          1297,
+          1302,
+          2233,
+          1170,
+          1296,
+          1367,
+          2237,
+          2227,
+          2044,
+          1764
+        ],
+        "segments": 7
+      },
+      {
+        "file": "slowbeat-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 19418,
+        "track_tokens": [
+          1759,
+          2113,
+          1441,
+          1330,
+          1975,
+          1632,
+          1577,
+          1090,
+          2033,
+          1328,
+          1441,
+          1664
+        ],
+        "segments": 6
+      },
+      {
+        "file": "spring-2025-1st-take-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 19961,
+        "track_tokens": [
+          1088,
+          1589,
+          2204,
+          1296,
+          1689,
+          2219,
+          964,
+          1357,
+          2228,
+          2267,
+          1570,
+          1454
+        ],
+        "segments": 7
+      },
+      {
+        "file": "when-presets-go-wild-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 20132,
+        "track_tokens": [
+          1879,
+          1297,
+          1297,
+          1297,
+          1297,
+          1296,
+          1296,
+          1296,
+          1296,
+          1296,
+          1296,
+          1484,
+          1880,
+          1880
+        ],
+        "segments": 6
+      },
+      {
+        "file": "yazoo-like-session-coll.txt",
+        "split": "train",
+        "whole_composition_tokens": 17326,
+        "track_tokens": [
+          1297,
+          1297,
+          1297,
+          1296,
+          1296,
+          1296,
+          1296,
+          1296,
+          1296,
+          1872,
+          1872,
+          1871
+        ],
+        "segments": 5
+      }
+    ]
+  },
+  "split": {
+    "seed": 415,
+    "target_counts": {
+      "train": 41,
+      "validation": 5,
+      "test": 5
+    },
+    "actual_counts": {
+      "train": 41,
+      "validation": 5,
+      "test": 5
+    },
+    "groups": [
+      [
+        "0s-and-1s-apart-A-session-coll.txt",
+        "0s-and-1s-apart-AI-session-coll.txt",
+        "0s-and-1s-apart-B-session-coll.txt",
+        "0s-and-1s-apart-C-session-coll.txt",
+        "0s-and-1s-apart-D-session-coll.txt",
+        "0s-and-1s-apart-E-session-coll.txt",
+        "new-era-005a1-session-coll.txt",
+        "new-era-005b1-session-coll.txt",
+        "new-era-005c-session-coll.txt"
+      ],
+      [
+        "1st-beat-fall-2021-session-coll.txt",
+        "2nd-beat-fall-2021-final-session-coll.txt",
+        "4th-beat-droplets-6-session-coll.txt",
+        "4th-beat-final-10-session-coll.txt",
+        "4th-beat-post-accel-2-session-coll.txt"
+      ],
+      [
+        "3rd-beat-session-coll.txt"
+      ],
+      [
+        "CramRadio-mid-session-coll.txt"
+      ],
+      [
+        "L2Ork-001.3-session-coll.txt",
+        "L2Ork-001.4-session-coll.txt"
+      ],
+      [
+        "canada-end-session-coll.txt",
+        "canada-mid-session-coll.txt",
+        "canada-start-24-3-session-coll.txt",
+        "canada-start-session-coll.txt"
+      ],
+      [
+        "coffin-dance-session-coll.txt"
+      ],
+      [
+        "empty-session-coll.txt"
+      ],
+      [
+        "foolin-around-007-session-coll.txt",
+        "insterstellar-end-session-coll.txt",
+        "insterstellar-end-stasis-session-coll.txt",
+        "interstellar-intro-session-coll.txt",
+        "interstellar-mid-session-coll.txt",
+        "interstellar-start-2-session-coll.txt",
+        "interstellar-start-session-coll.txt"
+      ],
+      [
+        "gamelan-session-coll.txt"
+      ],
+      [
+        "grapevine-end-session-coll.txt",
+        "grapevine-mid-session-coll.txt",
+        "grapevine-start-24-3-session-coll.txt",
+        "grapevine-start-session-coll.txt"
+      ],
+      [
+        "jamminlicious-001-session-coll.txt",
+        "jamminlicious-002-session-coll.txt"
+      ],
+      [
+        "mus3314+L2Ork-IE-2025-2nd-take-session-coll.txt",
+        "mus3314+L2Ork-IE-2025-3rd-take-session-coll.txt",
+        "mus3314+L2Ork-IE-2025-4th-take-session-coll.txt",
+        "mus3314+L2Ork-IE-2025-5h-take-session-coll.txt"
+      ],
+      [
+        "mus3314-spring-2025-2nd-take-session-coll.txt",
+        "spring-2025-1st-take-session-coll.txt"
+      ],
+      [
+        "raye-end-session-coll.txt",
+        "raye-mid-session-coll.txt",
+        "raye-start-24-2-session-coll.txt",
+        "raye-start-session-coll.txt"
+      ],
+      [
+        "slowbeat-session-coll.txt"
+      ],
+      [
+        "when-presets-go-wild-session-coll.txt"
+      ],
+      [
+        "yazoo-like-session-coll.txt"
+      ]
+    ],
+    "overlap_edges": [
+      {
+        "a": "0s-and-1s-apart-A-session-coll.txt",
+        "b": "0s-and-1s-apart-AI-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 207
+      },
+      {
+        "a": "0s-and-1s-apart-A-session-coll.txt",
+        "b": "0s-and-1s-apart-B-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 133
+      },
+      {
+        "a": "0s-and-1s-apart-A-session-coll.txt",
+        "b": "0s-and-1s-apart-C-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 98
+      },
+      {
+        "a": "0s-and-1s-apart-A-session-coll.txt",
+        "b": "0s-and-1s-apart-D-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 89
+      },
+      {
+        "a": "0s-and-1s-apart-A-session-coll.txt",
+        "b": "0s-and-1s-apart-E-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 24
+      },
+      {
+        "a": "0s-and-1s-apart-A-session-coll.txt",
+        "b": "new-era-005a1-session-coll.txt",
+        "reason": "note_jaccard>=0.65",
+        "shared_note_events": 206
+      },
+      {
+        "a": "0s-and-1s-apart-AI-session-coll.txt",
+        "b": "0s-and-1s-apart-B-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 133
+      },
+      {
+        "a": "0s-and-1s-apart-AI-session-coll.txt",
+        "b": "0s-and-1s-apart-C-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 98
+      },
+      {
+        "a": "0s-and-1s-apart-AI-session-coll.txt",
+        "b": "0s-and-1s-apart-D-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 89
+      },
+      {
+        "a": "0s-and-1s-apart-AI-session-coll.txt",
+        "b": "0s-and-1s-apart-E-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 24
+      },
+      {
+        "a": "0s-and-1s-apart-AI-session-coll.txt",
+        "b": "new-era-005a1-session-coll.txt",
+        "reason": "note_jaccard>=0.65",
+        "shared_note_events": 206
+      },
+      {
+        "a": "0s-and-1s-apart-B-session-coll.txt",
+        "b": "0s-and-1s-apart-C-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 119
+      },
+      {
+        "a": "0s-and-1s-apart-B-session-coll.txt",
+        "b": "0s-and-1s-apart-D-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 81
+      },
+      {
+        "a": "0s-and-1s-apart-B-session-coll.txt",
+        "b": "0s-and-1s-apart-E-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 20
+      },
+      {
+        "a": "0s-and-1s-apart-B-session-coll.txt",
+        "b": "new-era-005b1-session-coll.txt",
+        "reason": "note_jaccard>=0.65",
+        "shared_note_events": 207
+      },
+      {
+        "a": "0s-and-1s-apart-C-session-coll.txt",
+        "b": "0s-and-1s-apart-D-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 94
+      },
+      {
+        "a": "0s-and-1s-apart-C-session-coll.txt",
+        "b": "0s-and-1s-apart-E-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 14
+      },
+      {
+        "a": "0s-and-1s-apart-D-session-coll.txt",
+        "b": "0s-and-1s-apart-E-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 10
+      },
+      {
+        "a": "0s-and-1s-apart-E-session-coll.txt",
+        "b": "new-era-005c-session-coll.txt",
+        "reason": "note_jaccard>=0.65",
+        "shared_note_events": 57
+      },
+      {
+        "a": "1st-beat-fall-2021-session-coll.txt",
+        "b": "2nd-beat-fall-2021-final-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 1
+      },
+      {
+        "a": "1st-beat-fall-2021-session-coll.txt",
+        "b": "4th-beat-droplets-6-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 0
+      },
+      {
+        "a": "1st-beat-fall-2021-session-coll.txt",
+        "b": "4th-beat-final-10-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 0
+      },
+      {
+        "a": "1st-beat-fall-2021-session-coll.txt",
+        "b": "4th-beat-post-accel-2-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 0
+      },
+      {
+        "a": "2nd-beat-fall-2021-final-session-coll.txt",
+        "b": "4th-beat-droplets-6-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 0
+      },
+      {
+        "a": "2nd-beat-fall-2021-final-session-coll.txt",
+        "b": "4th-beat-final-10-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 2
+      },
+      {
+        "a": "2nd-beat-fall-2021-final-session-coll.txt",
+        "b": "4th-beat-post-accel-2-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 0
+      },
+      {
+        "a": "4th-beat-droplets-6-session-coll.txt",
+        "b": "4th-beat-final-10-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 6
+      },
+      {
+        "a": "4th-beat-droplets-6-session-coll.txt",
+        "b": "4th-beat-post-accel-2-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 5
+      },
+      {
+        "a": "4th-beat-final-10-session-coll.txt",
+        "b": "4th-beat-post-accel-2-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 5
+      },
+      {
+        "a": "canada-end-session-coll.txt",
+        "b": "canada-mid-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 103
+      },
+      {
+        "a": "canada-end-session-coll.txt",
+        "b": "canada-start-24-3-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 5
+      },
+      {
+        "a": "canada-end-session-coll.txt",
+        "b": "canada-start-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 6
+      },
+      {
+        "a": "canada-mid-session-coll.txt",
+        "b": "canada-start-24-3-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 19
+      },
+      {
+        "a": "canada-mid-session-coll.txt",
+        "b": "canada-start-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 20
+      },
+      {
+        "a": "canada-start-24-3-session-coll.txt",
+        "b": "canada-start-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 116
+      },
+      {
+        "a": "foolin-around-007-session-coll.txt",
+        "b": "interstellar-mid-session-coll.txt",
+        "reason": "note_jaccard>=0.65",
+        "shared_note_events": 98
+      },
+      {
+        "a": "grapevine-end-session-coll.txt",
+        "b": "grapevine-mid-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 41
+      },
+      {
+        "a": "grapevine-end-session-coll.txt",
+        "b": "grapevine-start-24-3-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 101
+      },
+      {
+        "a": "grapevine-end-session-coll.txt",
+        "b": "grapevine-start-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 101
+      },
+      {
+        "a": "grapevine-mid-session-coll.txt",
+        "b": "grapevine-start-24-3-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 14
+      },
+      {
+        "a": "grapevine-mid-session-coll.txt",
+        "b": "grapevine-start-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 14
+      },
+      {
+        "a": "grapevine-start-24-3-session-coll.txt",
+        "b": "grapevine-start-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 192
+      },
+      {
+        "a": "insterstellar-end-session-coll.txt",
+        "b": "insterstellar-end-stasis-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 5
+      },
+      {
+        "a": "insterstellar-end-session-coll.txt",
+        "b": "interstellar-intro-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 0
+      },
+      {
+        "a": "insterstellar-end-session-coll.txt",
+        "b": "interstellar-mid-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 1
+      },
+      {
+        "a": "insterstellar-end-session-coll.txt",
+        "b": "interstellar-start-2-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 1
+      },
+      {
+        "a": "insterstellar-end-session-coll.txt",
+        "b": "interstellar-start-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 2
+      },
+      {
+        "a": "insterstellar-end-stasis-session-coll.txt",
+        "b": "interstellar-intro-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 2
+      },
+      {
+        "a": "insterstellar-end-stasis-session-coll.txt",
+        "b": "interstellar-mid-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 2
+      },
+      {
+        "a": "insterstellar-end-stasis-session-coll.txt",
+        "b": "interstellar-start-2-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 5
+      },
+      {
+        "a": "insterstellar-end-stasis-session-coll.txt",
+        "b": "interstellar-start-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 5
+      },
+      {
+        "a": "interstellar-intro-session-coll.txt",
+        "b": "interstellar-mid-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 2
+      },
+      {
+        "a": "interstellar-intro-session-coll.txt",
+        "b": "interstellar-start-2-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 12
+      },
+      {
+        "a": "interstellar-intro-session-coll.txt",
+        "b": "interstellar-start-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 13
+      },
+      {
+        "a": "interstellar-mid-session-coll.txt",
+        "b": "interstellar-start-2-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 6
+      },
+      {
+        "a": "interstellar-mid-session-coll.txt",
+        "b": "interstellar-start-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 6
+      },
+      {
+        "a": "interstellar-start-2-session-coll.txt",
+        "b": "interstellar-start-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 74
+      },
+      {
+        "a": "jamminlicious-001-session-coll.txt",
+        "b": "jamminlicious-002-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 1
+      },
+      {
+        "a": "L2Ork-001.3-session-coll.txt",
+        "b": "L2Ork-001.4-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 1
+      },
+      {
+        "a": "mus3314+L2Ork-IE-2025-2nd-take-session-coll.txt",
+        "b": "mus3314+L2Ork-IE-2025-3rd-take-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 4
+      },
+      {
+        "a": "mus3314+L2Ork-IE-2025-2nd-take-session-coll.txt",
+        "b": "mus3314+L2Ork-IE-2025-4th-take-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 6
+      },
+      {
+        "a": "mus3314+L2Ork-IE-2025-2nd-take-session-coll.txt",
+        "b": "mus3314+L2Ork-IE-2025-5h-take-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 22
+      },
+      {
+        "a": "mus3314+L2Ork-IE-2025-3rd-take-session-coll.txt",
+        "b": "mus3314+L2Ork-IE-2025-4th-take-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 46
+      },
+      {
+        "a": "mus3314+L2Ork-IE-2025-3rd-take-session-coll.txt",
+        "b": "mus3314+L2Ork-IE-2025-5h-take-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 6
+      },
+      {
+        "a": "mus3314+L2Ork-IE-2025-4th-take-session-coll.txt",
+        "b": "mus3314+L2Ork-IE-2025-5h-take-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 20
+      },
+      {
+        "a": "mus3314-spring-2025-2nd-take-session-coll.txt",
+        "b": "spring-2025-1st-take-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 41
+      },
+      {
+        "a": "new-era-005a1-session-coll.txt",
+        "b": "new-era-005b1-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 133
+      },
+      {
+        "a": "new-era-005a1-session-coll.txt",
+        "b": "new-era-005c-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 25
+      },
+      {
+        "a": "new-era-005b1-session-coll.txt",
+        "b": "new-era-005c-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 19
+      },
+      {
+        "a": "raye-end-session-coll.txt",
+        "b": "raye-mid-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 0
+      },
+      {
+        "a": "raye-end-session-coll.txt",
+        "b": "raye-start-24-2-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 5
+      },
+      {
+        "a": "raye-end-session-coll.txt",
+        "b": "raye-start-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 5
+      },
+      {
+        "a": "raye-mid-session-coll.txt",
+        "b": "raye-start-24-2-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 27
+      },
+      {
+        "a": "raye-mid-session-coll.txt",
+        "b": "raye-start-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 27
+      },
+      {
+        "a": "raye-start-24-2-session-coll.txt",
+        "b": "raye-start-session-coll.txt",
+        "reason": "family",
+        "shared_note_events": 117
+      }
+    ],
+    "partitions": {
+      "train": [
+        {
+          "name": "0s-and-1s-apart-A-session-coll.txt",
+          "family": "0s-and-1s-apart",
+          "sha256": "155367fa705f1e1a4bb31a7a4e2b8b280330bcad92ed3e766ca79f7855bffefc",
+          "note_signature": "533cb0e6c548295171a438644c2c0dd86ce84c8440d17a059e90cab74f9c6d19"
+        },
+        {
+          "name": "0s-and-1s-apart-AI-session-coll.txt",
+          "family": "0s-and-1s-apart",
+          "sha256": "a6e20448f16e7fb3040290503c0687830fcc995466257cbb9d5c1ab6f2cd02fd",
+          "note_signature": "533cb0e6c548295171a438644c2c0dd86ce84c8440d17a059e90cab74f9c6d19"
+        },
+        {
+          "name": "0s-and-1s-apart-B-session-coll.txt",
+          "family": "0s-and-1s-apart",
+          "sha256": "19f172369c9e06dd1f4042bb0f61ac18122a455b6fa49e838a5b81b125703b61",
+          "note_signature": "9f420447ab92f0e165cefa22591f83a10e8bc05ea11e4b57bc9634c00df64da9"
+        },
+        {
+          "name": "0s-and-1s-apart-C-session-coll.txt",
+          "family": "0s-and-1s-apart",
+          "sha256": "5a77ad06c11d8861f809eb2a6f9438b7e722f6441404dedc4c23f95d84b37e3e",
+          "note_signature": "8a7ecd0833b7b880965ba791925000aa23101810eae0dcf91a0b1439b091b9b1"
+        },
+        {
+          "name": "0s-and-1s-apart-D-session-coll.txt",
+          "family": "0s-and-1s-apart",
+          "sha256": "3938a8ac491ada4a24e132661753a29936794193bb21496479680591ac14ab2d",
+          "note_signature": "6acca55261c9db9f979013c36063fad56d4f974eafa73ee64ca74afc6d484440"
+        },
+        {
+          "name": "0s-and-1s-apart-E-session-coll.txt",
+          "family": "0s-and-1s-apart",
+          "sha256": "789a1693fe71958d37d6bc280f251d839cd1a5b72c4a6006d6906309dd50736b",
+          "note_signature": "b4f7c3586d0d1f513341e0843cf0cb8f184644de8b4aae8eb2c83069dda1cd63"
+        },
+        {
+          "name": "1st-beat-fall-2021-session-coll.txt",
+          "family": "beat-sequence",
+          "sha256": "ad5966eb0453386436c4bc43c41586032e2dbad0b84441b9e91a404ecb6f4609",
+          "note_signature": "c5f607faa23cfe5d9ccc1a6629c2d9fb95e07a53134b88339b61585b0a849c29"
+        },
+        {
+          "name": "2nd-beat-fall-2021-final-session-coll.txt",
+          "family": "beat-sequence",
+          "sha256": "d70da3e73b15d3223b0e854ba25a9ec1fa58d724562e7d9370f445f533fe5834",
+          "note_signature": "84d330fa3d36a52f897f377041100b68b904b8a4d240dc1b43f7a75808fad805"
+        },
+        {
+          "name": "3rd-beat-session-coll.txt",
+          "family": "3rd-beat",
+          "sha256": "6dc9e4bf958a4957d7000d03ae9c4c6e72ff26942a50af0e29c9a54a03f2fe4a",
+          "note_signature": "74e7a5a0cd4fff1b22211459e79fef10a610901aa3386ebd2d7ea8f00680e72f"
+        },
+        {
+          "name": "4th-beat-droplets-6-session-coll.txt",
+          "family": "beat-sequence",
+          "sha256": "b37058582a010d982cbce45bebbea340c3828e61330674a371b33d75d2f1af3d",
+          "note_signature": "68133c234913f314890e60d7435620e416c0cce8ba3e29022a96dd0dd0873b47"
+        },
+        {
+          "name": "4th-beat-final-10-session-coll.txt",
+          "family": "beat-sequence",
+          "sha256": "d072cc4cc00e1cded1c4519eb7a444b62b435ad26de0d1ce61c1bd389e63273a",
+          "note_signature": "abac196525d89b8a0545de2164332344018cff89bc52c9bdb095dd81ec35de35"
+        },
+        {
+          "name": "4th-beat-post-accel-2-session-coll.txt",
+          "family": "beat-sequence",
+          "sha256": "edf3db6f18db546f33b307445a88ad792903602aa2ea42656c283b46b776b668",
+          "note_signature": "aeb81f29f68cb2e99c5d9c72c1ff830b9227016813e50c84f4070695ce36df14"
+        },
+        {
+          "name": "L2Ork-001.3-session-coll.txt",
+          "family": "l2ork-001",
+          "sha256": "21ce69595251a841d05288f943082757f3003729b94a385c19216d7dd637dbb6",
+          "note_signature": "2af0799c9593f429eca82bd9ced323065986364aae039df4c3100691fa2c8368"
+        },
+        {
+          "name": "L2Ork-001.4-session-coll.txt",
+          "family": "l2ork-001",
+          "sha256": "e47c74ca2344e70d8f1b47ce3b06d4e6f42987303f6fccc6255048b6d8d4e059",
+          "note_signature": "10fbc1a619c972b45fa3c16bd4e7f894832979ab6ad685d50846d08db882e753"
+        },
+        {
+          "name": "canada-end-session-coll.txt",
+          "family": "canada",
+          "sha256": "ad0d195913d4026fa609474459b7160e84db0c5e41e3e0b1a1c6769ec881c50f",
+          "note_signature": "660842699b6b7819abd7df3966d1fd4df445643861b250735f56a47b7b0a0ddd"
+        },
+        {
+          "name": "canada-mid-session-coll.txt",
+          "family": "canada",
+          "sha256": "5dbc737a5213b4d243be718070a721aa629f06c922f429941ef854df923f8df2",
+          "note_signature": "8fa87b8b82c472f443fc061772f02cae36e6b22d61becc7f5bc20cc779a1d475"
+        },
+        {
+          "name": "canada-start-24-3-session-coll.txt",
+          "family": "canada",
+          "sha256": "9a7a4b4c293637798d06a743bd673dbe072bd071d4cb72142790dadf0653b6f5",
+          "note_signature": "f95d25b89cf7ec872b81fdeb1207648dbab672505c3fb5bb991336170a91b71a"
+        },
+        {
+          "name": "canada-start-session-coll.txt",
+          "family": "canada",
+          "sha256": "0be76a28a6d7444bb15fe80a6867cd1c194ca49b6b479846c38808a1c90e4ab6",
+          "note_signature": "9c9e53601c1febc7e1b7752576a598c23ea94efdee7de54df370865f88fd629f"
+        },
+        {
+          "name": "coffin-dance-session-coll.txt",
+          "family": "coffin-dance",
+          "sha256": "17f060e81598a2f65fadfdfd471f681a1f26fb9d1bc036e4fbf4950c9e0acf77",
+          "note_signature": "9bc7a1becf8c842519bc10655fbc92d870d423ca9aa35152e12d2bb267745d0f"
+        },
+        {
+          "name": "foolin-around-007-session-coll.txt",
+          "family": "foolin-around-007",
+          "sha256": "b358bb81eb74f940781de9d27da0d28bf3912399da1c50efa70b027750e57985",
+          "note_signature": "2989e0a4f57b8730e12076361e551f5d880206545eea5e26305ad33955614af0"
+        },
+        {
+          "name": "gamelan-session-coll.txt",
+          "family": "gamelan",
+          "sha256": "11a679dde3b690c29760c7a90a6482156e0445a00afb7bad28b210c89051d393",
+          "note_signature": "b50c20a04688ee4a7acaaadd45cea3834cc5315a9945055f98dae64ac9ee4b33"
+        },
+        {
+          "name": "insterstellar-end-session-coll.txt",
+          "family": "interstellar",
+          "sha256": "6afa0037d751da461a78125449d99071bc3679edd38b52c119a1234c93e31b08",
+          "note_signature": "9466894f9111e20c716e7d8636c4f9968b10409b95c7c820b3fbecaf32d22c82"
+        },
+        {
+          "name": "insterstellar-end-stasis-session-coll.txt",
+          "family": "interstellar",
+          "sha256": "a209bec7731d9388bfa2adc231585d5d06215f6bef5a8c873ab1315a9da504af",
+          "note_signature": "632dc9e0e24b6dcad42331585e7e96058c4405efc2bd6a71fb3e8d5774866522"
+        },
+        {
+          "name": "interstellar-intro-session-coll.txt",
+          "family": "interstellar",
+          "sha256": "f92bd7d1d2760b939b266b161dbf944a85a44f50aa2ed4bd69c8686d80943eb0",
+          "note_signature": "8430cfb4a888ccc410afb5c2ecccca7e76a04ea278255021d8b5df4d9ec416a1"
+        },
+        {
+          "name": "interstellar-mid-session-coll.txt",
+          "family": "interstellar",
+          "sha256": "fa50f775e48afd159a6a4619a6c7da2d13cea224da666b3de70e0286080162cd",
+          "note_signature": "01a7f122f4652e9d49dcc99ae41dae54361c8f460ac43bee197b2c94243f1718"
+        },
+        {
+          "name": "interstellar-start-2-session-coll.txt",
+          "family": "interstellar",
+          "sha256": "9e52973b45319ba6a8fb09ba4a8fc97e038cf1d8164910ebfe59589c1885f402",
+          "note_signature": "e6e81af8397a272882b667e6a1c63146c2f91bd192bcdc8d9fb386fc2524e3f2"
+        },
+        {
+          "name": "interstellar-start-session-coll.txt",
+          "family": "interstellar",
+          "sha256": "6669a3fe632653c2d0df12a5ccdd5aa9e6f918cc571dcb6666b439337b72f0ab",
+          "note_signature": "7fe3891c7ddd528cddef675a2d691a4f4fad5761de472847d57ee35cab70b664"
+        },
+        {
+          "name": "jamminlicious-001-session-coll.txt",
+          "family": "jamminlicious",
+          "sha256": "4ece363d1ea43d95abe77388ee57eda47aaabfaeb6f52872ee9b36a66d846a85",
+          "note_signature": "559d92e0400680db3a4bb24144023c1e7ed0f554be8cb5bffb882f6e73ad8c85"
+        },
+        {
+          "name": "jamminlicious-002-session-coll.txt",
+          "family": "jamminlicious",
+          "sha256": "2af0eefd82c39977b5c112780339da45d943d0350a1c90514ab757cd0d64e8ea",
+          "note_signature": "4a34463516f2986e75fe543f6d94e1ecf949e533cb4db62074b04cecbd577e08"
+        },
+        {
+          "name": "mus3314+L2Ork-IE-2025-2nd-take-session-coll.txt",
+          "family": "mus3314-ie",
+          "sha256": "5f373bd6bed030738f6f33b65c5f271b9607f9d74da7c7acd8e74c2338137510",
+          "note_signature": "fbe77467017435138ceb0a12a2c76697dbcc6ff2aa7ed7018f7acc0d86f80fc6"
+        },
+        {
+          "name": "mus3314+L2Ork-IE-2025-3rd-take-session-coll.txt",
+          "family": "mus3314-ie",
+          "sha256": "5ddef4cf4b237ffeeaa886dc822c96a1cf21d5e1ae4186c744462ef4d5998d63",
+          "note_signature": "3d9a1065c633c3d987c536b1a7f182c4c888ea056f63c4cd14f0a284924f5b62"
+        },
+        {
+          "name": "mus3314+L2Ork-IE-2025-4th-take-session-coll.txt",
+          "family": "mus3314-ie",
+          "sha256": "ed0782bbc9c0f1bab9ff2381e3f269df9fc596838c3a1b9fe740fecb26f1a294",
+          "note_signature": "54b5c3446066fa21a723d4e0ab9d3bc625e324f5675ed83d13bc7babc34047e1"
+        },
+        {
+          "name": "mus3314+L2Ork-IE-2025-5h-take-session-coll.txt",
+          "family": "mus3314-ie",
+          "sha256": "71b7246a2c699b3c714be3d5eba7363b48cf0587e6dabbeb302e32a20a6a76b4",
+          "note_signature": "4a292f9d28e3901a8b71baba64639b13874c5b1fca72db7c6d368a4568b2bfd9"
+        },
+        {
+          "name": "mus3314-spring-2025-2nd-take-session-coll.txt",
+          "family": "spring-2025",
+          "sha256": "0aee6a143f2f8c4f5fd770a731c953a85655ec4056ac639f56477cf2e136d964",
+          "note_signature": "5e9b28b2a62a7a7bf7ed4aee9cd65a83fb6304367d91bf3d62a0e80d481534c5"
+        },
+        {
+          "name": "new-era-005a1-session-coll.txt",
+          "family": "new-era",
+          "sha256": "85058151c24b37adfacf50088ec617c32712fa162369eaf9fc220f4a3fd665fd",
+          "note_signature": "5ed554d449b2d33d543baf4c16c90af2d44fb3dea6c99235e5c1d88071e56dd2"
+        },
+        {
+          "name": "new-era-005b1-session-coll.txt",
+          "family": "new-era",
+          "sha256": "92e508a31afaaeecb60726e13b92193a5da636ab0d147320704c4d0a0de63959",
+          "note_signature": "b516aa4b2632daaa9c8ca727108a9920a77d74bb9b695565d83165e314b90329"
+        },
+        {
+          "name": "new-era-005c-session-coll.txt",
+          "family": "new-era",
+          "sha256": "28a36150d3f0f8d13561c010cbcb17563d0020d41fcc2fc8353eeb5a7e9f7a3e",
+          "note_signature": "a5409b0f37a83c759439ff24a0829fcdddd930f904ced0e51a67b570afd10035"
+        },
+        {
+          "name": "slowbeat-session-coll.txt",
+          "family": "slowbeat",
+          "sha256": "91ab3380327c000bb966a3877138e106ec02c887aa57f381f90ccfe335df101c",
+          "note_signature": "58e5214fa38571e5f6bee7cabb57b22627c7445100c2923b3a5cd16ccbc36417"
+        },
+        {
+          "name": "spring-2025-1st-take-session-coll.txt",
+          "family": "spring-2025",
+          "sha256": "4f480520547e576e1d785251e5773fe289b946aa648368da77631fffdc993853",
+          "note_signature": "b6f051e4820282627928340bcc2ce8c159b5244619e0b283eb58036486f2986b"
+        },
+        {
+          "name": "when-presets-go-wild-session-coll.txt",
+          "family": "when-presets-go-wild",
+          "sha256": "980ba6c0a0503aac4eaf4727613c07225840ce52def4af8a46f13ea2d4400daa",
+          "note_signature": "de5d034f033bd061333ae487a6fd4f7ac8b739db738d086a24d83a70112cc4df"
+        },
+        {
+          "name": "yazoo-like-session-coll.txt",
+          "family": "yazoo-like",
+          "sha256": "755bc60f87d9c69ba4e42e26729858064d31f85a4b23a6c3afb98ad9ffab401f",
+          "note_signature": "51729b5309eb58e8d0624416e3f0b8e3becb2d275527ef7e7bd7444df2ed97d3"
+        }
+      ],
+      "validation": [
+        {
+          "name": "CramRadio-mid-session-coll.txt",
+          "family": "cramradio-mid",
+          "sha256": "9c59d4ee2ef6239e8e0dd1a5ba5fd175cd2a520f7c145f4f112b15c11b8cfa98",
+          "note_signature": "68f5930de3b2592ec82352db2f5cff82758ea9585eda04e49dc61c82e8994ab7"
+        },
+        {
+          "name": "raye-end-session-coll.txt",
+          "family": "raye",
+          "sha256": "a40c1562889b540fc59d80547e3da153c8bbf3e76fa0898f6a83cb54fe940b42",
+          "note_signature": "9f625735de05da0829c579043193b0ada4fd4ea27c2125688b624049b92987a6"
+        },
+        {
+          "name": "raye-mid-session-coll.txt",
+          "family": "raye",
+          "sha256": "abf18c51eb0ae68afbed61bb7a46956487fbd9894925aa2c044813151fadfb8f",
+          "note_signature": "b3ae3e4871b4e5c61d5cd4b7b3ae0aa50573615914f9ba4b77c338cc1c6d8a6f"
+        },
+        {
+          "name": "raye-start-24-2-session-coll.txt",
+          "family": "raye",
+          "sha256": "7fb6ee489bc3adac73574f43493b60cb4193b4714a8f404873b77e52b45c9d5e",
+          "note_signature": "c491451c292eaf487c1fb51223adb7f7b3dd48d6445b9931e207de20abe7f164"
+        },
+        {
+          "name": "raye-start-session-coll.txt",
+          "family": "raye",
+          "sha256": "7c20ce540ad5875b0390074e8d6b52f6991bb84754761d75c09c9b612690d26b",
+          "note_signature": "ec333f9ec4beb2dce43861b26a2bd2d9ec6ddf55239776619ed6faa5969be1f3"
+        }
+      ],
+      "test": [
+        {
+          "name": "empty-session-coll.txt",
+          "family": "empty",
+          "sha256": "1a92316d13857ad2dc547f60335334e495de90bf02c76343f99c67dc33e016db",
+          "note_signature": "d8dab4ad114f24c4da6bbcd0893e6d12ac983d1bb4cc59a7a21f3bc1624fcac9"
+        },
+        {
+          "name": "grapevine-end-session-coll.txt",
+          "family": "grapevine",
+          "sha256": "cc610bf345c6bc31501d8d33bbf3c672dd7a67ca9b0dd91585b7e040f28a06dc",
+          "note_signature": "ac9468ce6fe169824e0ebd2ec254c88bb0c3475243677ec5d9d03f8084d79e25"
+        },
+        {
+          "name": "grapevine-mid-session-coll.txt",
+          "family": "grapevine",
+          "sha256": "4c556f09c8590091fda9eb984c843ebd75986447f2d47d1b53dd4192aa03bc5d",
+          "note_signature": "69f6250975ddd68c5354ba1c9052d1b5058cff102e98825d7f08e31fc96042b7"
+        },
+        {
+          "name": "grapevine-start-24-3-session-coll.txt",
+          "family": "grapevine",
+          "sha256": "9a9dc33b259de5dd1354526dc76b8f1b5ccc6033604539bab278b06dd7462e26",
+          "note_signature": "4b9112ac6ba6624e340491aeacf5809c08fe0d9372fd5dec3b19332af5c5ffe5"
+        },
+        {
+          "name": "grapevine-start-session-coll.txt",
+          "family": "grapevine",
+          "sha256": "0be04a8c4f104f47957e3db8db88b3f46015b138b448e88646a7d1b704cddb61",
+          "note_signature": "4b9112ac6ba6624e340491aeacf5809c08fe0d9372fd5dec3b19332af5c5ffe5"
+        }
+      ]
+    }
+  },
+  "max_training_length": 4096
+}

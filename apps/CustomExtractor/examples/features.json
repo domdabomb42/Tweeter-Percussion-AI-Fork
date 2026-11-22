@@ -1,0 +1,806 @@
+{
+  "features": {
+    "tempo": null,
+    "meter": null,
+    "global_loop_ms": null,
+    "common_track_loop_ms": null,
+    "velocity": null,
+    "per_note_gate_duration": null,
+    "automation": null,
+    "tracks": [
+      {
+        "id": 12,
+        "name": "Laser Snare - Caleb",
+        "loop_ms": 6000,
+        "steps": 64,
+        "track_note_duration_ms": 200,
+        "notes": [
+          {
+            "step": 0,
+            "pitch": 48,
+            "onset_ms": 0.0,
+            "sounding_pitch": 24
+          },
+          {
+            "step": 6,
+            "pitch": 72,
+            "onset_ms": 562.5,
+            "sounding_pitch": 48
+          },
+          {
+            "step": 12,
+            "pitch": 57,
+            "onset_ms": 1125.0,
+            "sounding_pitch": 33
+          },
+          {
+            "step": 14,
+            "pitch": 50,
+            "onset_ms": 1312.5,
+            "sounding_pitch": 26
+          },
+          {
+            "step": 18,
+            "pitch": 72,
+            "onset_ms": 1687.5,
+            "sounding_pitch": 48
+          },
+          {
+            "step": 22,
+            "pitch": 57,
+            "onset_ms": 2062.5,
+            "sounding_pitch": 33
+          },
+          {
+            "step": 23,
+            "pitch": 55,
+            "onset_ms": 2156.25,
+            "sounding_pitch": 31
+          },
+          {
+            "step": 24,
+            "pitch": 72,
+            "onset_ms": 2250.0,
+            "sounding_pitch": 48
+          },
+          {
+            "step": 28,
+            "pitch": 52,
+            "onset_ms": 2625.0,
+            "sounding_pitch": 28
+          },
+          {
+            "step": 32,
+            "pitch": 48,
+            "onset_ms": 3000.0,
+            "sounding_pitch": 24
+          },
+          {
+            "step": 38,
+            "pitch": 79,
+            "onset_ms": 3562.5,
+            "sounding_pitch": 55
+          },
+          {
+            "step": 44,
+            "pitch": 57,
+            "onset_ms": 4125.0,
+            "sounding_pitch": 33
+          },
+          {
+            "step": 46,
+            "pitch": 50,
+            "onset_ms": 4312.5,
+            "sounding_pitch": 26
+          },
+          {
+            "step": 48,
+            "pitch": 77,
+            "onset_ms": 4500.0,
+            "sounding_pitch": 53
+          },
+          {
+            "step": 50,
+            "pitch": 79,
+            "onset_ms": 4687.5,
+            "sounding_pitch": 55
+          },
+          {
+            "step": 52,
+            "pitch": 57,
+            "onset_ms": 4875.0,
+            "sounding_pitch": 33
+          },
+          {
+            "step": 53,
+            "pitch": 55,
+            "onset_ms": 4968.75,
+            "sounding_pitch": 31
+          },
+          {
+            "step": 56,
+            "pitch": 77,
+            "onset_ms": 5250.0,
+            "sounding_pitch": 53
+          },
+          {
+            "step": 57,
+            "pitch": 50,
+            "onset_ms": 5343.75,
+            "sounding_pitch": 26
+          },
+          {
+            "step": 59,
+            "pitch": 81,
+            "onset_ms": 5531.25,
+            "sounding_pitch": 57
+          },
+          {
+            "step": 60,
+            "pitch": 83,
+            "onset_ms": 5625.0,
+            "sounding_pitch": 59
+          },
+          {
+            "step": 62,
+            "pitch": 77,
+            "onset_ms": 5812.5,
+            "sounding_pitch": 53
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "name": "80s Toms - Caleb",
+        "loop_ms": 6000,
+        "steps": 64,
+        "track_note_duration_ms": 126,
+        "notes": [
+          {
+            "step": 0,
+            "pitch": 48,
+            "onset_ms": 0.0,
+            "sounding_pitch": 36
+          },
+          {
+            "step": 8,
+            "pitch": 55,
+            "onset_ms": 750.0,
+            "sounding_pitch": 43
+          },
+          {
+            "step": 12,
+            "pitch": 57,
+            "onset_ms": 1125.0,
+            "sounding_pitch": 45
+          },
+          {
+            "step": 14,
+            "pitch": 50,
+            "onset_ms": 1312.5,
+            "sounding_pitch": 38
+          },
+          {
+            "step": 22,
+            "pitch": 57,
+            "onset_ms": 2062.5,
+            "sounding_pitch": 45
+          },
+          {
+            "step": 23,
+            "pitch": 55,
+            "onset_ms": 2156.25,
+            "sounding_pitch": 43
+          },
+          {
+            "step": 24,
+            "pitch": 57,
+            "onset_ms": 2250.0,
+            "sounding_pitch": 45
+          },
+          {
+            "step": 28,
+            "pitch": 52,
+            "onset_ms": 2625.0,
+            "sounding_pitch": 40
+          },
+          {
+            "step": 32,
+            "pitch": 48,
+            "onset_ms": 3000.0,
+            "sounding_pitch": 36
+          },
+          {
+            "step": 40,
+            "pitch": 55,
+            "onset_ms": 3750.0,
+            "sounding_pitch": 43
+          },
+          {
+            "step": 44,
+            "pitch": 57,
+            "onset_ms": 4125.0,
+            "sounding_pitch": 45
+          },
+          {
+            "step": 46,
+            "pitch": 50,
+            "onset_ms": 4312.5,
+            "sounding_pitch": 38
+          },
+          {
+            "step": 50,
+            "pitch": 55,
+            "onset_ms": 4687.5,
+            "sounding_pitch": 43
+          },
+          {
+            "step": 52,
+            "pitch": 57,
+            "onset_ms": 4875.0,
+            "sounding_pitch": 45
+          },
+          {
+            "step": 54,
+            "pitch": 55,
+            "onset_ms": 5062.5,
+            "sounding_pitch": 43
+          },
+          {
+            "step": 56,
+            "pitch": 50,
+            "onset_ms": 5250.0,
+            "sounding_pitch": 38
+          },
+          {
+            "step": 60,
+            "pitch": 59,
+            "onset_ms": 5625.0,
+            "sounding_pitch": 47
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "name": "Digital Triangle - Caleb",
+        "loop_ms": 6000,
+        "steps": 64,
+        "track_note_duration_ms": 167,
+        "notes": [
+          {
+            "step": 10,
+            "pitch": 72,
+            "onset_ms": 937.5,
+            "sounding_pitch": 12
+          },
+          {
+            "step": 14,
+            "pitch": 69,
+            "onset_ms": 1312.5,
+            "sounding_pitch": 9
+          },
+          {
+            "step": 16,
+            "pitch": 48,
+            "onset_ms": 1500.0,
+            "sounding_pitch": -12
+          },
+          {
+            "step": 22,
+            "pitch": 67,
+            "onset_ms": 2062.5,
+            "sounding_pitch": 7
+          },
+          {
+            "step": 26,
+            "pitch": 69,
+            "onset_ms": 2437.5,
+            "sounding_pitch": 9
+          },
+          {
+            "step": 42,
+            "pitch": 72,
+            "onset_ms": 3937.5,
+            "sounding_pitch": 12
+          },
+          {
+            "step": 46,
+            "pitch": 69,
+            "onset_ms": 4312.5,
+            "sounding_pitch": 9
+          },
+          {
+            "step": 48,
+            "pitch": 48,
+            "onset_ms": 4500.0,
+            "sounding_pitch": -12
+          },
+          {
+            "step": 58,
+            "pitch": 62,
+            "onset_ms": 5437.5,
+            "sounding_pitch": 2
+          },
+          {
+            "step": 60,
+            "pitch": 67,
+            "onset_ms": 5625.0,
+            "sounding_pitch": 7
+          },
+          {
+            "step": 62,
+            "pitch": 69,
+            "onset_ms": 5812.5,
+            "sounding_pitch": 9
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "name": "Acoustikick - Caleb",
+        "loop_ms": 6000,
+        "steps": 64,
+        "track_note_duration_ms": 167,
+        "notes": [
+          {
+            "step": 16,
+            "pitch": 48,
+            "onset_ms": 1500.0,
+            "sounding_pitch": 36
+          },
+          {
+            "step": 48,
+            "pitch": 48,
+            "onset_ms": 4500.0,
+            "sounding_pitch": 36
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "name": "clap - Caleb",
+        "loop_ms": 3000,
+        "steps": 64,
+        "track_note_duration_ms": 158,
+        "notes": [
+          {
+            "step": 36,
+            "pitch": 72,
+            "onset_ms": 1687.5,
+            "sounding_pitch": 108
+          },
+          {
+            "step": 48,
+            "pitch": 48,
+            "onset_ms": 2250.0,
+            "sounding_pitch": 84
+          },
+          {
+            "step": 60,
+            "pitch": 72,
+            "onset_ms": 2812.5,
+            "sounding_pitch": 108
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Slow-Ghost-Toms - Caleb",
+        "loop_ms": 3000,
+        "steps": 64,
+        "track_note_duration_ms": 80,
+        "notes": [
+          {
+            "step": 8,
+            "pitch": 72,
+            "onset_ms": 375.0,
+            "sounding_pitch": 58
+          },
+          {
+            "step": 14,
+            "pitch": 57,
+            "onset_ms": 656.25,
+            "sounding_pitch": 43
+          },
+          {
+            "step": 24,
+            "pitch": 71,
+            "onset_ms": 1125.0,
+            "sounding_pitch": 57
+          },
+          {
+            "step": 40,
+            "pitch": 77,
+            "onset_ms": 1875.0,
+            "sounding_pitch": 63
+          },
+          {
+            "step": 46,
+            "pitch": 55,
+            "onset_ms": 2156.25,
+            "sounding_pitch": 41
+          },
+          {
+            "step": 56,
+            "pitch": 81,
+            "onset_ms": 2625.0,
+            "sounding_pitch": 67
+          },
+          {
+            "step": 60,
+            "pitch": 52,
+            "onset_ms": 2812.5,
+            "sounding_pitch": 38
+          },
+          {
+            "step": 62,
+            "pitch": 84,
+            "onset_ms": 2906.25,
+            "sounding_pitch": 70
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Ghost Snare - Caleb",
+        "loop_ms": 3000,
+        "steps": 64,
+        "track_note_duration_ms": 80,
+        "notes": [
+          {
+            "step": 20,
+            "pitch": 48,
+            "onset_ms": 937.5,
+            "sounding_pitch": 48
+          },
+          {
+            "step": 28,
+            "pitch": 48,
+            "onset_ms": 1312.5,
+            "sounding_pitch": 48
+          },
+          {
+            "step": 60,
+            "pitch": 48,
+            "onset_ms": 2812.5,
+            "sounding_pitch": 48
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "electrikick - Caleb",
+        "loop_ms": 3000,
+        "steps": 64,
+        "track_note_duration_ms": 299,
+        "notes": [
+          {
+            "step": 0,
+            "pitch": 48,
+            "onset_ms": 0.0,
+            "sounding_pitch": 24
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "shaker - Caleb",
+        "loop_ms": 3000,
+        "steps": 64,
+        "track_note_duration_ms": 53,
+        "notes": [
+          {
+            "step": 0,
+            "pitch": 48,
+            "onset_ms": 0.0,
+            "sounding_pitch": 132
+          },
+          {
+            "step": 8,
+            "pitch": 55,
+            "onset_ms": 375.0,
+            "sounding_pitch": 139
+          },
+          {
+            "step": 12,
+            "pitch": 57,
+            "onset_ms": 562.5,
+            "sounding_pitch": 141
+          },
+          {
+            "step": 14,
+            "pitch": 50,
+            "onset_ms": 656.25,
+            "sounding_pitch": 134
+          },
+          {
+            "step": 16,
+            "pitch": 48,
+            "onset_ms": 750.0,
+            "sounding_pitch": 132
+          },
+          {
+            "step": 22,
+            "pitch": 57,
+            "onset_ms": 1031.25,
+            "sounding_pitch": 141
+          },
+          {
+            "step": 23,
+            "pitch": 55,
+            "onset_ms": 1078.125,
+            "sounding_pitch": 139
+          },
+          {
+            "step": 24,
+            "pitch": 57,
+            "onset_ms": 1125.0,
+            "sounding_pitch": 141
+          },
+          {
+            "step": 28,
+            "pitch": 52,
+            "onset_ms": 1312.5,
+            "sounding_pitch": 136
+          },
+          {
+            "step": 32,
+            "pitch": 48,
+            "onset_ms": 1500.0,
+            "sounding_pitch": 132
+          },
+          {
+            "step": 40,
+            "pitch": 55,
+            "onset_ms": 1875.0,
+            "sounding_pitch": 139
+          },
+          {
+            "step": 44,
+            "pitch": 57,
+            "onset_ms": 2062.5,
+            "sounding_pitch": 141
+          },
+          {
+            "step": 46,
+            "pitch": 50,
+            "onset_ms": 2156.25,
+            "sounding_pitch": 134
+          },
+          {
+            "step": 50,
+            "pitch": 55,
+            "onset_ms": 2343.75,
+            "sounding_pitch": 139
+          },
+          {
+            "step": 52,
+            "pitch": 57,
+            "onset_ms": 2437.5,
+            "sounding_pitch": 141
+          },
+          {
+            "step": 54,
+            "pitch": 55,
+            "onset_ms": 2531.25,
+            "sounding_pitch": 139
+          },
+          {
+            "step": 56,
+            "pitch": 50,
+            "onset_ms": 2625.0,
+            "sounding_pitch": 134
+          },
+          {
+            "step": 60,
+            "pitch": 59,
+            "onset_ms": 2812.5,
+            "sounding_pitch": 143
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "snare body 3.5 - Caleb",
+        "loop_ms": 3000,
+        "steps": 64,
+        "track_note_duration_ms": 87,
+        "notes": [
+          {
+            "step": 16,
+            "pitch": 48,
+            "onset_ms": 750.0,
+            "sounding_pitch": 44
+          },
+          {
+            "step": 28,
+            "pitch": 48,
+            "onset_ms": 1312.5,
+            "sounding_pitch": 44
+          },
+          {
+            "step": 36,
+            "pitch": 48,
+            "onset_ms": 1687.5,
+            "sounding_pitch": 44
+          },
+          {
+            "step": 48,
+            "pitch": 48,
+            "onset_ms": 2250.0,
+            "sounding_pitch": 44
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "snare noise 3 - Caleb",
+        "loop_ms": 3000,
+        "steps": 64,
+        "track_note_duration_ms": 136,
+        "notes": [
+          {
+            "step": 16,
+            "pitch": 48,
+            "onset_ms": 750.0,
+            "sounding_pitch": 132
+          },
+          {
+            "step": 28,
+            "pitch": 48,
+            "onset_ms": 1312.5,
+            "sounding_pitch": 132
+          },
+          {
+            "step": 36,
+            "pitch": 48,
+            "onset_ms": 1687.5,
+            "sounding_pitch": 132
+          },
+          {
+            "step": 48,
+            "pitch": 48,
+            "onset_ms": 2250.0,
+            "sounding_pitch": 132
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "electrikick 2 - Caleb",
+        "loop_ms": 3000,
+        "steps": 64,
+        "track_note_duration_ms": 44,
+        "notes": [
+          {
+            "step": 16,
+            "pitch": 48,
+            "onset_ms": 750.0,
+            "sounding_pitch": 24
+          },
+          {
+            "step": 40,
+            "pitch": 48,
+            "onset_ms": 1875.0,
+            "sounding_pitch": 24
+          },
+          {
+            "step": 48,
+            "pitch": 48,
+            "onset_ms": 2250.0,
+            "sounding_pitch": 24
+          },
+          {
+            "step": 56,
+            "pitch": 48,
+            "onset_ms": 2625.0,
+            "sounding_pitch": 24
+          }
+        ]
+      }
+    ]
+  },
+  "coverage": {
+    "tracks": 12,
+    "notes": 97,
+    "extracted_parameters": 336,
+    "native_records": 1873,
+    "status_counts": {
+      "supported": 1105,
+      "partial": 768
+    },
+    "unknown_parameter_names": [],
+    "unsupported_parameters": 0,
+    "warnings": [
+      {
+        "code": "legacy_range",
+        "track": 12,
+        "parameter": "overdrive",
+        "value": 11,
+        "message": "unchanged source value outside current UI range retained exactly"
+      },
+      {
+        "code": "legacy_range",
+        "track": 11,
+        "parameter": "overdrive",
+        "value": 11,
+        "message": "unchanged source value outside current UI range retained exactly"
+      },
+      {
+        "code": "legacy_range",
+        "track": 10,
+        "parameter": "overdrive",
+        "value": 11,
+        "message": "unchanged source value outside current UI range retained exactly"
+      },
+      {
+        "code": "legacy_range",
+        "track": 9,
+        "parameter": "overdrive",
+        "value": 11,
+        "message": "unchanged source value outside current UI range retained exactly"
+      },
+      {
+        "code": "legacy_range",
+        "track": 8,
+        "parameter": "overdrive",
+        "value": 11,
+        "message": "unchanged source value outside current UI range retained exactly"
+      },
+      {
+        "code": "legacy_range",
+        "track": 7,
+        "parameter": "overdrive",
+        "value": 11,
+        "message": "unchanged source value outside current UI range retained exactly"
+      },
+      {
+        "code": "legacy_range",
+        "track": 6,
+        "parameter": "overdrive",
+        "value": 11,
+        "message": "unchanged source value outside current UI range retained exactly"
+      },
+      {
+        "code": "legacy_range",
+        "track": 5,
+        "parameter": "overdrive",
+        "value": 11,
+        "message": "unchanged source value outside current UI range retained exactly"
+      },
+      {
+        "code": "legacy_range",
+        "track": 4,
+        "parameter": "overdrive",
+        "value": 11,
+        "message": "unchanged source value outside current UI range retained exactly"
+      },
+      {
+        "code": "legacy_range",
+        "track": 3,
+        "parameter": "overdrive",
+        "value": 11,
+        "message": "unchanged source value outside current UI range retained exactly"
+      },
+      {
+        "code": "legacy_range",
+        "track": 2,
+        "parameter": "overdrive",
+        "value": 11,
+        "message": "unchanged source value outside current UI range retained exactly"
+      },
+      {
+        "code": "legacy_range",
+        "track": 1,
+        "parameter": "overdrive",
+        "value": 11,
+        "message": "unchanged source value outside current UI range retained exactly"
+      },
+      {
+        "code": "native_float32_precision",
+        "count": 1416,
+        "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+      }
+    ]
+  }
+}

@@ -1,0 +1,3703 @@
+{
+  "python": "3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "corpus_scope": "apps/L2Ork-Tweeter/sessions",
+  "timing_method": "perf_counter wall time; validated extraction and atomic file export, milliseconds; native subprocess startup excluded",
+  "demo": {
+    "source": "L2Ork-Tweeter\\sessions\\slowbeat-session-coll.txt",
+    "edited_track": 12,
+    "edits": {
+      "carrier": "square",
+      "modulator": "pink_noise",
+      "ae": [
+        1.0,
+        0.9875,
+        0.975,
+        0.9625,
+        0.95,
+        0.9375,
+        0.925,
+        0.9125,
+        0.9,
+        0.8875,
+        0.875,
+        0.8625,
+        0.85,
+        0.8375,
+        0.825,
+        0.8125,
+        0.8,
+        0.7875,
+        0.775,
+        0.7625,
+        0.75,
+        0.7375,
+        0.725,
+        0.7125,
+        0.7,
+        0.6875,
+        0.675,
+        0.6625,
+        0.65,
+        0.6375,
+        0.625,
+        0.6125,
+        0.6,
+        0.5875,
+        0.575,
+        0.5625,
+        0.55,
+        0.5375,
+        0.525,
+        0.5125,
+        0.5,
+        0.4875,
+        0.475,
+        0.4625,
+        0.45,
+        0.4375,
+        0.425,
+        0.4125,
+        0.4,
+        0.3875,
+        0.375,
+        0.3625,
+        0.35,
+        0.3375,
+        0.325,
+        0.3125,
+        0.3,
+        0.2875,
+        0.275,
+        0.2625,
+        0.25,
+        0.2375,
+        0.225,
+        0.2125,
+        0.2,
+        0.1875,
+        0.175,
+        0.1625,
+        0.15,
+        0.1375,
+        0.125,
+        0.1125,
+        0.1,
+        0.0875,
+        0.075,
+        0.0625,
+        0.05,
+        0.0375,
+        0.025,
+        0.0125,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "me": [
+        1.0,
+        0.983333333333,
+        0.966666666667,
+        0.95,
+        0.933333333333,
+        0.916666666667,
+        0.9,
+        0.883333333333,
+        0.866666666667,
+        0.85,
+        0.833333333333,
+        0.816666666667,
+        0.8,
+        0.783333333333,
+        0.766666666667,
+        0.75,
+        0.733333333333,
+        0.716666666667,
+        0.7,
+        0.683333333333,
+        0.666666666667,
+        0.65,
+        0.633333333333,
+        0.616666666667,
+        0.6,
+        0.583333333333,
+        0.566666666667,
+        0.55,
+        0.533333333333,
+        0.516666666667,
+        0.5,
+        0.483333333333,
+        0.466666666667,
+        0.45,
+        0.433333333333,
+        0.416666666667,
+        0.4,
+        0.383333333333,
+        0.366666666667,
+        0.35,
+        0.333333333333,
+        0.316666666667,
+        0.3,
+        0.283333333333,
+        0.266666666667,
+        0.25,
+        0.233333333333,
+        0.216666666667,
+        0.2,
+        0.183333333333,
+        0.166666666667,
+        0.15,
+        0.133333333333,
+        0.116666666667,
+        0.1,
+        0.083333333333,
+        0.066666666667,
+        0.05,
+        0.033333333333,
+        0.016666666667,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "harmonicity": 3.25,
+      "mod-amp": 850,
+      "note-dur": 380,
+      "octave": -7,
+      "overdrive": 2,
+      "overdrive-override": 2.5,
+      "inst-name": "CustomExtractor Demo Synth",
+      "reverb-amp": 0.55,
+      "reverb-type": 3,
+      "echo-amp": 0.25,
+      "echo-fb": 0.6,
+      "echo-ms": 375,
+      "flanger-amp": 0.35,
+      "flanger-hz": 0.75,
+      "flanger-mod-amp": 22.5,
+      "flanger-ms": 4,
+      "dry-amp": 0.9,
+      "out-amp": 85,
+      "out-pan": 0.7,
+      "loop-length": 7200,
+      "loop": 1,
+      "solo": 0,
+      "tracker-time": {
+        "next_step": 0,
+        "remaining_ms": 0,
+        "running": 0
+      }
+    },
+    "removed_note": {
+      "step": 0,
+      "pitch": 48
+    },
+    "added_note": {
+      "step": 1,
+      "pitch": 66
+    },
+    "added_track": 13,
+    "unmodified_tracks_equal": true,
+    "edited_roundtrip_equal": true,
+    "runtime_method": "Five perf_counter wall-time runs: extract the source file, then validate and atomically export the original composition to a temporary file; JSON import and native Pd checks excluded.",
+    "runtime_ms": {
+      "extraction_median": 230.42269999859855,
+      "export_median": 454.03449999867007,
+      "samples": 5,
+      "extraction_samples": [
+        224.67130000586621,
+        230.42269999859855,
+        228.36030001053587,
+        232.61240002466366,
+        231.2248000234831
+      ],
+      "export_samples": [
+        454.03449999867007,
+        476.664299989352,
+        461.43490000395104,
+        452.3476999893319,
+        450.09299999219365
+      ]
+    },
+    "coverage": {
+      "tracks": 12,
+      "notes": 97,
+      "extracted_parameters": 336,
+      "native_records": 1873,
+      "status_counts": {
+        "supported": 1105,
+        "partial": 768
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 12,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 10,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 9,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 8,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 7,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 6,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 5,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 4,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 3,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 2,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1416,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ]
+    },
+    "original_bytes": 64859,
+    "json_bytes": 137247,
+    "native_reconstructed": {
+      "status": "passed",
+      "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+      "native_records": 1873,
+      "native_atoms_compared": 11498,
+      "native_routed_messages": 1873,
+      "native_numeric_relative_tolerance": 5.1e-06,
+      "live_atom_types_verified": 9625,
+      "pd_writer_numeric_symbol_losses": 0,
+      "playback_verified": false,
+      "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+    },
+    "native_modified": {
+      "status": "passed",
+      "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+      "native_records": 2013,
+      "native_atoms_compared": 12186,
+      "native_routed_messages": 2013,
+      "native_numeric_relative_tolerance": 5.1e-06,
+      "live_atom_types_verified": 10173,
+      "pd_writer_numeric_symbol_losses": 1,
+      "playback_verified": false,
+      "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+    }
+  },
+  "files": [
+    {
+      "file": "sessions/0s-and-1s-apart-A-session-coll.txt",
+      "original_bytes": 78966,
+      "json_bytes": 170616,
+      "extraction_ms": 280.0793999922462,
+      "export_ms": 551.8591000000015,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 14,
+      "notes": 207,
+      "extracted_parameters": 434,
+      "native_records": 2239,
+      "status_counts": {
+        "partial": 936,
+        "supported": 1303
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1551,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 2239,
+        "native_atoms_compared": 13642,
+        "native_routed_messages": 2239,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 11403,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/0s-and-1s-apart-AI-session-coll.txt",
+      "original_bytes": 78931,
+      "json_bytes": 170546,
+      "extraction_ms": 272.9286999965552,
+      "export_ms": 547.5037000142038,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 14,
+      "notes": 207,
+      "extracted_parameters": 434,
+      "native_records": 2239,
+      "status_counts": {
+        "partial": 936,
+        "supported": 1303
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1550,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 2239,
+        "native_atoms_compared": 13642,
+        "native_routed_messages": 2239,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 11403,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/0s-and-1s-apart-B-session-coll.txt",
+      "original_bytes": 78985,
+      "json_bytes": 171844,
+      "extraction_ms": 283.2079000072554,
+      "export_ms": 551.665300008608,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 14,
+      "notes": 227,
+      "extracted_parameters": 434,
+      "native_records": 2239,
+      "status_counts": {
+        "partial": 936,
+        "supported": 1303
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1551,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 2239,
+        "native_atoms_compared": 13642,
+        "native_routed_messages": 2239,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 11403,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/0s-and-1s-apart-C-session-coll.txt",
+      "original_bytes": 79673,
+      "json_bytes": 172172,
+      "extraction_ms": 281.63820001645945,
+      "export_ms": 555.348399997456,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 14,
+      "notes": 209,
+      "extracted_parameters": 434,
+      "native_records": 2239,
+      "status_counts": {
+        "partial": 936,
+        "supported": 1303
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1771,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 2239,
+        "native_atoms_compared": 13642,
+        "native_routed_messages": 2239,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 11403,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/0s-and-1s-apart-D-session-coll.txt",
+      "original_bytes": 79110,
+      "json_bytes": 171652,
+      "extraction_ms": 282.6567000010982,
+      "export_ms": 545.4950999992434,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 14,
+      "notes": 220,
+      "extracted_parameters": 434,
+      "native_records": 2239,
+      "status_counts": {
+        "partial": 936,
+        "supported": 1303
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1778,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 2239,
+        "native_atoms_compared": 13642,
+        "native_routed_messages": 2239,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 11403,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/0s-and-1s-apart-E-session-coll.txt",
+      "original_bytes": 81692,
+      "json_bytes": 167668,
+      "extraction_ms": 283.7730999744963,
+      "export_ms": 560.2367999963462,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 14,
+      "notes": 63,
+      "extracted_parameters": 434,
+      "native_records": 2239,
+      "status_counts": {
+        "partial": 936,
+        "supported": 1303
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 2091,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 2239,
+        "native_atoms_compared": 13642,
+        "native_routed_messages": 2239,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 11403,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/1st-beat-fall-2021-session-coll.txt",
+      "original_bytes": 63228,
+      "json_bytes": 129407,
+      "extraction_ms": 224.31349998805672,
+      "export_ms": 458.0384999862872,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 20,
+      "extracted_parameters": 336,
+      "native_records": 1873,
+      "status_counts": {
+        "supported": 1105,
+        "partial": 768
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 9,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 8,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 4,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 3,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 2,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1075,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1873,
+        "native_atoms_compared": 11498,
+        "native_routed_messages": 1873,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9625,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/2nd-beat-fall-2021-final-session-coll.txt",
+      "original_bytes": 66340,
+      "json_bytes": 138542,
+      "extraction_ms": 229.3401999922935,
+      "export_ms": 462.6068999932613,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 69,
+      "extracted_parameters": 336,
+      "native_records": 1873,
+      "status_counts": {
+        "supported": 1105,
+        "partial": 768
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 12,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1679,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1873,
+        "native_atoms_compared": 11497,
+        "native_routed_messages": 1873,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9624,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/3rd-beat-session-coll.txt",
+      "original_bytes": 66448,
+      "json_bytes": 140185,
+      "extraction_ms": 230.94660000060685,
+      "export_ms": 467.2446000040509,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 93,
+      "extracted_parameters": 336,
+      "native_records": 1873,
+      "status_counts": {
+        "supported": 1105,
+        "partial": 768
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 10,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1629,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1873,
+        "native_atoms_compared": 11498,
+        "native_routed_messages": 1873,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9625,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/4th-beat-droplets-6-session-coll.txt",
+      "original_bytes": 66385,
+      "json_bytes": 138687,
+      "extraction_ms": 229.19959999853745,
+      "export_ms": 467.4704000062775,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 78,
+      "extracted_parameters": 360,
+      "native_records": 1897,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 780
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 12,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 10,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 9,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 8,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 7,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 6,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 3,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 2,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1526,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1897,
+        "native_atoms_compared": 11594,
+        "native_routed_messages": 1897,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9697,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/4th-beat-final-10-session-coll.txt",
+      "original_bytes": 65694,
+      "json_bytes": 136229,
+      "extraction_ms": 226.87329998007044,
+      "export_ms": 466.34400001494214,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 60,
+      "extracted_parameters": 360,
+      "native_records": 1897,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 780
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 10,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 9,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 8,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 7,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 6,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 5,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 3,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1392,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1897,
+        "native_atoms_compared": 11610,
+        "native_routed_messages": 1897,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9713,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/4th-beat-post-accel-2-session-coll.txt",
+      "original_bytes": 46652,
+      "json_bytes": 75371,
+      "extraction_ms": 165.8595999761019,
+      "export_ms": 326.7362999904435,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 7,
+      "notes": 22,
+      "extracted_parameters": 117,
+      "native_records": 1550,
+      "status_counts": {
+        "supported": 836,
+        "partial": 714
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 10,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "missing_timing",
+          "track": 2,
+          "message": "partial snapshot; missing values depend on native application state; derived timing/pitch may be unavailable"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "missing_timing",
+          "track": 5,
+          "message": "partial snapshot; missing values depend on native application state; derived timing/pitch may be unavailable"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 405,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1550,
+        "native_atoms_compared": 8254,
+        "native_routed_messages": 1550,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 6704,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/canada-end-session-coll.txt",
+      "original_bytes": 64987,
+      "json_bytes": 144287,
+      "extraction_ms": 228.29659999115393,
+      "export_ms": 471.22029997990467,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 210,
+      "extracted_parameters": 360,
+      "native_records": 1868,
+      "status_counts": {
+        "supported": 1076,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1257,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1868,
+        "native_atoms_compared": 11465,
+        "native_routed_messages": 1868,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9597,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/canada-mid-session-coll.txt",
+      "original_bytes": 63444,
+      "json_bytes": 140163,
+      "extraction_ms": 226.3745999953244,
+      "export_ms": 467.34939998714253,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 190,
+      "extracted_parameters": 360,
+      "native_records": 1868,
+      "status_counts": {
+        "supported": 1076,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 7,
+          "parameter": "overdrive",
+          "value": 0.0693551,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1060,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1868,
+        "native_atoms_compared": 11470,
+        "native_routed_messages": 1868,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9602,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/canada-start-24-3-session-coll.txt",
+      "original_bytes": 64403,
+      "json_bytes": 139472,
+      "extraction_ms": 229.93930001393892,
+      "export_ms": 465.30660000280477,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 164,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 12,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 10,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 9,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 8,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 7,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 6,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 4,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 3,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1028,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11642,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9733,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/canada-start-session-coll.txt",
+      "original_bytes": 65308,
+      "json_bytes": 139630,
+      "extraction_ms": 231.55699999188073,
+      "export_ms": 468.3441999950446,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 119,
+      "extracted_parameters": 360,
+      "native_records": 1870,
+      "status_counts": {
+        "supported": 1078,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 12,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 10,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 8,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 6,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 3,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 2,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1201,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1870,
+        "native_atoms_compared": 11473,
+        "native_routed_messages": 1870,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9603,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/coffin-dance-session-coll.txt",
+      "original_bytes": 66719,
+      "json_bytes": 150374,
+      "extraction_ms": 238.74180001439527,
+      "export_ms": 477.60549999657087,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 269,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 12,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 10,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 9,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 8,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 4,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 3,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 2,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1174,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11643,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9734,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/CramRadio-mid-session-coll.txt",
+      "original_bytes": 77719,
+      "json_bytes": 162355,
+      "extraction_ms": 271.2412000109907,
+      "export_ms": 551.5069999964908,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 14,
+      "notes": 104,
+      "extracted_parameters": 434,
+      "native_records": 2227,
+      "status_counts": {
+        "partial": 924,
+        "supported": 1303
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1536,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 2227,
+        "native_atoms_compared": 13582,
+        "native_routed_messages": 2227,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 11355,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/empty-session-coll.txt",
+      "original_bytes": 62702,
+      "json_bytes": 126380,
+      "extraction_ms": 232.13140000007115,
+      "export_ms": 480.15579997445457,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 0,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 180,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11642,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9733,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/foolin-around-007-session-coll.txt",
+      "original_bytes": 64949,
+      "json_bytes": 137962,
+      "extraction_ms": 233.40819997247308,
+      "export_ms": 461.4106999943033,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 119,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 12,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 10,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 9,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 7,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 4,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1246,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11642,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9733,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/gamelan-session-coll.txt",
+      "original_bytes": 68989,
+      "json_bytes": 156125,
+      "extraction_ms": 234.92669998086058,
+      "export_ms": 494.44920002133586,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 273,
+      "extracted_parameters": 360,
+      "native_records": 1866,
+      "status_counts": {
+        "supported": 1074,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 12,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1763,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1866,
+        "native_atoms_compared": 11478,
+        "native_routed_messages": 1866,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9612,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/grapevine-end-session-coll.txt",
+      "original_bytes": 65215,
+      "json_bytes": 144377,
+      "extraction_ms": 246.14189998828806,
+      "export_ms": 463.5755000053905,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 213,
+      "extracted_parameters": 360,
+      "native_records": 1897,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 780
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 2,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1037,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1897,
+        "native_atoms_compared": 11604,
+        "native_routed_messages": 1897,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9707,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/grapevine-mid-session-coll.txt",
+      "original_bytes": 62516,
+      "json_bytes": 139833,
+      "extraction_ms": 128.69580002734438,
+      "export_ms": 274.4122000003699,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 230,
+      "extracted_parameters": 360,
+      "native_records": 1897,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 780
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 12,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 8,
+          "parameter": "overdrive",
+          "value": 0.0535566,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 6,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 5,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 2,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 766,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1897,
+        "native_atoms_compared": 11594,
+        "native_routed_messages": 1897,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9697,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/grapevine-start-24-3-session-coll.txt",
+      "original_bytes": 63466,
+      "json_bytes": 139286,
+      "extraction_ms": 288.7860999908298,
+      "export_ms": 663.0984999937937,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 192,
+      "extracted_parameters": 370,
+      "native_records": 1907,
+      "status_counts": {
+        "supported": 1115,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 4,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 2,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 864,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1907,
+        "native_atoms_compared": 11634,
+        "native_routed_messages": 1907,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9727,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/grapevine-start-session-coll.txt",
+      "original_bytes": 64229,
+      "json_bytes": 141110,
+      "extraction_ms": 336.69570001075044,
+      "export_ms": 618.1989000178874,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 192,
+      "extracted_parameters": 360,
+      "native_records": 1897,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 780
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 4,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 2,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 992,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1897,
+        "native_atoms_compared": 11602,
+        "native_routed_messages": 1897,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9705,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/insterstellar-end-session-coll.txt",
+      "original_bytes": 67643,
+      "json_bytes": 139520,
+      "extraction_ms": 277.6723999995738,
+      "export_ms": 584.4379000191111,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 54,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1315,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11642,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9733,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/insterstellar-end-stasis-session-coll.txt",
+      "original_bytes": 67196,
+      "json_bytes": 137209,
+      "extraction_ms": 289.2711999884341,
+      "export_ms": 569.8037999973167,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 30,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 966,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11642,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9733,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/interstellar-intro-session-coll.txt",
+      "original_bytes": 69257,
+      "json_bytes": 141216,
+      "extraction_ms": 242.93420001049526,
+      "export_ms": 553.4498000051826,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 27,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1586,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11642,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9733,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/interstellar-mid-session-coll.txt",
+      "original_bytes": 64542,
+      "json_bytes": 135911,
+      "extraction_ms": 283.9371000009123,
+      "export_ms": 510.4369000182487,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 103,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1040,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11642,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9733,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/interstellar-start-2-session-coll.txt",
+      "original_bytes": 68775,
+      "json_bytes": 143933,
+      "extraction_ms": 300.89750001206994,
+      "export_ms": 583.1410000100732,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 90,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1175,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11642,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9733,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/interstellar-start-session-coll.txt",
+      "original_bytes": 67620,
+      "json_bytes": 142425,
+      "extraction_ms": 272.148299991386,
+      "export_ms": 595.6102999916766,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 104,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 12,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 10,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 9,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 8,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 7,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 4,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 3,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 2,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 927,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11642,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9733,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/jamminlicious-001-session-coll.txt",
+      "original_bytes": 63027,
+      "json_bytes": 130190,
+      "extraction_ms": 255.89000000036322,
+      "export_ms": 514.5011999993585,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 49,
+      "extracted_parameters": 360,
+      "native_records": 1897,
+      "status_counts": {
+        "partial": 780,
+        "supported": 1117
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 167,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1897,
+        "native_atoms_compared": 11595,
+        "native_routed_messages": 1897,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9698,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/jamminlicious-002-session-coll.txt",
+      "original_bytes": 63409,
+      "json_bytes": 133088,
+      "extraction_ms": 252.23209999967366,
+      "export_ms": 521.1479999998119,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 85,
+      "extracted_parameters": 360,
+      "native_records": 1897,
+      "status_counts": {
+        "partial": 780,
+        "supported": 1117
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 4,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 162,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1897,
+        "native_atoms_compared": 11595,
+        "native_routed_messages": 1897,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9698,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/L2Ork-001.3-session-coll.txt",
+      "original_bytes": 64385,
+      "json_bytes": 132726,
+      "extraction_ms": 366.02690001018345,
+      "export_ms": 601.0623000038322,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 45,
+      "extracted_parameters": 360,
+      "native_records": 1897,
+      "status_counts": {
+        "partial": 780,
+        "supported": 1117
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 9,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 8,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 2,
+          "parameter": "overdrive",
+          "value": 10.1322,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 10.7897,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1010,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1897,
+        "native_atoms_compared": 11595,
+        "native_routed_messages": 1897,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9698,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/L2Ork-001.4-session-coll.txt",
+      "original_bytes": 64828,
+      "json_bytes": 137058,
+      "extraction_ms": 265.4268000042066,
+      "export_ms": 706.7922999849543,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 104,
+      "extracted_parameters": 360,
+      "native_records": 1897,
+      "status_counts": {
+        "partial": 780,
+        "supported": 1117
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 10,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 8,
+          "parameter": "overdrive",
+          "value": 10.0572,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 6,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 2,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 10.1472,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 842,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1897,
+        "native_atoms_compared": 11594,
+        "native_routed_messages": 1897,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9697,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/mus3314+L2Ork-IE-2025-2nd-take-session-coll.txt",
+      "original_bytes": 66308,
+      "json_bytes": 135236,
+      "extraction_ms": 299.62249999516644,
+      "export_ms": 574.0434000035748,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 52,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "partial_envelope_update",
+          "track": 9,
+          "parameter": "ae",
+          "message": "fewer than 100 samples: native tabwrite updates only this prefix; remaining table samples depend on application state"
+        },
+        {
+          "code": "partial_envelope_update",
+          "track": 9,
+          "parameter": "me",
+          "message": "fewer than 100 samples: native tabwrite updates only this prefix; remaining table samples depend on application state"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1507,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11506,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9597,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/mus3314+L2Ork-IE-2025-3rd-take-session-coll.txt",
+      "original_bytes": 66958,
+      "json_bytes": 142494,
+      "extraction_ms": 314.31070002145134,
+      "export_ms": 511.50990001042373,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 140,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "partial_envelope_update",
+          "track": 9,
+          "parameter": "ae",
+          "message": "fewer than 100 samples: native tabwrite updates only this prefix; remaining table samples depend on application state"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1359,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11574,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9665,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/mus3314+L2Ork-IE-2025-4th-take-session-coll.txt",
+      "original_bytes": 67300,
+      "json_bytes": 143729,
+      "extraction_ms": 255.52269999752752,
+      "export_ms": 557.9260000085924,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 162,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "partial_envelope_update",
+          "track": 9,
+          "parameter": "ae",
+          "message": "fewer than 100 samples: native tabwrite updates only this prefix; remaining table samples depend on application state"
+        },
+        {
+          "code": "partial_envelope_update",
+          "track": 9,
+          "parameter": "me",
+          "message": "fewer than 100 samples: native tabwrite updates only this prefix; remaining table samples depend on application state"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1484,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11506,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9597,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/mus3314+L2Ork-IE-2025-5h-take-session-coll.txt",
+      "original_bytes": 68158,
+      "json_bytes": 139741,
+      "extraction_ms": 304.34189998777583,
+      "export_ms": 539.5883999881335,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 65,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "partial_envelope_update",
+          "track": 9,
+          "parameter": "ae",
+          "message": "fewer than 100 samples: native tabwrite updates only this prefix; remaining table samples depend on application state"
+        },
+        {
+          "code": "partial_envelope_update",
+          "track": 9,
+          "parameter": "me",
+          "message": "fewer than 100 samples: native tabwrite updates only this prefix; remaining table samples depend on application state"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1740,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11506,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9597,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/mus3314-spring-2025-2nd-take-session-coll.txt",
+      "original_bytes": 65934,
+      "json_bytes": 136942,
+      "extraction_ms": 251.82030000723898,
+      "export_ms": 548.6435999919195,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 68,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1312,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11642,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9733,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/new-era-005a1-session-coll.txt",
+      "original_bytes": 78858,
+      "json_bytes": 170504,
+      "extraction_ms": 286.4451000059489,
+      "export_ms": 619.5285999856424,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 14,
+      "notes": 207,
+      "extracted_parameters": 434,
+      "native_records": 2235,
+      "status_counts": {
+        "partial": 932,
+        "supported": 1303
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1551,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 2235,
+        "native_atoms_compared": 13622,
+        "native_routed_messages": 2235,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 11387,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/new-era-005b1-session-coll.txt",
+      "original_bytes": 78857,
+      "json_bytes": 170512,
+      "extraction_ms": 362.758200004464,
+      "export_ms": 636.6889999771956,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 14,
+      "notes": 207,
+      "extracted_parameters": 434,
+      "native_records": 2235,
+      "status_counts": {
+        "partial": 932,
+        "supported": 1303
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1551,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 2235,
+        "native_atoms_compared": 13622,
+        "native_routed_messages": 2235,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 11387,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/new-era-005c-session-coll.txt",
+      "original_bytes": 81470,
+      "json_bytes": 167155,
+      "extraction_ms": 364.6461000025738,
+      "export_ms": 613.6551999952644,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 14,
+      "notes": 61,
+      "extracted_parameters": 434,
+      "native_records": 2237,
+      "status_counts": {
+        "partial": 934,
+        "supported": 1303
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1943,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 2237,
+        "native_atoms_compared": 13632,
+        "native_routed_messages": 2237,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 11395,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/raye-end-session-coll.txt",
+      "original_bytes": 68284,
+      "json_bytes": 144591,
+      "extraction_ms": 307.16820000088774,
+      "export_ms": 517.4278000195045,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 102,
+      "extracted_parameters": 336,
+      "native_records": 1867,
+      "status_counts": {
+        "supported": 1087,
+        "partial": 780
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 3,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1539,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1867,
+        "native_atoms_compared": 11476,
+        "native_routed_messages": 1867,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9609,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/raye-mid-session-coll.txt",
+      "original_bytes": 67851,
+      "json_bytes": 142906,
+      "extraction_ms": 266.77240000572056,
+      "export_ms": 486.03000000002794,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 90,
+      "extracted_parameters": 336,
+      "native_records": 1869,
+      "status_counts": {
+        "supported": 1089,
+        "partial": 780
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 9,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 8,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1636,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1869,
+        "native_atoms_compared": 11488,
+        "native_routed_messages": 1869,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9619,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/raye-start-24-2-session-coll.txt",
+      "original_bytes": 65241,
+      "json_bytes": 140611,
+      "extraction_ms": 243.35000000428408,
+      "export_ms": 500.9063000034075,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 136,
+      "extracted_parameters": 360,
+      "native_records": 1864,
+      "status_counts": {
+        "supported": 1072,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 12,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 8,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 7,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 6,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 5,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 4,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 3,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 2,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1351,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1864,
+        "native_atoms_compared": 11429,
+        "native_routed_messages": 1864,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9565,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/raye-start-session-coll.txt",
+      "original_bytes": 65558,
+      "json_bytes": 141557,
+      "extraction_ms": 269.2021999973804,
+      "export_ms": 491.98329998762347,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 145,
+      "extracted_parameters": 336,
+      "native_records": 1869,
+      "status_counts": {
+        "supported": 1089,
+        "partial": 780
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 12,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 8,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 7,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 5,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 4,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 3,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 2,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 0,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1275,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1869,
+        "native_atoms_compared": 11500,
+        "native_routed_messages": 1869,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9631,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/slowbeat-session-coll.txt",
+      "original_bytes": 64859,
+      "json_bytes": 137247,
+      "extraction_ms": 244.86850001267157,
+      "export_ms": 482.4462999822572,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 97,
+      "extracted_parameters": 336,
+      "native_records": 1873,
+      "status_counts": {
+        "supported": 1105,
+        "partial": 768
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "legacy_range",
+          "track": 12,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 11,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 10,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 9,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 8,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 7,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 6,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 5,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 4,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 3,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 2,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "legacy_range",
+          "track": 1,
+          "parameter": "overdrive",
+          "value": 11,
+          "message": "unchanged source value outside current UI range retained exactly"
+        },
+        {
+          "code": "native_float32_precision",
+          "count": 1416,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1873,
+        "native_atoms_compared": 11498,
+        "native_routed_messages": 1873,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9625,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/spring-2025-1st-take-session-coll.txt",
+      "original_bytes": 66051,
+      "json_bytes": 139526,
+      "extraction_ms": 269.894099998055,
+      "export_ms": 485.49760002060793,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 108,
+      "extracted_parameters": 372,
+      "native_records": 1909,
+      "status_counts": {
+        "supported": 1117,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 1200,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1909,
+        "native_atoms_compared": 11642,
+        "native_routed_messages": 1909,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9733,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/when-presets-go-wild-session-coll.txt",
+      "original_bytes": 73830,
+      "json_bytes": 158409,
+      "extraction_ms": 353.95089999656193,
+      "export_ms": 574.8382000019774,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 14,
+      "notes": 171,
+      "extracted_parameters": 434,
+      "native_records": 2227,
+      "status_counts": {
+        "partial": 924,
+        "supported": 1303
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 223,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 2227,
+        "native_atoms_compared": 13582,
+        "native_routed_messages": 2227,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 11355,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    },
+    {
+      "file": "sessions/yazoo-like-session-coll.txt",
+      "original_bytes": 63265,
+      "json_bytes": 136356,
+      "extraction_ms": 340.05830000387505,
+      "export_ms": 464.09430002677254,
+      "byte_equal": true,
+      "semantic_equal": true,
+      "tracks": 12,
+      "notes": 156,
+      "extracted_parameters": 372,
+      "native_records": 1921,
+      "status_counts": {
+        "supported": 1129,
+        "partial": 792
+      },
+      "unknown_parameter_names": [],
+      "unsupported_parameters": 0,
+      "warnings": [
+        {
+          "code": "native_float32_precision",
+          "count": 186,
+          "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+        }
+      ],
+      "native": {
+        "status": "passed",
+        "executable": "C:\\Program Files (x86)\\Pd-L2Ork\\bin\\pd-l2ork.exe",
+        "native_records": 1921,
+        "native_atoms_compared": 11714,
+        "native_routed_messages": 1921,
+        "native_numeric_relative_tolerance": 5.1e-06,
+        "live_atom_types_verified": 9793,
+        "pd_writer_numeric_symbol_losses": 0,
+        "playback_verified": false,
+        "method": "actual Pd-L2Ork cyclone coll read/write/dump and session-title routing"
+      }
+    }
+  ],
+  "empty_inputs_rejected": [],
+  "failures": [],
+  "summary": {
+    "files_found": 51,
+    "files_passed": 51,
+    "empty_files_rejected": 0,
+    "failures": 0,
+    "byte_exact_roundtrips": 51,
+    "semantic_exact_roundtrips": 51,
+    "native_checks_passed": 51,
+    "tracks": 629,
+    "notes": 6408,
+    "extracted_parameters": 18977,
+    "runtime_ms": {
+      "extraction_ms": {
+        "median": 269.2021999973804,
+        "mean": 267.8219941170777,
+        "min": 128.69580002734438,
+        "max": 366.02690001018345
+      },
+      "export_ms": {
+        "median": 517.4278000195045,
+        "mean": 522.791652941355,
+        "min": 274.4122000003699,
+        "max": 706.7922999849543
+      }
+    }
+  },
+  "registry": [
+    {
+      "native": "carrier",
+      "path": "synth.carrier",
+      "kind": "waveform",
+      "minimum": 0,
+      "maximum": 4,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "modulator",
+      "path": "synth.modulator",
+      "kind": "waveform",
+      "minimum": 0,
+      "maximum": 4,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "ae",
+      "path": "synth.carrier_envelope",
+      "kind": "array",
+      "minimum": null,
+      "maximum": null,
+      "unit": "native sample amplitude",
+      "status": "supported"
+    },
+    {
+      "native": "me",
+      "path": "synth.modulator_envelope",
+      "kind": "array",
+      "minimum": null,
+      "maximum": null,
+      "unit": "native sample amplitude",
+      "status": "supported"
+    },
+    {
+      "native": "harmonicity",
+      "path": "synth.harmonicity",
+      "kind": "number",
+      "minimum": 0,
+      "maximum": 99999,
+      "unit": "ratio",
+      "status": "supported"
+    },
+    {
+      "native": "mod-amp",
+      "path": "synth.mod_amplitude",
+      "kind": "number",
+      "minimum": 1,
+      "maximum": 9999,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "note-dur",
+      "path": "timing.note_duration_ms",
+      "kind": "number",
+      "minimum": 1,
+      "maximum": 1e+37,
+      "unit": "ms; track-wide envelope scan",
+      "status": "supported"
+    },
+    {
+      "native": "octave",
+      "path": "timing.transposition_semitones",
+      "kind": "number",
+      "minimum": -192,
+      "maximum": 192,
+      "unit": "semitones",
+      "status": "supported"
+    },
+    {
+      "native": "overdrive",
+      "path": "effects.overdrive.level",
+      "kind": "number",
+      "minimum": 0.1,
+      "maximum": 10,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "overdrive-override",
+      "path": "effects.overdrive.override",
+      "kind": "number",
+      "minimum": 0.1,
+      "maximum": 10,
+      "unit": "native",
+      "status": "partial"
+    },
+    {
+      "native": "inst-name",
+      "path": "instrument.name",
+      "kind": "symbol",
+      "minimum": null,
+      "maximum": null,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "reverb-amp",
+      "path": "effects.reverb.amplitude",
+      "kind": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "reverb-type",
+      "path": "effects.reverb.type",
+      "kind": "integer",
+      "minimum": 0,
+      "maximum": 3,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "echo-amp",
+      "path": "effects.echo.amplitude",
+      "kind": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "echo-fb",
+      "path": "effects.echo.feedback",
+      "kind": "number",
+      "minimum": 0,
+      "maximum": 0.999,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "echo-ms",
+      "path": "effects.echo.delay_ms",
+      "kind": "number",
+      "minimum": 0.001,
+      "maximum": 9999,
+      "unit": "ms; zero also accepted (native default)",
+      "status": "supported"
+    },
+    {
+      "native": "flanger-amp",
+      "path": "effects.flanger.amplitude",
+      "kind": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "flanger-hz",
+      "path": "effects.flanger.frequency_hz",
+      "kind": "number",
+      "minimum": 0.001,
+      "maximum": 100,
+      "unit": "Hz",
+      "status": "supported"
+    },
+    {
+      "native": "flanger-mod-amp",
+      "path": "effects.flanger.mod_amplitude",
+      "kind": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "flanger-ms",
+      "path": "effects.flanger.delay_ms",
+      "kind": "number",
+      "minimum": 0.001,
+      "maximum": 50,
+      "unit": "ms",
+      "status": "supported"
+    },
+    {
+      "native": "dry-amp",
+      "path": "mixing.dry_amplitude",
+      "kind": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "out-amp",
+      "path": "mixing.output_amplitude",
+      "kind": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "unit": "native Pd dB scale",
+      "status": "supported"
+    },
+    {
+      "native": "out-pan",
+      "path": "mixing.pan",
+      "kind": "number",
+      "minimum": 0,
+      "maximum": 1.5708,
+      "unit": "radians; 0=left, 1.5708=right",
+      "status": "supported"
+    },
+    {
+      "native": "loop-length",
+      "path": "timing.loop_ms",
+      "kind": "number",
+      "minimum": 500,
+      "maximum": 10000000.0,
+      "unit": "ms",
+      "status": "supported"
+    },
+    {
+      "native": "loop",
+      "path": "playback.loop_enabled",
+      "kind": "integer",
+      "minimum": 0,
+      "maximum": 1,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "solo",
+      "path": "playback.solo",
+      "kind": "integer",
+      "minimum": 0,
+      "maximum": 1,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "tracker",
+      "path": "playback.tracker_enabled",
+      "kind": "integer",
+      "minimum": 0,
+      "maximum": 1,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "keyboard",
+      "path": "playback.keyboard_enabled",
+      "kind": "integer",
+      "minimum": 0,
+      "maximum": 1,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "insert",
+      "path": "playback.insert",
+      "kind": "integer",
+      "minimum": 0,
+      "maximum": 1,
+      "unit": "native",
+      "status": "supported"
+    },
+    {
+      "native": "delete",
+      "path": "playback.delete",
+      "kind": "integer",
+      "minimum": 0,
+      "maximum": 3,
+      "unit": "native",
+      "status": "partial"
+    },
+    {
+      "native": "hover",
+      "path": "playback.hover",
+      "kind": "number",
+      "minimum": null,
+      "maximum": null,
+      "unit": "native",
+      "status": "partial"
+    },
+    {
+      "native": "tracker-time",
+      "path": "playback.cursor",
+      "kind": "cursor",
+      "minimum": null,
+      "maximum": null,
+      "unit": "[next step, remaining ms, running]",
+      "status": "supported"
+    },
+    {
+      "native": "username",
+      "path": "instrument.username",
+      "kind": "symbol",
+      "minimum": null,
+      "maximum": null,
+      "unit": "native",
+      "status": "supported"
+    }
+  ]
+}

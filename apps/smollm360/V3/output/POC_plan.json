@@ -1,0 +1,50 @@
+[
+  {
+    "source": "jamminlicious-002-session-coll.txt",
+    "held_out_track_id": 5,
+    "requested_count": 32,
+    "constrained": false,
+    "input": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\POC_inputs\\jamminlicious-002-session-coll-without-track-5.txt",
+    "output": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\POC\\jamminlicious-002-session-coll-V3-Greedy-32.txt"
+  },
+  {
+    "source": "jamminlicious-002-session-coll.txt",
+    "held_out_track_id": 5,
+    "requested_count": 32,
+    "constrained": true,
+    "input": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\POC_inputs\\jamminlicious-002-session-coll-without-track-5.txt",
+    "output": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\POC\\jamminlicious-002-session-coll-V3-Constrained-32.txt"
+  },
+  {
+    "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+    "held_out_track_id": 4,
+    "requested_count": 16,
+    "constrained": false,
+    "input": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\POC_inputs\\mus3314-spring-2025-2nd-take-session-coll-without-track-4.txt",
+    "output": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\POC\\mus3314-spring-2025-2nd-take-session-coll-V3-Greedy-16.txt"
+  },
+  {
+    "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+    "held_out_track_id": 4,
+    "requested_count": 16,
+    "constrained": true,
+    "input": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\POC_inputs\\mus3314-spring-2025-2nd-take-session-coll-without-track-4.txt",
+    "output": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\POC\\mus3314-spring-2025-2nd-take-session-coll-V3-Constrained-16.txt"
+  },
+  {
+    "source": "spring-2025-1st-take-session-coll.txt",
+    "held_out_track_id": 6,
+    "requested_count": 8,
+    "constrained": false,
+    "input": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\POC_inputs\\spring-2025-1st-take-session-coll-without-track-6.txt",
+    "output": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\POC\\spring-2025-1st-take-session-coll-V3-Greedy-8.txt"
+  },
+  {
+    "source": "spring-2025-1st-take-session-coll.txt",
+    "held_out_track_id": 6,
+    "requested_count": 8,
+    "constrained": true,
+    "input": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\POC_inputs\\spring-2025-1st-take-session-coll-without-track-6.txt",
+    "output": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\POC\\spring-2025-1st-take-session-coll-V3-Constrained-8.txt"
+  }
+]

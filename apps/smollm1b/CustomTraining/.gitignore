@@ -1,0 +1,4 @@
+__pycache__/
+*.py[cod]
+training_output/checkpoints/*backup*
+training_output/checkpoints/history.json

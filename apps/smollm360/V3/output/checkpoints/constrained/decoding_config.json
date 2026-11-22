@@ -1,0 +1,17 @@
+{
+  "kind": "decoding experiment, not a second fine-tuning run",
+  "source_adapter": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\checkpoints\\rhythm\\best_adapter",
+  "copied_adapter": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\pd-l2ork\\apps\\V3\\output\\checkpoints\\constrained\\best_adapter",
+  "strategy": "greedy logits restricted to ascending tracker steps, exact requested count, end marker and EOS",
+  "same_weights_as_baseline": true,
+  "counts": [
+    5,
+    8,
+    10,
+    12,
+    16,
+    20
+  ],
+  "partition": "test",
+  "max_new_tokens": 512
+}

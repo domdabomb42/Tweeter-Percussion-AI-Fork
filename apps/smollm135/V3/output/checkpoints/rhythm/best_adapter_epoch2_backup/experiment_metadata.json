@@ -1,0 +1,28 @@
+{
+  "model_id": "HuggingFaceTB/SmolLM2-135M",
+  "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2",
+  "tokenizer_sha256": "7d27c493c729a66ecefc837280b05d948b1ed50d130eebdbf911b1b36cf38ed7",
+  "training_plan": {
+    "mode": "rhythm",
+    "starting_adapter": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\Tweeter-Percussion-AI\\apps\\smollm135\\CustomTraining\\training_output\\checkpoints\\best_adapter",
+    "model_id": "HuggingFaceTB/SmolLM2-135M",
+    "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2",
+    "tokenizer_sha256": "7d27c493c729a66ecefc837280b05d948b1ed50d130eebdbf911b1b36cf38ed7",
+    "train_pairs": 67,
+    "validation_pairs": 10,
+    "max_length": 8192,
+    "epochs": 20,
+    "completed_epochs": 0,
+    "additional_epochs": 20,
+    "resume": false,
+    "restart_from_feature": false,
+    "patience": 3,
+    "min_delta": 0.005,
+    "progress_seconds": 180,
+    "optimizer_state": "new optimizer for a fresh percussion run",
+    "loss_scope": "target tokens and EOS only; conditioning labels are -100",
+    "training_memory": "full conditioning prefix cached without gradients; gradients through last prefix token and rhythm target",
+    "optimizer_state_memory": "Adam moments on CPU between optimizer updates",
+    "checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\Tweeter-Percussion-AI\\apps\\smollm135\\V3\\output\\checkpoints\\rhythm\\best_adapter"
+  }
+}

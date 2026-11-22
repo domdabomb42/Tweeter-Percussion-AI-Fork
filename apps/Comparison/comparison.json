@@ -1,0 +1,343 @@
+{
+  "schema_version": 2,
+  "evaluation": "greedy and constrained; identical held-out rows and requests",
+  "generation_settings": {
+    "max_new_tokens_135m": 128,
+    "max_new_tokens_360m": 512,
+    "all_360m_outputs_ended_before_128_tokens": true,
+    "requested_note_counts": [
+      5,
+      8,
+      10,
+      12,
+      16,
+      20
+    ],
+    "test_pairs": 5
+  },
+  "sources": {
+    "smollm135": {
+      "history": "smollm135\\V3\\output\\checkpoints\\rhythm\\history.json",
+      "history_sha256": "9a16aba55877f241b6e35f0b78d3ea0f19cf13035d7bf4554883b9ee1f9c2005",
+      "test_rows": "smollm135\\V3\\output\\rhythm\\test.jsonl",
+      "test_rows_sha256": "ed3f906405022fed0cc0f440a1ac528a16305c56ebad3e94f8c54ae020af90e5",
+      "evaluations": {
+        "greedy": {
+          "path": "smollm135\\V3\\output\\evaluation\\v3_greedy_test.json",
+          "sha256": "9d50b69bf911a590bd2cffbb73f0ebe6d20d12d9a7e68f68cad5c2f6a78b188f"
+        },
+        "constrained": {
+          "path": "smollm135\\V3\\output\\evaluation\\v3_constrained_test.json",
+          "sha256": "2247712a00bbb6bbab431ae77f60ad32d12b7149ada8dc49a5a1e8ad89575544"
+        }
+      },
+      "adapters": {
+        "greedy": {
+          "path": "smollm135\\V3\\output\\checkpoints\\rhythm\\best_adapter\\adapter_model.safetensors",
+          "sha256": "4fb56263372ed8f74e5ad6b516edb60ecfc7b1ae33086d30a3d5fad6a1306a32"
+        },
+        "constrained": {
+          "path": "smollm135\\V3\\output\\checkpoints\\constrained\\best_adapter\\adapter_model.safetensors",
+          "sha256": "4fb56263372ed8f74e5ad6b516edb60ecfc7b1ae33086d30a3d5fad6a1306a32"
+        }
+      },
+      "backups": {}
+    },
+    "smollm360": {
+      "history": "smollm360\\V3\\output\\checkpoints\\rhythm\\history.json",
+      "history_sha256": "a8a843d3f90387376b31656a3d5ed2523dd19a8dc27b302f81d0436db15a093e",
+      "test_rows": "smollm360\\V3\\output\\rhythm\\test.jsonl",
+      "test_rows_sha256": "ed3f906405022fed0cc0f440a1ac528a16305c56ebad3e94f8c54ae020af90e5",
+      "evaluations": {
+        "greedy": {
+          "path": "Comparison\\smollm360_greedy_512_backup.json",
+          "sha256": "1317f36bc412f0b4f8f349d91bc0383c9b6507f424ec8f49184900efcda32f15"
+        },
+        "constrained": {
+          "path": "Comparison\\smollm360_constrained_512_backup.json",
+          "sha256": "4f2f6866a1de53503adf9c9fbeb8eb69ba3e6cd718ed30192b62a2be65104d81"
+        }
+      },
+      "adapters": {
+        "greedy": {
+          "path": "smollm360\\V3\\output\\checkpoints\\rhythm\\best_adapter\\adapter_model.safetensors",
+          "sha256": "07f2c77683b9a6ebd25d7b140d5d4dd4216c5fc3923cca2e2dd9c326b80ddfd7"
+        },
+        "constrained": {
+          "path": "smollm360\\V3\\output\\checkpoints\\constrained\\best_adapter\\adapter_model.safetensors",
+          "sha256": "07f2c77683b9a6ebd25d7b140d5d4dd4216c5fc3923cca2e2dd9c326b80ddfd7"
+        }
+      },
+      "backups": {
+        "greedy": {
+          "path": "smollm360_greedy_512_backup.json",
+          "sha256": "1317f36bc412f0b4f8f349d91bc0383c9b6507f424ec8f49184900efcda32f15",
+          "max_generated_tokens": 95
+        },
+        "constrained": {
+          "path": "smollm360_constrained_512_backup.json",
+          "sha256": "4f2f6866a1de53503adf9c9fbeb8eb69ba3e6cd718ed30192b62a2be65104d81",
+          "max_generated_tokens": 68
+        }
+      }
+    }
+  },
+  "real_test_tracks": {
+    "pairs": 5,
+    "source_sessions": 3,
+    "groove_proxies": {
+      "pulse_alignment_4_step": 0.36207792207792205,
+      "off_pulse_4_step": 0.6379220779220779,
+      "repeat_16_step": 0.3813852813852814,
+      "repeat_32_step": 0.36796536796536794,
+      "circular_gap_cv": 0.5144310762121397
+    },
+    "unique_pattern_fraction": 1.0,
+    "pairwise_jaccard_distance": 0.9300150829562595
+  },
+  "models": {
+    "smollm135": {
+      "greedy": {
+        "heldout_loss": {
+          "loss": 0.7390982519079755,
+          "perplexity": 2.094046360541663,
+          "target_tokens": 143,
+          "pairs": 5
+        },
+        "onset_f1_mean_reference_requests": 0.08214285714285714,
+        "onset_f1_mean_valid_reference": 0.1369047619047619,
+        "reference_requests": 5,
+        "sweep_requests": 30,
+        "valid_reference_patterns_for_groove": 3,
+        "note_count_exact_reference": 0.2,
+        "note_count_exact_sweep": 0,
+        "mean_absolute_note_count_error_sweep": 7.55,
+        "valid_generation_rate_all": 0.6571428571428571,
+        "valid_generation_count_all": 23,
+        "attempts_all": 35,
+        "valid_generation_rate_reference": 0.6,
+        "valid_generation_rate_sweep": 0.6666666666666666,
+        "groove_proxies_reference": {
+          "pulse_alignment_4_step": 1.0,
+          "off_pulse_4_step": 0.0,
+          "repeat_16_step": 0.40476190476190477,
+          "repeat_32_step": 0.45714285714285713,
+          "circular_gap_cv": 0.3993695308502269
+        },
+        "diversity_unique_fraction_reference": 1.0,
+        "diversity_unique_fraction_sweep": 0.35,
+        "diversity_pairwise_jaccard_reference": 0.6031746031746033,
+        "diversity_pairwise_jaccard_sweep": 0.452593984962406,
+        "human_listening_score": null,
+        "latency_device": "cuda",
+        "mean_generation_seconds_all": 36.34450400285922,
+        "median_generation_seconds_all": 42.18182189998333,
+        "mean_generation_seconds_reference": 42.072523560002445,
+        "peak_evaluation_gpu_bytes_recorded": 7478341120,
+        "training": {
+          "completed_epochs": 9,
+          "best_epoch": 7,
+          "best_validation_loss": 0.6110754831902032,
+          "epoch_seconds": [
+            3858.6260373000114,
+            3842.459582100011,
+            3470.6708029999863,
+            3637.9535152000026,
+            3634.7707803999947,
+            3633.197931600007,
+            3642.705394299992,
+            3644.0527185000246,
+            3637.5359458999883
+          ],
+          "mean_epoch_seconds": 3666.8858564777797,
+          "total_recorded_epoch_seconds": 33001.97270830002,
+          "peak_training_gpu_bytes_recorded": 8652785664
+        }
+      },
+      "constrained": {
+        "heldout_loss": {
+          "loss": 0.7390982519079755,
+          "perplexity": 2.094046360541663,
+          "target_tokens": 143,
+          "pairs": 5
+        },
+        "onset_f1_mean_reference_requests": 0.15064935064935064,
+        "onset_f1_mean_valid_reference": 0.15064935064935064,
+        "reference_requests": 5,
+        "sweep_requests": 30,
+        "valid_reference_patterns_for_groove": 5,
+        "note_count_exact_reference": 1,
+        "note_count_exact_sweep": 1,
+        "mean_absolute_note_count_error_sweep": 0,
+        "valid_generation_rate_all": 1.0,
+        "valid_generation_count_all": 35,
+        "attempts_all": 35,
+        "valid_generation_rate_reference": 1,
+        "valid_generation_rate_sweep": 1,
+        "groove_proxies_reference": {
+          "pulse_alignment_4_step": 0.8186147186147186,
+          "off_pulse_4_step": 0.18138528138528137,
+          "repeat_16_step": 0.37627705627705627,
+          "repeat_32_step": 0.3336796536796537,
+          "circular_gap_cv": 0.9173988156939914
+        },
+        "diversity_unique_fraction_reference": 1.0,
+        "diversity_unique_fraction_sweep": 0.6666666666666666,
+        "diversity_pairwise_jaccard_reference": 0.7327326431738196,
+        "diversity_pairwise_jaccard_sweep": 0.47662158606964844,
+        "human_listening_score": null,
+        "latency_device": "cuda",
+        "mean_generation_seconds_all": 34.72013147428557,
+        "median_generation_seconds_all": 40.623041699998794,
+        "mean_generation_seconds_reference": 35.856150919999706,
+        "peak_evaluation_gpu_bytes_recorded": 7478341120,
+        "training": {
+          "completed_epochs": 9,
+          "best_epoch": 7,
+          "best_validation_loss": 0.6110754831902032,
+          "epoch_seconds": [
+            3858.6260373000114,
+            3842.459582100011,
+            3470.6708029999863,
+            3637.9535152000026,
+            3634.7707803999947,
+            3633.197931600007,
+            3642.705394299992,
+            3644.0527185000246,
+            3637.5359458999883
+          ],
+          "mean_epoch_seconds": 3666.8858564777797,
+          "total_recorded_epoch_seconds": 33001.97270830002,
+          "peak_training_gpu_bytes_recorded": 8652785664
+        }
+      }
+    },
+    "smollm360": {
+      "greedy": {
+        "heldout_loss": {
+          "loss": 0.6904450004751032,
+          "perplexity": 1.9946029350350616,
+          "target_tokens": 143,
+          "pairs": 5
+        },
+        "onset_f1_mean_reference_requests": 0.17212121212121212,
+        "onset_f1_mean_valid_reference": 0.17212121212121212,
+        "reference_requests": 5,
+        "sweep_requests": 30,
+        "valid_reference_patterns_for_groove": 5,
+        "note_count_exact_reference": 0,
+        "note_count_exact_sweep": 0,
+        "mean_absolute_note_count_error_sweep": 7.766666666666667,
+        "valid_generation_rate_all": 1.0,
+        "valid_generation_count_all": 35,
+        "attempts_all": 35,
+        "valid_generation_rate_reference": 1,
+        "valid_generation_rate_sweep": 1,
+        "groove_proxies_reference": {
+          "pulse_alignment_4_step": 0.95,
+          "off_pulse_4_step": 0.05,
+          "repeat_16_step": 0.7,
+          "repeat_32_step": 0.7,
+          "circular_gap_cv": 0.18561553006146875
+        },
+        "diversity_unique_fraction_reference": 0.6,
+        "diversity_unique_fraction_sweep": 0.16666666666666666,
+        "diversity_pairwise_jaccard_reference": 0.32,
+        "diversity_pairwise_jaccard_sweep": 0.3097118524229107,
+        "human_listening_score": null,
+        "latency_device": "unrecorded",
+        "mean_generation_seconds_all": 6.596250034287472,
+        "median_generation_seconds_all": 5.992111600004137,
+        "mean_generation_seconds_reference": 6.375191780005116,
+        "peak_evaluation_gpu_bytes_recorded": null,
+        "training": {
+          "completed_epochs": 11,
+          "best_epoch": 8,
+          "best_validation_loss": 0.5704629612200468,
+          "epoch_seconds": [
+            154.6946167999995,
+            178.77027069999895,
+            189.12646840000525,
+            178.62869219999993,
+            186.28169639999396,
+            165.69856649999565,
+            157.02045490000455,
+            175.0722042999987,
+            154.1192669000011,
+            160.29617410000355,
+            159.2241486999992
+          ],
+          "mean_epoch_seconds": 168.99386908181822,
+          "total_recorded_epoch_seconds": 1858.9325599000003,
+          "peak_training_gpu_bytes_recorded": null
+        }
+      },
+      "constrained": {
+        "heldout_loss": {
+          "loss": 0.6904450004751032,
+          "perplexity": 1.9946029350350616,
+          "target_tokens": 143,
+          "pairs": 5
+        },
+        "onset_f1_mean_reference_requests": 0.17922077922077922,
+        "onset_f1_mean_valid_reference": 0.17922077922077922,
+        "reference_requests": 5,
+        "sweep_requests": 30,
+        "valid_reference_patterns_for_groove": 5,
+        "note_count_exact_reference": 1,
+        "note_count_exact_sweep": 1,
+        "mean_absolute_note_count_error_sweep": 0,
+        "valid_generation_rate_all": 1.0,
+        "valid_generation_count_all": 35,
+        "attempts_all": 35,
+        "valid_generation_rate_reference": 1,
+        "valid_generation_rate_sweep": 1,
+        "groove_proxies_reference": {
+          "pulse_alignment_4_step": 0.7366233766233766,
+          "off_pulse_4_step": 0.2633766233766234,
+          "repeat_16_step": 0.4211255411255411,
+          "repeat_32_step": 0.4211255411255411,
+          "circular_gap_cv": 0.8151379551992711
+        },
+        "diversity_unique_fraction_reference": 1.0,
+        "diversity_unique_fraction_sweep": 0.6,
+        "diversity_pairwise_jaccard_reference": 0.507005772005772,
+        "diversity_pairwise_jaccard_sweep": 0.46459764405486975,
+        "human_listening_score": null,
+        "latency_device": "unrecorded",
+        "mean_generation_seconds_all": 10.780891254284818,
+        "median_generation_seconds_all": 9.8848152999999,
+        "mean_generation_seconds_reference": 8.045868720000726,
+        "peak_evaluation_gpu_bytes_recorded": null,
+        "training": {
+          "completed_epochs": 11,
+          "best_epoch": 8,
+          "best_validation_loss": 0.5704629612200468,
+          "epoch_seconds": [
+            154.6946167999995,
+            178.77027069999895,
+            189.12646840000525,
+            178.62869219999993,
+            186.28169639999396,
+            165.69856649999565,
+            157.02045490000455,
+            175.0722042999987,
+            154.1192669000011,
+            160.29617410000355,
+            159.2241486999992
+          ],
+          "mean_epoch_seconds": 168.99386908181822,
+          "total_recorded_epoch_seconds": 1858.9325599000003,
+          "peak_training_gpu_bytes_recorded": null
+        }
+      }
+    }
+  },
+  "limitations": [
+    "No human listening study or audio coherence score was performed.",
+    "4-step pulse, off-pulse and repetition are grid proxies, not ground-truth groove ratings.",
+    "Historical training times and GPU peaks were not measured in a controlled matched run.",
+    "360M evaluation device was not recorded; latency cannot be ranked against the 135M GPU run.",
+    "The 135M recorded peak exceeds this GPU's 6 GiB of dedicated memory; shared GPU memory or a different historical setup may explain it."
+  ]
+}

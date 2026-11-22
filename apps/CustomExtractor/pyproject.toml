@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "custom-extractor"
+version = "1.0.0"
+description = "Lossless native Pd-L2Ork Tweeter feature extraction, editing and reconstruction"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+custom-extractor = "custom_extractor.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["custom_extractor*"]

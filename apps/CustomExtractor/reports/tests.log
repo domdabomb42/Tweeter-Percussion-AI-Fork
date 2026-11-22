@@ -1,0 +1,54 @@
+test_cli_error (test_custom_extractor.CLITests.test_cli_error) ... ok
+test_complete_cli_workflow (test_custom_extractor.CLITests.test_complete_cli_workflow) ... ok
+test_add_remove_and_loop (test_custom_extractor.EditingTests.test_add_remove_and_loop) ... ok
+test_add_track_keeps_existing_tracks (test_custom_extractor.EditingTests.test_add_track_keeps_existing_tracks) ... ok
+test_edit_every_parameter (test_custom_extractor.EditingTests.test_edit_every_parameter) ... ok
+test_legacy_out_of_range_is_preserved_not_clamped (test_custom_extractor.EditingTests.test_legacy_out_of_range_is_preserved_not_clamped) ... ok
+test_multi_edit_atomic_failure (test_custom_extractor.EditingTests.test_multi_edit_atomic_failure) ... ok
+test_numeric_display_character_remains_symbol (test_custom_extractor.EditingTests.test_numeric_display_character_remains_symbol) ... ok
+test_remove_parameter_clears_all_duplicates (test_custom_extractor.EditingTests.test_remove_parameter_clears_all_duplicates) ... ok
+test_rest_clears_duplicates (test_custom_extractor.EditingTests.test_rest_clears_duplicates) ... ok
+test_title_edit (test_custom_extractor.EditingTests.test_title_edit) ... ok
+test_unknown_records_unchanged_after_edit (test_custom_extractor.EditingTests.test_unknown_records_unchanged_after_edit) ... ok
+test_all_parameters_extracted (test_custom_extractor.ExtractionTests.test_all_parameters_extracted) ... ok
+test_duplicate_parameters_last_wins_raw_preserved (test_custom_extractor.ExtractionTests.test_duplicate_parameters_last_wins_raw_preserved) ... ok
+test_missing_values_not_defaults_or_zero (test_custom_extractor.ExtractionTests.test_missing_values_not_defaults_or_zero) ... ok
+test_native_pitch_and_independent_timings (test_custom_extractor.ExtractionTests.test_native_pitch_and_independent_timings) ... ok
+test_sparse_notes_and_full_native_pitch_range (test_custom_extractor.ExtractionTests.test_sparse_notes_and_full_native_pitch_range) ... ok
+test_stale_step_64_preserved_not_played (test_custom_extractor.ExtractionTests.test_stale_step_64_preserved_not_played) ... ok
+test_unknown_metadata_coverage (test_custom_extractor.ExtractionTests.test_unknown_metadata_coverage) ... ok
+test_waveforms (test_custom_extractor.ExtractionTests.test_waveforms) ... ok
+test_legacy_multisymbol_names (test_custom_extractor.ParserTests.test_legacy_multisymbol_names) ... ok
+test_malformed_inputs (test_custom_extractor.ParserTests.test_malformed_inputs) ... ok
+test_multiline_envelopes_exact (test_custom_extractor.ParserTests.test_multiline_envelopes_exact) ... ok
+test_native_escapes_and_atom_types (test_custom_extractor.ParserTests.test_native_escapes_and_atom_types) ... ok
+test_not_a_tweeter_snapshot (test_custom_extractor.ParserTests.test_not_a_tweeter_snapshot) ... ok
+test_numeric_grammar (test_custom_extractor.ParserTests.test_numeric_grammar) ... ok
+test_record_numbers_are_not_timing (test_custom_extractor.ParserTests.test_record_numbers_are_not_timing) ... ok
+test_unknown_symbolic_coll_keys (test_custom_extractor.ParserTests.test_unknown_symbolic_coll_keys) ... ok
+test_bom_preserved (test_custom_extractor.RoundTripTests.test_bom_preserved) ... ok
+test_generated_composition_without_native_text (test_custom_extractor.RoundTripTests.test_generated_composition_without_native_text) ... ok
+test_json_disk_round_trip_and_determinism (test_custom_extractor.RoundTripTests.test_json_disk_round_trip_and_determinism) ... ok
+test_json_native_exact_bytes (test_custom_extractor.RoundTripTests.test_json_native_exact_bytes) ... ok
+test_legacy_bytes_and_line_endings (test_custom_extractor.RoundTripTests.test_legacy_bytes_and_line_endings) ... ok
+test_randomized_compositions (test_custom_extractor.RoundTripTests.test_randomized_compositions) ... ok
+test_real_corpus (test_custom_extractor.RoundTripTests.test_real_corpus) ... ok
+test_bad_json_and_versions (test_custom_extractor.ValidationTests.test_bad_json_and_versions) ... ok
+test_bad_parameter_values (test_custom_extractor.ValidationTests.test_bad_parameter_values) ... ok
+test_failed_export_does_not_overwrite (test_custom_extractor.ValidationTests.test_failed_export_does_not_overwrite) ... ok
+test_invalid_tracks_and_parameters (test_custom_extractor.ValidationTests.test_invalid_tracks_and_parameters) ... ok
+test_malformed_native_fields (test_custom_extractor.ValidationTests.test_malformed_native_fields) ... ok
+test_native_fractional_and_non_midi_pitches (test_custom_extractor.ValidationTests.test_native_fractional_and_non_midi_pitches) ... ok
+test_new_track_requires_timing_with_notes (test_custom_extractor.ValidationTests.test_new_track_requires_timing_with_notes) ... ok
+test_note_boundaries_and_occupied_step (test_custom_extractor.ValidationTests.test_note_boundaries_and_occupied_step) ... ok
+test_only_fourteen_supported_native_parts (test_custom_extractor.ValidationTests.test_only_fourteen_supported_native_parts) ... ok
+test_schema_rejects_unexported_extra_fields (test_custom_extractor.ValidationTests.test_schema_rejects_unexported_extra_fields) ... ok
+test_track_reorder_or_delete_rejected (test_custom_extractor.ValidationTests.test_track_reorder_or_delete_rejected) ... ok
+test_zero_echo_delay_native_default (test_custom_extractor.ValidationTests.test_zero_echo_delay_native_default) ... ok
+test_native_generated_track_and_numeric_keyboard_symbol (test_native.NativeCompatibilityTests.test_native_generated_track_and_numeric_keyboard_symbol) ... ok
+test_native_synthetic_all_fields_and_escaped_symbols (test_native.NativeCompatibilityTests.test_native_synthetic_all_fields_and_escaped_symbols) ... ok
+
+----------------------------------------------------------------------
+Ran 49 tests in 205.420s
+
+OK

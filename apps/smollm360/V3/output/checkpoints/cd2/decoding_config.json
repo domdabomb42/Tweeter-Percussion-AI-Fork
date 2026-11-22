@@ -1,0 +1,11 @@
+{
+  "name": "CD2",
+  "kind": "decoding-only experiment",
+  "adapter": "../constrained/best_adapter",
+  "same_weights_as_v3_constrained": true,
+  "target_note_count": "exactly requested",
+  "tracker_positions": "unique integers 0..63 in any generated order",
+  "native_export": "sort generated positions because Tweeter requires ascending track steps",
+  "sampling": "greedy",
+  "trained_separately": false
+}

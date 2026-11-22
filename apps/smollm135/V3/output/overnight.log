@@ -1,0 +1,205 @@
+V3 overnight log: C:\Users\jklus\Downloads\APCSA Code\L2ORK ftgu\Tweeter-Percussion-AI\apps\smollm135\V3\output\overnight.log
+{
+  "baseline_training_plan": {
+    "mode": "rhythm",
+    "starting_adapter": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\Tweeter-Percussion-AI\\apps\\smollm135\\CustomTraining\\training_output\\checkpoints\\best_adapter",
+    "model_id": "HuggingFaceTB/SmolLM2-135M",
+    "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2",
+    "tokenizer_sha256": "7d27c493c729a66ecefc837280b05d948b1ed50d130eebdbf911b1b36cf38ed7",
+    "train_pairs": 67,
+    "validation_pairs": 10,
+    "max_length": 8192,
+    "epochs": 20,
+    "completed_epochs": 0,
+    "additional_epochs": 20,
+    "resume": false,
+    "restart_from_feature": false,
+    "patience": 3,
+    "min_delta": 0.005,
+    "progress_seconds": 180,
+    "optimizer_state": "new optimizer for a fresh percussion run",
+    "loss_scope": "target tokens and EOS only; conditioning labels are -100",
+    "training_memory": "full conditioning prefix cached without gradients; gradients through last prefix token and rhythm target",
+    "optimizer_state_memory": "Adam moments on CPU between optimizer updates",
+    "checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\Tweeter-Percussion-AI\\apps\\smollm135\\V3\\output\\checkpoints\\rhythm\\best_adapter"
+  },
+  "next_stage": "copy best baseline adapter, then run constrained-decoding evaluation",
+  "constrained_checkpoint": "C:\\Users\\jklus\\Downloads\\APCSA Code\\L2ORK ftgu\\Tweeter-Percussion-AI\\apps\\smollm135\\V3\\output\\checkpoints\\constrained\\best_adapter"
+}
+V3 overnight log: C:\Users\jklus\Downloads\APCSA Code\L2ORK ftgu\Tweeter-Percussion-AI\apps\smollm135\V3\output\overnight.log
+rhythm: loading model; progress reports about every 180 seconds
+`torch_dtype` is deprecated! Use `dtype` instead!
+rhythm epoch 1 training pair 5/67 running target loss 1.3229 elapsed 3.2 min
+rhythm epoch 1 training pair 9/67 running target loss 1.2178 elapsed 6.9 min
+rhythm epoch 1 training pair 12/67 running target loss 1.2621 elapsed 10.1 min
+rhythm epoch 1 training pair 18/67 running target loss 1.0959 elapsed 13.5 min
+rhythm epoch 1 training pair 22/67 running target loss 1.1895 elapsed 17.1 min
+rhythm epoch 1 training pair 27/67 running target loss 1.1159 elapsed 20.2 min
+rhythm epoch 1 training pair 30/67 running target loss 1.1389 elapsed 23.2 min
+rhythm epoch 1 training pair 34/67 running target loss 1.1559 elapsed 26.5 min
+rhythm epoch 1 training pair 37/67 running target loss 1.1729 elapsed 29.8 min
+rhythm epoch 1 training pair 41/67 running target loss 1.1457 elapsed 33.8 min
+rhythm epoch 1 training pair 45/67 running target loss 1.1446 elapsed 37.3 min
+rhythm epoch 1 training pair 49/67 running target loss 1.1186 elapsed 40.5 min
+rhythm epoch 1 training pair 52/67 running target loss 1.1387 elapsed 43.9 min
+rhythm epoch 1 training pair 55/67 running target loss 1.1594 elapsed 47.0 min
+rhythm epoch 1 training pair 59/67 running target loss 1.1256 elapsed 50.3 min
+rhythm epoch 1 training pair 62/67 running target loss 1.1417 elapsed 53.5 min
+rhythm epoch 1 training pair 66/67 running target loss 1.1423 elapsed 57.2 min
+rhythm epoch 1 validation pair 5/10 running target loss 2.0024 elapsed 60.6 min
+rhythm epoch 1 validation pair 9/10 running target loss 1.7709 elapsed 63.8 min
+rhythm epoch 1: train 1.1423 validation 1.7480
+rhythm epoch 2 training pair 5/67 running target loss 1.2468 elapsed 67.5 min
+rhythm epoch 2 training pair 9/67 running target loss 1.3317 elapsed 71.1 min
+rhythm epoch 2 training pair 14/67 running target loss 0.9026 elapsed 74.5 min
+rhythm epoch 2 training pair 19/67 running target loss 0.8258 elapsed 78.2 min
+rhythm epoch 2 training pair 23/67 running target loss 0.8788 elapsed 81.7 min
+rhythm epoch 2 training pair 27/67 running target loss 0.8952 elapsed 85.2 min
+rhythm epoch 2 training pair 30/67 running target loss 0.8897 elapsed 88.3 min
+rhythm epoch 2 training pair 33/67 running target loss 0.9015 elapsed 91.3 min
+rhythm epoch 2 training pair 37/67 running target loss 0.8575 elapsed 94.9 min
+rhythm epoch 2 training pair 40/67 running target loss 0.8589 elapsed 97.9 min
+rhythm epoch 2 training pair 44/67 running target loss 0.8651 elapsed 101.6 min
+rhythm epoch 2 training pair 47/67 running target loss 0.8743 elapsed 104.8 min
+rhythm epoch 2 training pair 51/67 running target loss 0.8985 elapsed 108.1 min
+rhythm epoch 2 training pair 55/67 running target loss 0.9107 elapsed 111.3 min
+rhythm epoch 2 training pair 59/67 running target loss 0.9107 elapsed 114.8 min
+rhythm epoch 2 training pair 63/67 running target loss 0.8921 elapsed 117.8 min
+rhythm epoch 2 training pair 66/67 running target loss 0.8922 elapsed 121.3 min
+rhythm epoch 2 validation pair 5/10 running target loss 1.4586 elapsed 124.7 min
+rhythm epoch 2 validation pair 9/10 running target loss 1.3095 elapsed 127.8 min
+rhythm epoch 2: train 0.8885 validation 1.2915
+rhythm epoch 3 training pair 5/67 running target loss 1.0213 elapsed 132.1 min
+V3 overnight log: C:\Users\jklus\Downloads\APCSA Code\L2ORK ftgu\Tweeter-Percussion-AI\apps\smollm135\V3\output\overnight.log
+rhythm: loading model; progress reports about every 180 seconds
+`torch_dtype` is deprecated! Use `dtype` instead!
+rhythm epoch 3 training pair 6/67 running target loss 1.0472 elapsed 3.6 min
+rhythm epoch 3 training pair 11/67 running target loss 0.7991 elapsed 6.9 min
+rhythm epoch 3 training pair 16/67 running target loss 0.7505 elapsed 10.4 min
+rhythm epoch 3 training pair 21/67 running target loss 0.6710 elapsed 13.8 min
+rhythm epoch 3 training pair 26/67 running target loss 0.7033 elapsed 17.0 min
+rhythm epoch 3 training pair 31/67 running target loss 0.7199 elapsed 20.9 min
+rhythm epoch 3 training pair 35/67 running target loss 0.7340 elapsed 24.5 min
+rhythm epoch 3 training pair 39/67 running target loss 0.7244 elapsed 27.9 min
+rhythm epoch 3 training pair 43/67 running target loss 0.7211 elapsed 31.4 min
+rhythm epoch 3 training pair 48/67 running target loss 0.6870 elapsed 34.4 min
+rhythm epoch 3 training pair 52/67 running target loss 0.6893 elapsed 37.5 min
+rhythm epoch 3 training pair 55/67 running target loss 0.6975 elapsed 41.0 min
+rhythm epoch 3 training pair 59/67 running target loss 0.7077 elapsed 44.8 min
+rhythm epoch 3 training pair 63/67 running target loss 0.7179 elapsed 48.0 min
+rhythm epoch 3 training pair 67/67 running target loss 0.7018 elapsed 51.4 min
+rhythm epoch 3 validation pair 6/10 running target loss 1.1168 elapsed 55.6 min
+rhythm epoch 3: train 0.7018 validation 0.9693
+rhythm epoch 4 training pair 2/67 running target loss 0.5596 elapsed 59.2 min
+rhythm epoch 4 training pair 7/67 running target loss 0.3679 elapsed 63.4 min
+rhythm epoch 4 training pair 12/67 running target loss 0.4614 elapsed 66.5 min
+rhythm epoch 4 training pair 16/67 running target loss 0.5268 elapsed 70.2 min
+rhythm epoch 4 training pair 21/67 running target loss 0.4838 elapsed 73.6 min
+rhythm epoch 4 training pair 26/67 running target loss 0.5234 elapsed 77.0 min
+rhythm epoch 4 training pair 31/67 running target loss 0.5335 elapsed 80.5 min
+rhythm epoch 4 training pair 34/67 running target loss 0.5439 elapsed 84.0 min
+rhythm epoch 4 training pair 37/67 running target loss 0.5525 elapsed 87.4 min
+rhythm epoch 4 training pair 40/67 running target loss 0.5610 elapsed 90.6 min
+rhythm epoch 4 training pair 44/67 running target loss 0.5813 elapsed 93.9 min
+rhythm epoch 4 training pair 48/67 running target loss 0.5811 elapsed 97.3 min
+rhythm epoch 4 training pair 53/67 running target loss 0.5781 elapsed 101.0 min
+rhythm epoch 4 training pair 57/67 running target loss 0.5731 elapsed 104.6 min
+rhythm epoch 4 training pair 61/67 running target loss 0.5766 elapsed 108.1 min
+rhythm epoch 4 training pair 66/67 running target loss 0.5785 elapsed 111.4 min
+rhythm epoch 4 validation pair 5/10 running target loss 0.8951 elapsed 114.8 min
+rhythm epoch 4 validation pair 9/10 running target loss 0.8103 elapsed 117.9 min
+rhythm epoch 4: train 0.5792 validation 0.7878
+rhythm epoch 5 training pair 4/67 running target loss 0.6551 elapsed 121.7 min
+rhythm epoch 5 training pair 8/67 running target loss 0.5680 elapsed 125.2 min
+rhythm epoch 5 training pair 12/67 running target loss 0.5819 elapsed 128.4 min
+rhythm epoch 5 training pair 16/67 running target loss 0.5525 elapsed 131.5 min
+rhythm epoch 5 training pair 21/67 running target loss 0.5541 elapsed 134.9 min
+rhythm epoch 5 training pair 25/67 running target loss 0.5273 elapsed 137.9 min
+rhythm epoch 5 training pair 28/67 running target loss 0.5308 elapsed 141.1 min
+rhythm epoch 5 training pair 31/67 running target loss 0.5462 elapsed 144.2 min
+rhythm epoch 5 training pair 35/67 running target loss 0.5603 elapsed 147.4 min
+rhythm epoch 5 training pair 40/67 running target loss 0.5738 elapsed 150.5 min
+rhythm epoch 5 training pair 43/67 running target loss 0.5774 elapsed 153.5 min
+rhythm epoch 5 training pair 48/67 running target loss 0.5269 elapsed 157.4 min
+rhythm epoch 5 training pair 52/67 running target loss 0.5377 elapsed 161.0 min
+rhythm epoch 5 training pair 56/67 running target loss 0.4995 elapsed 164.3 min
+rhythm epoch 5 training pair 60/67 running target loss 0.5065 elapsed 167.4 min
+rhythm epoch 5 training pair 64/67 running target loss 0.5126 elapsed 170.7 min
+rhythm epoch 5 validation pair 3/10 running target loss 0.9676 elapsed 174.1 min
+rhythm epoch 5 validation pair 7/10 running target loss 0.7846 elapsed 177.3 min
+rhythm epoch 5: train 0.5123 validation 0.7001
+rhythm epoch 6 training pair 2/67 running target loss 0.6844 elapsed 181.1 min
+rhythm epoch 6 training pair 7/67 running target loss 0.3350 elapsed 185.0 min
+rhythm epoch 6 training pair 12/67 running target loss 0.4370 elapsed 188.6 min
+rhythm epoch 6 training pair 16/67 running target loss 0.4441 elapsed 192.3 min
+rhythm epoch 6 training pair 20/67 running target loss 0.4293 elapsed 195.5 min
+rhythm epoch 6 training pair 24/67 running target loss 0.3933 elapsed 198.6 min
+rhythm epoch 6 training pair 27/67 running target loss 0.3980 elapsed 201.6 min
+rhythm epoch 6 training pair 31/67 running target loss 0.4084 elapsed 204.9 min
+rhythm epoch 6 training pair 36/67 running target loss 0.4204 elapsed 208.3 min
+rhythm epoch 6 training pair 40/67 running target loss 0.4293 elapsed 211.3 min
+rhythm epoch 6 training pair 45/67 running target loss 0.4459 elapsed 215.3 min
+rhythm epoch 6 training pair 49/67 running target loss 0.4489 elapsed 218.9 min
+rhythm epoch 6 training pair 54/67 running target loss 0.4586 elapsed 222.9 min
+rhythm epoch 6 training pair 58/67 running target loss 0.4706 elapsed 226.5 min
+rhythm epoch 6 training pair 63/67 running target loss 0.4659 elapsed 229.7 min
+rhythm epoch 6 training pair 67/67 running target loss 0.4711 elapsed 233.1 min
+rhythm epoch 6 validation pair 6/10 running target loss 0.7826 elapsed 237.3 min
+rhythm epoch 6: train 0.4711 validation 0.6467
+rhythm epoch 7 training pair 1/67 running target loss 0.5902 elapsed 240.4 min
+rhythm epoch 7 training pair 5/67 running target loss 0.7181 elapsed 243.7 min
+rhythm epoch 7 training pair 10/67 running target loss 0.4869 elapsed 247.3 min
+rhythm epoch 7 training pair 14/67 running target loss 0.5078 elapsed 250.9 min
+rhythm epoch 7 training pair 19/67 running target loss 0.4462 elapsed 254.6 min
+rhythm epoch 7 training pair 23/67 running target loss 0.4352 elapsed 257.7 min
+rhythm epoch 7 training pair 27/67 running target loss 0.4302 elapsed 260.9 min
+rhythm epoch 7 training pair 31/67 running target loss 0.4346 elapsed 264.2 min
+rhythm epoch 7 training pair 36/67 running target loss 0.4372 elapsed 267.9 min
+rhythm epoch 7 training pair 40/67 running target loss 0.4468 elapsed 271.5 min
+rhythm epoch 7 training pair 44/67 running target loss 0.4690 elapsed 274.5 min
+rhythm epoch 7 training pair 49/67 running target loss 0.4776 elapsed 278.7 min
+rhythm epoch 7 training pair 53/67 running target loss 0.4717 elapsed 282.0 min
+rhythm epoch 7 training pair 57/67 running target loss 0.4780 elapsed 285.2 min
+rhythm epoch 7 training pair 62/67 running target loss 0.4358 elapsed 289.0 min
+rhythm epoch 7 training pair 66/67 running target loss 0.4404 elapsed 293.1 min
+rhythm epoch 7 validation pair 5/10 running target loss 0.6943 elapsed 296.7 min
+rhythm epoch 7 validation pair 9/10 running target loss 0.6364 elapsed 299.8 min
+rhythm epoch 7: train 0.4433 validation 0.6111
+rhythm epoch 8 training pair 4/67 running target loss 0.3806 elapsed 303.1 min
+rhythm epoch 8 training pair 8/67 running target loss 0.4295 elapsed 306.4 min
+rhythm epoch 8 training pair 13/67 running target loss 0.4850 elapsed 309.5 min
+rhythm epoch 8 training pair 16/67 running target loss 0.4828 elapsed 312.5 min
+rhythm epoch 8 training pair 20/67 running target loss 0.4817 elapsed 316.4 min
+rhythm epoch 8 training pair 25/67 running target loss 0.4831 elapsed 319.6 min
+rhythm epoch 8 training pair 29/67 running target loss 0.4545 elapsed 322.8 min
+rhythm epoch 8 training pair 33/67 running target loss 0.4715 elapsed 326.8 min
+rhythm epoch 8 training pair 37/67 running target loss 0.4618 elapsed 329.8 min
+rhythm epoch 8 training pair 41/67 running target loss 0.4602 elapsed 333.5 min
+rhythm epoch 8 training pair 46/67 running target loss 0.4658 elapsed 337.3 min
+rhythm epoch 8 training pair 50/67 running target loss 0.4374 elapsed 340.5 min
+rhythm epoch 8 training pair 54/67 running target loss 0.4364 elapsed 343.7 min
+rhythm epoch 8 training pair 59/67 running target loss 0.4103 elapsed 347.4 min
+rhythm epoch 8 training pair 63/67 running target loss 0.4134 elapsed 351.4 min
+rhythm epoch 8 training pair 67/67 running target loss 0.4137 elapsed 354.6 min
+rhythm epoch 8 validation pair 6/10 running target loss 0.7681 elapsed 358.8 min
+rhythm epoch 8: train 0.4137 validation 0.6195
+rhythm epoch 9 training pair 2/67 running target loss 0.4758 elapsed 362.0 min
+rhythm epoch 9 training pair 6/67 running target loss 0.4390 elapsed 365.4 min
+rhythm epoch 9 training pair 9/67 running target loss 0.4362 elapsed 368.5 min
+rhythm epoch 9 training pair 14/67 running target loss 0.3475 elapsed 372.1 min
+rhythm epoch 9 training pair 18/67 running target loss 0.3487 elapsed 375.2 min
+rhythm epoch 9 training pair 22/67 running target loss 0.3641 elapsed 378.4 min
+rhythm epoch 9 training pair 27/67 running target loss 0.3938 elapsed 382.0 min
+rhythm epoch 9 training pair 31/67 running target loss 0.3926 elapsed 385.7 min
+rhythm epoch 9 training pair 35/67 running target loss 0.4001 elapsed 388.8 min
+rhythm epoch 9 training pair 39/67 running target loss 0.4073 elapsed 392.4 min
+rhythm epoch 9 training pair 42/67 running target loss 0.4134 elapsed 395.6 min
+rhythm epoch 9 training pair 47/67 running target loss 0.3836 elapsed 399.2 min
+rhythm epoch 9 training pair 52/67 running target loss 0.3858 elapsed 402.8 min
+rhythm epoch 9 training pair 57/67 running target loss 0.3868 elapsed 406.5 min
+rhythm epoch 9 training pair 61/67 running target loss 0.3913 elapsed 409.9 min
+rhythm epoch 9 training pair 64/67 running target loss 0.3947 elapsed 413.2 min
+rhythm epoch 9 validation pair 2/10 running target loss 0.8507 elapsed 416.3 min
+rhythm epoch 9 validation pair 6/10 running target loss 0.7934 elapsed 419.4 min
+rhythm epoch 9: train 0.3918 validation 0.6242
+rhythm epoch 10 training pair 2/67 running target loss 0.4608 elapsed 423.5 min

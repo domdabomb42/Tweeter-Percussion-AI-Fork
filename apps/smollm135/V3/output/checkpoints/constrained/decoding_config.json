@@ -1,0 +1,7 @@
+{
+  "kind": "decoding experiment, not a second fine-tuning run",
+  "source_adapter": "apps\\smollm135\\V3\\output\\checkpoints\\rhythm\\best_adapter",
+  "copied_adapter": "apps\\smollm135\\V3\\output\\checkpoints\\constrained\\best_adapter",
+  "strategy": "greedy logits restricted to ascending tracker steps, exact requested count, end marker and EOS",
+  "same_weights_as_baseline": true
+}
