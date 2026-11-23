@@ -17,7 +17,7 @@ function Invoke-CheckedPython {
 $models = @(
     @{ Name = '135MEA'; Folder = 'smollm135'; LoraRate = '1e-4'; EmbeddingRate = '1e-4'; Cpu = $false },
     @{ Name = '360MEA'; Folder = 'smollm360'; LoraRate = '1e-4'; EmbeddingRate = '5e-5'; Cpu = $false },
-    @{ Name = '17BEA'; Folder = 'smollm1b'; LoraRate = '5e-5'; EmbeddingRate = '5e-5'; Cpu = $true }
+    @{ Name = '17BEA'; Folder = 'smollm1b'; LoraRate = '5e-5'; EmbeddingRate = '5e-5'; Cpu = $false }
 )
 
 foreach ($model in $models) {

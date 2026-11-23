@@ -77,5 +77,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\apps\run_v4ea_overnight.ps
 ```
 
 The runner prepares missing tokenizers and datasets, resumes existing
-checkpoints, and advances after successful completion. The 1.7B stage uses
-CPU on this 6 GB GPU machine; it may take much longer than one night.
+checkpoints, and advances after successful completion. New 1.7B runs use
+the GPU: a local 4,096-token LoRA optimizer-step smoke test peaked at
+5,338 MiB reserved on the 6 GiB RTX 3060. Resuming a CPU checkpoint
+keeps the original device. Keep other GPU workloads closed while training.
