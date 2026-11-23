@@ -3,8 +3,8 @@
 This directory creates new native Tweeter `.txt` sessions by changing where
 each existing 64-slot tracker pattern begins. It adds no notes and changes no
 instrument settings. The inputs are the 51 original files in `../sessions/`;
-they are never written to. The generated files are **not yet used by any
-training script**.
+they are never written to. The SmolLM2 135M and 360M V3 trainers can use the
+generated files when preparing a fresh augmented dataset.
 
 ## Run
 
@@ -89,8 +89,6 @@ transport synchronization can also change the live playback cursor. The
 files preserve the saved synthesis/effect settings, but the script does not
 claim byte-identical rendered audio after a time shift.
 
-**Future training must split by original session before adding these files.**
-Every augmented child must stay in the same train, validation or test
-partition as its parent; otherwise the model can see the same composition on
-both sides of an evaluation split. Existing splits and training scripts are
-unchanged by this task.
+The V3 trainers add only children of original training sessions. Validation
+and test retain their original sessions, so shifted copies cannot cross into
+training from those held-out splits. Historical checkpoints are unchanged.

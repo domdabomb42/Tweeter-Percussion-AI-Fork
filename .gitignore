@@ -43,3 +43,9 @@ certs/*
 *.app
 logs
 *.map
+apps/smollm135/V3/output_augmented/
+apps/smollm135/V3/output_augmented_from_epoch7/
+apps/smollm360/V3/output_augmented/
+apps/smollm*/V3/output_lossless_v2*/
+apps/smollm*/V3/.preparing_lossless_v2_*/
+__pycache__/

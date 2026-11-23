@@ -1,6 +1,7 @@
 """Render measured experiment files; do not replace absent results with claims."""
 from pathlib import Path
 import json
+from . import MODEL_ID
 
 
 def _read(path):
@@ -19,7 +20,7 @@ def render(output_root, report_path):
     history = _read(root / "checkpoints" / "history.json")
     tokens = manifest["token_counts"]
     counts = manifest["split"]["actual_counts"]
-    lines = ["# SmolLM2-360M CustomExtractor proof of concept", "",
+    lines = [f"# {MODEL_ID.rsplit('/', 1)[-1]} CustomExtractor proof of concept", "",
              "## Dataset", "",
              f"The main sessions folder yielded **{manifest['sessions']} real native sessions**, "
              f"**{manifest['tracks']} tracks**, and **{manifest['notes']} active notes**. "
@@ -58,7 +59,7 @@ def render(output_root, report_path):
                   "## Training", ""])
     if history:
         plan = history["plan"]
-        lines += [f"SmolLM2-360M was fine-tuned on **{plan['device']}** using **{plan['dtype']}**, "
+        lines += [f"{MODEL_ID.rsplit('/', 1)[-1]} was fine-tuned on **{plan['device']}** using **{plan['dtype']}**, "
                   f"LoRA rank {plan['lora_rank']}, alpha {plan['lora_alpha']}, dropout {plan['lora_dropout']}. "
                   f"It completed **{history['epochs'][-1]['updates']} optimizer updates** in "
                   f"{history.get('elapsed_seconds', 0)/60:.1f} minutes. Best checkpoint: "

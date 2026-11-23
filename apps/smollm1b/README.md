@@ -1,6 +1,13 @@
 # 1.7B experiment
 
-Despite the folder name, `smollm1b` uses the **1.7B** parameter [`HuggingFaceTB/SmolLM2-1.7B`](https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B/tree/effd688a12921b4cc83e3312b6feb579f70f9c71) base model, revision `effd688a12921b4cc83e3312b6feb579f70f9c71`. Its feature and V3 adapters have **not** been trained. Prepared feature data and 67/10/5 V3 examples retain the same source-session assignments and rhythm targets as 360M; its tokenizer was independently loaded from the pinned 1.7B model.
+The separate [V4EA-synth](V4EA-synth/README.md) experiment trains a fresh
+tokenizer and predicts a complete percussion track. Its new files go to
+`MostRecentOutput` and do not replace V3.
+
+The three-model V3 consistency, optimization, and V2 preparation notes are in
+[../SMOLLM_V3_EFFICIENCY.md](../SMOLLM_V3_EFFICIENCY.md).
+
+Despite the folder name, `smollm1b` uses the **1.7B** parameter [`HuggingFaceTB/SmolLM2-1.7B`](https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B/tree/effd688a12921b4cc83e3312b6feb579f70f9c71) base model, revision `effd688a12921b4cc83e3312b6feb579f70f9c71`. A feature adapter is present; no V3 percussion adapter is present. Prepared feature data and 67/10/5 V3 examples retain the same source-session assignments and rhythm targets as 360M; its tokenizer was independently loaded from the pinned 1.7B model.
 
 From the repository root, `python run_smollm1b.py` runs missing preparation, feature pretraining, and then V3 percussion training in order without intervention. `python run_smollm1b.py --dry-run` previews the remaining stages. The pretrained tokenizer is used as-is; the feature model learns from its tokenized Tweeter compositions.
 
@@ -16,7 +23,7 @@ python -m custom_training evaluate
 After feature training completes, from `V3`:
 
 ```powershell
-python -m percussion_generation_v3 prepare
+python -m percussion_generation_v3 prepare --encoding legacy-v1
 python run_overnight.py --dry-run
 python run_overnight.py
 python -m percussion_generation_v3 generate --input input.txt --output output/generated/example.txt --target-note-count 16 --cd2 --max-new-tokens 512

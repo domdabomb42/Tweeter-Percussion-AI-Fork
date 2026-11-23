@@ -5,9 +5,11 @@ from pathlib import Path
 import random
 import shutil
 import time
+from contextlib import nullcontext
 from datetime import datetime, timezone
 
 from .data import FEATURE_ADAPTER, load_rows, load_tokenizer
+from .profiling import StageProfiler
 
 
 def masked_example(row, device):
@@ -20,7 +22,7 @@ def masked_example(row, device):
     return ids, labels
 
 
-def cached_target_loss(model, row, device):
+def cached_target_loss(model, row, device, profiler=None):
     """Backpropagate target tokens against a detached full-prefix KV cache.
 
     The final prefix token is included in the trainable segment so the first
@@ -34,14 +36,16 @@ def cached_target_loss(model, row, device):
     prefix = torch.tensor([prefix_ids[:-1]], dtype=torch.long, device=device)
     segment = torch.tensor([[prefix_ids[-1], *target_ids]], dtype=torch.long, device=device)
     labels = torch.tensor([[-100, *target_ids]], dtype=torch.long, device=device)
-    with torch.no_grad():
-        context = model(input_ids=prefix, use_cache=True)
-        cache = context.past_key_values
+    with (profiler.stage("prefix_forward") if profiler else nullcontext()):
+        with torch.no_grad():
+            context = model(input_ids=prefix, use_cache=True)
+            cache = context.past_key_values
     del context
-    output = model(input_ids=segment, past_key_values=cache,
-                   attention_mask=torch.ones((1, len(prefix_ids) + len(target_ids)),
-                                             dtype=torch.long, device=device),
-                   labels=labels, use_cache=False)
+    with (profiler.stage("target_forward") if profiler else nullcontext()):
+        output = model(input_ids=segment, past_key_values=cache,
+                       attention_mask=torch.ones((1, len(prefix_ids) + len(target_ids)),
+                                                 dtype=torch.long, device=device),
+                       labels=labels, use_cache=False)
     loss = output.loss
     del output, cache
     return loss
@@ -70,13 +74,13 @@ def load_feature_model(adapter=FEATURE_ADAPTER, cpu=False, trainable=False):
     return model, device
 
 
-def heldout_loss(model, rows, device, progress=None):
+def heldout_loss(model, rows, device, progress=None, profiler=None):
     import torch
     if not rows:
         return {"loss": None, "target_tokens": 0, "pairs": 0}
     total = count = 0
     model.eval()
-    with torch.inference_mode():
+    with torch.inference_mode(), (profiler.stage("validation") if profiler else nullcontext()):
         for index, row in enumerate(rows, 1):
             ids, labels = masked_example(row, device)
             result = model(input_ids=ids, labels=labels, use_cache=False)
@@ -99,10 +103,49 @@ def move_adam_statistics(optimizer, device):
                 state[name] = value.to(device, non_blocking=False)
 
 
-def train(output_dir, mode, epochs=5, learning_rate=1e-4,
+def consume_loss_group(pending):
+    """Read one group of detached losses with one GPU-to-CPU synchronization.
+
+    Backward has already run for each row. Nonfinite values still stop the run
+    before clipping or optimizer.step(), preserving checkpoint boundaries.
+    """
+    import math
+    import torch
+    if not pending:
+        return 0.0, 0
+    values = torch.stack([loss for loss, _, _ in pending]).cpu().tolist()
+    weighted = tokens = 0
+    for value, count, row in zip(values, (item[1] for item in pending),
+                                 (item[2] for item in pending)):
+        if not math.isfinite(value):
+            raise ValueError(f"nonfinite loss: {row['source']} track {row['target_track_id']}")
+        weighted += value * count
+        tokens += count
+    pending.clear()
+    return weighted, tokens
+
+
+def train(output_dir, mode, epochs=None, learning_rate=None,
           accumulation=8, patience=2, seed=415, cpu=False, dry_run=False,
           resume=False, restart_from_feature=False, min_delta=1e-4,
-          progress_seconds=0):
+          progress_seconds=0, init_adapter=None, examples_per_epoch=None,
+          save_steps=None, resume_checkpoint=None, profile=False):
+    if (init_adapter is not None or examples_per_epoch is not None
+            or save_steps is not None or resume_checkpoint is not None):
+        if mode != "rhythm" or resume or restart_from_feature:
+            raise ValueError("rotating experiment uses --init-adapter or --resume-checkpoint, not legacy resume")
+        from .rotating_train import train_rotating
+        return train_rotating(output_dir, init_adapter=init_adapter,
+                              resume_checkpoint=resume_checkpoint,
+                              examples_per_epoch=examples_per_epoch,
+                              learning_rate=learning_rate, save_steps=save_steps,
+                              epochs=epochs, accumulation=accumulation,
+                              patience=patience, seed=seed, cpu=cpu,
+                              dry_run=dry_run, progress_seconds=progress_seconds,
+                              profile=profile)
+    epochs = 5 if epochs is None else epochs
+    learning_rate = 1e-4 if learning_rate is None else learning_rate
+    patience = 3 if patience is None else patience
     if mode != "rhythm":
         raise ValueError("V3 trains only rhythm")
     if (epochs < 1 or epochs > 30 or accumulation < 1 or patience < 1
@@ -115,6 +158,8 @@ def train(output_dir, mode, epochs=5, learning_rate=1e-4,
     train_rows = load_rows(root, mode, "train")
     val_rows = load_rows(root, mode, "validation")
     manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
+    if manifest.get("encoding") == "lossless-v2":
+        raise ValueError("lossless-v2 requires explicit --init-adapter warm start or --resume-checkpoint")
     from custom_training import MODEL_ID, MODEL_REVISION
     if manifest.get("model_id", MODEL_ID) != MODEL_ID or manifest.get("revision", MODEL_REVISION) != MODEL_REVISION:
         raise ValueError("V3 prepared data belongs to another model")
@@ -189,6 +234,7 @@ def train(output_dir, mode, epochs=5, learning_rate=1e-4,
         print(f"{mode}: loading model; progress reports about every {progress_seconds} seconds", flush=True)
     model, device = load_feature_model(adapter=adapter_path if resume else FEATURE_ADAPTER,
                                        trainable=True, cpu=cpu)
+    profiler = StageProfiler(device) if profile else None
     if device.type == "cuda":
         torch.cuda.reset_peak_memory_stats(device)
     model.config.use_cache = True
@@ -218,37 +264,42 @@ def train(output_dir, mode, epochs=5, learning_rate=1e-4,
         model.train()
         optimizer.zero_grad(set_to_none=True)
         weighted, token_count = 0., 0
+        pending = []
         for index, row in enumerate(order):
             if row["tokens"] > manifest["max_length"]:
                 raise ValueError("prepared sequence exceeds model context")
             try:
-                loss = cached_target_loss(model, row, device)
-                if not torch.isfinite(loss):
-                    raise ValueError(f"nonfinite loss: {row['source']} track {row['target_track_id']}")
+                loss = cached_target_loss(model, row, device, profiler=profiler)
                 group_start = (index // accumulation) * accumulation
                 group_size = min(accumulation, len(order) - group_start)
-                (loss / group_size).backward()
+                with (profiler.stage("backward") if profiler else nullcontext()):
+                    (loss / group_size).backward()
             except torch.cuda.OutOfMemoryError as error:
                 raise RuntimeError(f"GPU OOM on {row['tokens']} tokens from {row['source']}") from error
             n = len(row["target_ids"])
-            weighted += float(loss.detach()) * n
-            token_count += n
+            pending.append((loss.detach(), n, row))
             del loss
             if (index + 1) % accumulation == 0 or index + 1 == len(order):
+                group_weighted, group_tokens = consume_loss_group(pending)
+                weighted += group_weighted
+                token_count += group_tokens
                 torch.nn.utils.clip_grad_norm_((p for p in model.parameters() if p.requires_grad),
                                                1., foreach=False)
-                if device.type == "cuda":
-                    move_adam_statistics(optimizer, device)
-                optimizer.step()
+                with (profiler.stage("optimizer_transfer_to_device") if profiler else nullcontext()):
+                    if device.type == "cuda":
+                        move_adam_statistics(optimizer, device)
+                with (profiler.stage("optimizer_step") if profiler else nullcontext()):
+                    optimizer.step()
                 optimizer.zero_grad(set_to_none=True)
-                if device.type == "cuda":
-                    move_adam_statistics(optimizer, torch.device("cpu"))
-            report_progress("training pair", epoch + 1, index + 1, len(order),
-                            weighted / token_count)
+                with (profiler.stage("optimizer_transfer_to_cpu") if profiler else nullcontext()):
+                    if device.type == "cuda":
+                        move_adam_statistics(optimizer, torch.device("cpu"))
+                report_progress("training pair", epoch + 1, index + 1, len(order),
+                                weighted / token_count)
         validation = heldout_loss(
             model, val_rows, device,
             progress=lambda done, total, loss: report_progress(
-                "validation pair", epoch + 1, done, total, loss))
+                "validation pair", epoch + 1, done, total, loss), profiler=profiler)
         entry = {"epoch": epoch + 1, "train_target_loss": weighted / token_count,
                  "validation": validation, "elapsed_seconds": time.perf_counter() - started}
         entry["peak_gpu_bytes"] = torch.cuda.max_memory_allocated(device) if device.type == "cuda" else None
@@ -265,6 +316,11 @@ def train(output_dir, mode, epochs=5, learning_rate=1e-4,
         else:
             stale += 1
         history_path.write_text(json.dumps(history, indent=2) + "\n", encoding="utf-8")
+        if profiler:
+            profiler.save(checkpoint / f"profile_epoch_{epoch+1:03d}.json", model,
+                          examples=len(order), extra={"epoch": epoch + 1,
+                                                      "model_id": MODEL_ID,
+                                                      "revision": MODEL_REVISION})
         print(f"{mode} epoch {epoch+1}: train {entry['train_target_loss']:.4f} "
               f"validation {validation['loss']:.4f}", flush=True)
         if stale >= patience:

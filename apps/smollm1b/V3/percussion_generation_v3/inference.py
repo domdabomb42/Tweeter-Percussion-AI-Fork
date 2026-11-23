@@ -5,12 +5,13 @@ import json
 from pathlib import Path
 import time
 
-from .data import END_MARKER, V3_MARKER, load_tokenizer, parse_positions
+from .data import END_MARKER, V3_MARKER, load_tokenizer, parse_positions, verify_adapter_codec
 from custom_extractor import extract_tweeter, export_tweeter
 from custom_extractor.validator import validate
 from custom_training.serializer import serialize_object
 
 from .codec import pack_condition
+from .codec_v2 import encode_v2
 from .model import load_feature_model
 from .roles import role
 
@@ -29,10 +30,15 @@ def sparse(value):
 def prompt(composition, target_note_count, encoding="compact"):
     if type(target_note_count) is not int or not 1 <= target_note_count <= 64:
         raise ValueError("target note count must be 1..64")
+    if encoding == "lossless-v2":
+        condition = {"global": composition.global_settings,
+                     "tracks": [{"role": role(track), "track": track}
+                                for track in composition.tracks]}
+        return encode_v2(condition) + V3_MARKER + str(target_note_count) + "\n"
     condition = {"global": sparse(composition.global_settings),
                  "tracks": [{"role": role(track), "track": sparse(track)}
                             for track in composition.tracks]}
-    if encoding == "compact":
+    if encoding in ("compact", "legacy-v1"):
         condition = pack_condition(condition)
     elif encoding != "canonical":
         raise ValueError("unknown input encoding")
@@ -55,6 +61,7 @@ class PositionConstraint:
         if not self.end or any(not ids for ids in self.pieces.values()):
             raise ValueError("tokenizer cannot encode rhythm grammar")
         self.cache = {(): frozenset({(0, -1, (), -1, False)})}
+        self.current_states = self.cache[()]
 
     def _options(self, completed, last):
         if completed == self.count:
@@ -89,8 +96,17 @@ class PositionConstraint:
         return self.cache[key]
 
     def allowed(self, generated):
+        return self._allowed_states(self.states(generated))
+
+    def allowed_incremental(self):
+        return self._allowed_states(self.current_states)
+
+    def advance(self, token):
+        self.current_states = self._advance(self.current_states, token)
+
+    def _allowed_states(self, states):
         allowed = set()
-        for completed, last, pending, _, ending in self.states(generated):
+        for completed, last, pending, _, ending in states:
             if ending and not pending:
                 allowed.add(self.eos)
             elif pending:
@@ -102,12 +118,74 @@ class PositionConstraint:
         return sorted(allowed)
 
 
+class SharedPrefixSession:
+    """Reuse a verified token-ID prefix between sequential generation requests.
+
+    DynamicCache is cropped back to the common prefix after each request, so
+    no note-count suffix or generated token can enter the next request.
+    """
+
+    def __init__(self, model, tokenizer, device, prefixes):
+        self.model, self.tokenizer, self.device = model, tokenizer, device
+        started = time.perf_counter()
+        self.ids = {prefix: tokenizer.encode(prefix, add_special_tokens=False)
+                    for prefix in prefixes}
+        self.tokenization_seconds = time.perf_counter() - started
+        sequences = list(self.ids.values())
+        common = 0
+        if len(sequences) > 1:
+            for values in zip(*sequences):
+                if len(set(values)) != 1:
+                    break
+                common += 1
+        # Retain one real suffix token even when all prompts are identical.
+        self.length = min(common, min(map(len, sequences), default=0) - 1)
+        self.enabled = self.length >= 2
+        self.cache = None
+        self.prefill_count = 0
+
+    def begin(self):
+        if not self.enabled:
+            return None
+        if self.cache is None:
+            import torch
+            shared = next(iter(self.ids.values()))[:self.length]
+            inputs = torch.tensor([shared], dtype=torch.long, device=self.device)
+            with torch.inference_mode():
+                result = self.model(input_ids=inputs,
+                                    attention_mask=torch.ones_like(inputs), use_cache=True)
+            cache = result.past_key_values
+            del result
+            if not hasattr(cache, "crop"):
+                self.enabled = False
+                return None
+            self.cache = cache
+            self.prefill_count += 1
+        try:
+            self.cache.crop(self.length)
+        except (AttributeError, NotImplementedError, ValueError):
+            self.enabled = False
+            self.cache = None
+            return None
+        return self.cache
+
+    def end(self, cache):
+        if cache is not None:
+            try:
+                cache.crop(self.length)
+                self.cache = cache
+            except (AttributeError, NotImplementedError, ValueError):
+                self.enabled = False
+                self.cache = None
+
+
 def generate_rhythm(model, tokenizer, device, prefix, max_new_tokens=3072,
-                    constrained_count=None, cd2=False):
+                    constrained_count=None, cd2=False, shared_session=None):
     """Greedy cached decoding with separately synchronized prefill/decode times."""
     import torch
     started = time.perf_counter()
-    ids = tokenizer.encode(prefix, add_special_tokens=False)
+    ids = (shared_session.ids[prefix] if shared_session is not None
+           else tokenizer.encode(prefix, add_special_tokens=False))
     input_seconds = time.perf_counter() - started
     if not ids or len(ids) >= 8192:
         raise ValueError(f"prompt length {len(ids)} exceeds model context")
@@ -128,27 +206,41 @@ def generate_rhythm(model, tokenizer, device, prefix, max_new_tokens=3072,
     model.eval()
     sync()
     prefill_start = time.perf_counter()
+    shared_cache = None
     with torch.inference_mode():
-        output = model(input_ids=inputs, attention_mask=torch.ones_like(inputs), use_cache=True)
+        if shared_session is not None:
+            shared_cache = shared_session.begin()
+        if shared_cache is None:
+            output = model(input_ids=inputs, attention_mask=torch.ones_like(inputs), use_cache=True)
+        else:
+            suffix = inputs[:, shared_session.length:]
+            output = model(input_ids=suffix, past_key_values=shared_cache,
+                           attention_mask=torch.ones_like(inputs), use_cache=True)
         sync()
         prefill_seconds = time.perf_counter() - prefill_start
         decode_start = time.perf_counter()
         generated = []
         cache = output.past_key_values
-        for index in range(budget):
-            logits = output.logits[0, -1]
-            if constraint:
-                allowed = constraint.allowed(generated)
-                choice = allowed[int(torch.argmax(logits[allowed]).item())]
-            else:
-                choice = int(torch.argmax(logits).item())
-            generated.append(choice)
-            if choice == tokenizer.eos_token_id:
-                break
-            if index + 1 < budget:
-                next_id = torch.tensor([[choice]], dtype=torch.long, device=device)
-                output = model(input_ids=next_id, past_key_values=cache, use_cache=True)
-                cache = output.past_key_values
+        try:
+            for index in range(budget):
+                logits = output.logits[0, -1]
+                if constraint:
+                    allowed = constraint.allowed_incremental()
+                    choice = allowed[int(torch.argmax(logits[allowed]).item())]
+                else:
+                    choice = int(torch.argmax(logits).item())
+                generated.append(choice)
+                if constraint:
+                    constraint.advance(choice)
+                if choice == tokenizer.eos_token_id:
+                    break
+                if index + 1 < budget:
+                    next_id = torch.tensor([[choice]], dtype=torch.long, device=device)
+                    output = model(input_ids=next_id, past_key_values=cache, use_cache=True)
+                    cache = output.past_key_values
+        finally:
+            if shared_cache is not None:
+                shared_session.end(cache)
         sync()
         decode_seconds = time.perf_counter() - decode_start
     ended = bool(generated and generated[-1] == tokenizer.eos_token_id)
@@ -158,6 +250,7 @@ def generate_rhythm(model, tokenizer, device, prefix, max_new_tokens=3072,
                   "generation_budget": budget, "ended_with_eos": ended,
                   "input_processing_seconds": input_seconds,
                   "prefill_seconds": prefill_seconds, "decode_seconds": decode_seconds,
+                  "reused_prefix_tokens": shared_session.length if shared_cache is not None else 0,
                   "decode_tokens_per_second": len(generated) / decode_seconds if decode_seconds else None}
 
 
@@ -241,6 +334,7 @@ def generate_file(input_path, output_path, target_note_count, output_dir=ROOT / 
     adapter = output_dir / "checkpoints" / ("constrained" if constrained or cd2 else "rhythm") / "best_adapter"
     if not (adapter / "adapter_model.safetensors").is_file():
         raise FileNotFoundError(f"V3 checkpoint missing: {adapter}")
+    verify_adapter_codec(output_dir, adapter)
     model, device = load_feature_model(adapter, cpu=cpu)
     tokenizer = load_tokenizer(output_dir)
     started = time.perf_counter()

@@ -22,6 +22,7 @@ class PositionConstraintCD2:
         if self.eos is None or not self.end or any(not piece for piece in self.pieces.values()):
             raise ValueError("tokenizer cannot encode CD2 rhythm grammar")
         self.cache = {(): frozenset({(frozenset(), (), -1, False)})}
+        self.current_states = self.cache[()]
 
     def _options(self, used):
         if len(used) == self.count:
@@ -56,8 +57,17 @@ class PositionConstraintCD2:
         return self.cache[key]
 
     def allowed(self, generated):
+        return self._allowed_states(self.states(generated))
+
+    def allowed_incremental(self):
+        return self._allowed_states(self.current_states)
+
+    def advance(self, token):
+        self.current_states = self._advance(self.current_states, token)
+
+    def _allowed_states(self, states):
         allowed = set()
-        for used, pending, _, ending in self.states(generated):
+        for used, pending, _, ending in states:
             if ending and not pending:
                 allowed.add(self.eos)
             elif pending:

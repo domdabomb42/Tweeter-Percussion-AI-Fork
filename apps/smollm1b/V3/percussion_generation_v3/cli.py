@@ -36,7 +36,8 @@ def overnight(args):
                     learning_rate=args.learning_rate, accumulation=args.accumulation,
                     patience=args.patience, min_delta=args.min_delta,
                     progress_seconds=args.progress_seconds, cpu=args.cpu,
-                    resume=args.resume, dry_run=args.dry_run)
+                    resume=args.resume, dry_run=args.dry_run,
+                    profile=getattr(args, "profile", False))
     if args.dry_run:
         return {"baseline_training_plan": history,
                 "next_stage": "copy best baseline adapter, then run constrained-decoding evaluation",
@@ -91,19 +92,40 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description="V3 Tweeter position-only percussion generation")
     parser.add_argument("--output-dir", type=Path, default=ROOT / "output")
     sub = parser.add_subparsers(dest="command", required=True)
-    sub.add_parser("prepare")
+    prepare_parser = sub.add_parser("prepare")
+    prepare_parser.add_argument("--encoding", choices=("lossless-v2", "legacy-v1", "compact"),
+                                default="lossless-v2")
+    prepare_parser.add_argument("--from-output", type=Path,
+                                help="copy an existing verified augmented pool and add fixed validation")
+    sub.add_parser("validate-splits")
+    codec_compare = sub.add_parser("compare-codecs")
+    codec_compare.add_argument("--from-output", type=Path)
+    benchmark = sub.add_parser("benchmark-inference")
+    benchmark.add_argument("--report", type=Path, default=ROOT / "benchmarks/v3_inference.json")
+    benchmark.add_argument("--partition", choices=("validation", "test"), default="validation")
+    benchmark.add_argument("--cap", type=int, default=1)
+    benchmark.add_argument("--counts", type=counts_argument, default=[5, 8])
+    benchmark.add_argument("--max-new-tokens", type=int, default=16)
+    benchmark.add_argument("--cpu", action="store_true")
     train_parser = sub.add_parser("train")
     overnight_parser = sub.add_parser("overnight")
     for command in (train_parser, overnight_parser):
-        command.add_argument("--epochs", type=int, default=20)
-        command.add_argument("--learning-rate", type=float, default=0.00005)
+        command.add_argument("--epochs", type=int, default=None if command is train_parser else 20)
+        command.add_argument("--learning-rate", type=float,
+                             default=None if command is train_parser else 0.00005)
         command.add_argument("--accumulation", type=int, default=8)
-        command.add_argument("--patience", type=int, default=3)
+        command.add_argument("--patience", type=int, default=None if command is train_parser else 3)
         command.add_argument("--min-delta", type=float, default=0.005)
         command.add_argument("--progress-seconds", type=int, default=180)
         command.add_argument("--cpu", action="store_true")
         command.add_argument("--resume", action="store_true")
         command.add_argument("--dry-run", action="store_true")
+        command.add_argument("--profile", action="store_true")
+    train_parser.add_argument("--init-adapter", type=Path)
+    train_parser.add_argument("--examples-per-epoch", type=int)
+    train_parser.add_argument("--save-steps", type=int)
+    train_parser.add_argument("--resume-checkpoint", type=str)
+    train_parser.add_argument("--seed", type=int, default=415)
     overnight_parser.add_argument("--cap", type=int, default=5)
     overnight_parser.add_argument("--counts", type=counts_argument, default=[5, 8, 10, 12, 16, 20])
     overnight_parser.add_argument("--max-new-tokens", type=int, default=512)
@@ -130,6 +152,8 @@ def main(argv=None):
     evaluate.add_argument("--counts", type=counts_argument, default=[5, 8, 10, 12, 16, 20])
     evaluate.add_argument("--max-new-tokens", type=int, default=512)
     evaluate.add_argument("--cpu", action="store_true")
+    evaluate.add_argument("--no-shared-prefix-cache", action="store_true")
+    evaluate.add_argument("--profile", action="store_true")
     compare = sub.add_parser("compare")
     compare.add_argument("--partition", choices=("validation", "test"), default="test")
     compare.add_argument("--cap", type=int, default=5)
@@ -143,13 +167,46 @@ def main(argv=None):
             if other != ROOT.parent and args.output_dir.resolve().is_relative_to(other.resolve()):
                 raise ValueError("output directory belongs to another model experiment")
         if args.command == "prepare":
-            result = prepare(args.output_dir)
+            if args.encoding == "lossless-v2":
+                from .lossless_dataset import process
+                result = process(args.output_dir, prepare=True, source_output=args.from_output)
+            elif args.from_output:
+                from .data import prepare_epoch7_experiment
+                result = prepare_epoch7_experiment(args.output_dir, args.from_output)
+            else:
+                result = prepare(args.output_dir)
+        elif args.command == "validate-splits":
+            from .data import validate_epoch7_splits
+            result = validate_epoch7_splits(args.output_dir)
+        elif args.command == "compare-codecs":
+            from .lossless_dataset import process
+            if args.output_dir.resolve() == (ROOT / "output").resolve():
+                args.output_dir = ROOT / "codec_benchmark_v2"
+            report = process(args.output_dir, source_output=args.from_output)
+            result = {"benchmark": str(args.output_dir / "codec_benchmark.json"),
+                      "examples": report["example_count"],
+                      "reduction_percent": report["reduction_percent"]}
+        elif args.command == "benchmark-inference":
+            from .profiling import benchmark_inference
+            result = benchmark_inference(args.output_dir, args.report,
+                                         args.partition, args.cap, args.counts,
+                                         args.max_new_tokens, args.cpu)
         elif args.command == "train":
             from .model import train
-            result = train(args.output_dir, "rhythm", args.epochs,
-                           args.learning_rate, args.accumulation, args.patience,
-                           cpu=args.cpu, dry_run=args.dry_run, resume=args.resume,
-                           min_delta=args.min_delta, progress_seconds=args.progress_seconds)
+            rotating = bool(args.init_adapter or args.resume_checkpoint or
+                            args.examples_per_epoch is not None or args.save_steps is not None)
+            result = train(args.output_dir, "rhythm",
+                           epochs=args.epochs if args.epochs is not None else (None if rotating else 20),
+                           learning_rate=args.learning_rate if args.learning_rate is not None else (None if rotating else 5e-5),
+                           accumulation=args.accumulation, patience=args.patience,
+                           seed=args.seed, cpu=args.cpu, dry_run=args.dry_run,
+                           resume=args.resume, min_delta=args.min_delta,
+                           progress_seconds=args.progress_seconds,
+                           init_adapter=args.init_adapter,
+                           examples_per_epoch=args.examples_per_epoch,
+                           save_steps=args.save_steps,
+                           resume_checkpoint=args.resume_checkpoint,
+                           profile=args.profile)
         elif args.command == "overnight":
             result = overnight(args)
         elif args.command == "generate":
@@ -161,7 +218,9 @@ def main(argv=None):
         elif args.command == "evaluate":
             from .evaluation import evaluate_v3
             result = evaluate_v3(args.output_dir, args.constrained, args.partition,
-                                 args.cap, args.counts, args.max_new_tokens, args.cpu, args.cd2)
+                                 args.cap, args.counts, args.max_new_tokens, args.cpu, args.cd2,
+                                 shared_prefix_cache=not args.no_shared_prefix_cache,
+                                 profile=args.profile)
         else:
             from .evaluation import compare
             result = compare(args.output_dir, args.partition, args.cap,

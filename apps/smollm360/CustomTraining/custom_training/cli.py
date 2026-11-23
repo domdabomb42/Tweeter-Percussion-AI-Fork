@@ -15,7 +15,7 @@ DEFAULT_OUTPUT = Path(__file__).resolve().parents[1] / "training_output"
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="SmolLM2-360M causal LM experiment on CustomExtractor sessions")
+    parser = argparse.ArgumentParser(description="SmolLM2 causal LM experiment on CustomExtractor sessions")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     sub = parser.add_subparsers(dest="command", required=True)
     for name in ("inspect", "prepare", "baseline", "train", "evaluate", "compare", "complete", "smoke", "report"):

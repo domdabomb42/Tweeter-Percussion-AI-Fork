@@ -8,7 +8,7 @@ import statistics
 import sys
 import time
 
-from .data import APPS, DEFAULT_SESSIONS, ROOT, V1_OUTPUT, V2_OUTPUT, load_rows, load_tokenizer, parse_positions, recount_prefix
+from .data import APPS, DEFAULT_SESSIONS, ROOT, V1_OUTPUT, V2_OUTPUT, load_rows, load_tokenizer, parse_positions, recount_prefix, verify_adapter_codec
 
 from custom_extractor import extract_tweeter
 from custom_extractor.exporter import render_tweeter
@@ -16,7 +16,7 @@ from custom_extractor.extractor import extract_text, identify
 from custom_extractor.parser import parse
 from custom_extractor.validator import validate
 
-from .inference import build_track, choose_loop_ms, generate_rhythm
+from .inference import SharedPrefixSession, build_track, choose_loop_ms, generate_rhythm
 from .model import heldout_loss, load_feature_model
 from .roles import role
 
@@ -116,7 +116,7 @@ def source_for_row(row):
 
 def evaluate_v3(output_dir=ROOT / "output", constrained=False, partition="test",
                 cap=5, counts=(5, 8, 10, 12, 16, 20), max_new_tokens=512,
-                cpu=False, cd2=False):
+                cpu=False, cd2=False, shared_prefix_cache=True, profile=False):
     if constrained and cd2:
         raise ValueError("choose ordered constraints or CD2")
     root = Path(output_dir)
@@ -124,6 +124,7 @@ def evaluate_v3(output_dir=ROOT / "output", constrained=False, partition="test",
     if not rows:
         raise ValueError("no held-out V3 examples")
     adapter = root / "checkpoints" / ("constrained" if constrained or cd2 else "rhythm") / "best_adapter"
+    verify_adapter_codec(root, adapter)
     model, device = load_feature_model(adapter, cpu=cpu)
     import torch
     if device.type == "cuda":
@@ -131,19 +132,26 @@ def evaluate_v3(output_dir=ROOT / "output", constrained=False, partition="test",
     tokenizer = load_tokenizer(root)
     preset = json.loads((root / "fixed_preset.json").read_text(encoding="utf-8"))
     examples = []
+    shared_prefills = 0
     for row in rows:
         condition, reference = source_for_row(row)
-        for request_type, requested in [("reference", row["target_note_count"]),
-                                        *(("sweep", count) for count in counts)]:
+        requests = [("reference", row["target_note_count"]),
+                    *(("sweep", count) for count in counts)]
+        session = None
+        for request_type, requested in requests:
             started = time.perf_counter()
             entry = {"source": row["source"], "target_track_id": row["target_track_id"],
                      "requested_note_count": requested,
                      "request_type": request_type}
             try:
                 prefix = recount_prefix(row["prefix"], row["target_note_count"], requested)
+                if shared_prefix_cache and session is None:
+                    prefixes = [recount_prefix(row["prefix"], row["target_note_count"], count)
+                                for _, count in requests]
+                    session = SharedPrefixSession(model, tokenizer, device, prefixes)
                 raw, timing = generate_rhythm(model, tokenizer, device, prefix,
                                               max_new_tokens, requested if constrained or cd2 else None,
-                                              cd2=cd2)
+                                              cd2=cd2, shared_session=session)
                 entry.update(timing)
                 entry["raw_output"] = raw
                 parse_start = time.perf_counter()
@@ -162,22 +170,50 @@ def evaluate_v3(output_dir=ROOT / "output", constrained=False, partition="test",
             examples.append(entry)
             print(f"V3 {'cd2' if cd2 else 'constrained' if constrained else 'greedy'} {row['source']} "
                   f"requested {requested}: generated {entry.get('generated_note_count', 'invalid')}", flush=True)
+        if session is not None:
+            shared_prefills += session.prefill_count
     reference_entries = [e for e in examples if e["request_type"] == "reference"]
     sweep_entries = [e for e in examples if e["request_type"] == "sweep"]
     result = {"model": "v3_cd2" if cd2 else "v3_constrained" if constrained else "v3_greedy",
               "partition": partition, "count_requests": list(counts),
               "max_new_tokens": max_new_tokens,
+              "shared_prefix_cache": shared_prefix_cache,
               "heldout_loss": heldout_loss(model, rows, device),
               "gpu_name": torch.cuda.get_device_name(device) if device.type == "cuda" else None,
               "peak_gpu_bytes": torch.cuda.max_memory_allocated(device) if device.type == "cuda" else None,
               "reference_summary": summarize(reference_entries),
               "sweep_summary": summarize(sweep_entries), "examples": examples,
               "audio_listening_test": "not performed"}
+    if profile:
+        successful = [e for e in examples if "prefill_seconds" in e]
+        prefill = sum(e["prefill_seconds"] for e in successful)
+        decode = sum(e["decode_seconds"] for e in successful)
+        elapsed = sum(e["total_seconds"] for e in examples)
+        generated = sum(e["generated_tokens"] for e in successful)
+        result["profiling"] = {
+            "model_id": manifest_model_id(root),
+            "hardware": torch.cuda.get_device_name(device) if device.type == "cuda" else "CPU",
+            "device": str(device), "dtype": str(next(model.parameters()).dtype),
+            "torch_version": torch.__version__,
+            "attention_backend": getattr(model.config, "_attn_implementation", None),
+            "peak_gpu_bytes": result["peak_gpu_bytes"],
+            "requests": len(examples), "shared_prefills": shared_prefills,
+            "reused_prefix_tokens": sum(e.get("reused_prefix_tokens", 0) for e in successful),
+            "prefill_seconds": prefill, "decode_seconds": decode,
+            "total_request_seconds": elapsed,
+            "generated_tokens_per_second": generated / decode if decode else None}
     destination = root / "evaluation" / f"v3_{'cd2' if cd2 else 'constrained' if constrained else 'greedy'}_{partition}.json"
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    if profile:
+        profile_path = destination.with_name("profiling_" + destination.name)
+        profile_path.write_text(json.dumps(result["profiling"], indent=2) + "\n", encoding="utf-8")
     return {"report": str(destination), "reference_summary": result["reference_summary"],
             "sweep_summary": result["sweep_summary"]}
+
+
+def manifest_model_id(root):
+    return json.loads((Path(root) / "manifest.json").read_text(encoding="utf-8")).get("model_id")
 
 
 def compare(output_dir=ROOT / "output", partition="test", cap=5,

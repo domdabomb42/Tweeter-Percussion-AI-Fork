@@ -1,0 +1,47 @@
+{
+  "model_id": "HuggingFaceTB/SmolLM2-135M",
+  "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2",
+  "hardware": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "device": "cuda",
+  "dtype": "torch.bfloat16",
+  "torch_version": "2.5.1+cu121",
+  "attention_backend": "sdpa",
+  "partition": "validation",
+  "max_new_tokens": 4,
+  "cases": [
+    {
+      "source": "1st-beat-fall-2021-session-coll.txt",
+      "target_track_id": 12,
+      "requested_counts": [
+        5,
+        8
+      ],
+      "input_lengths": [
+        6602,
+        6602
+      ],
+      "baseline": {
+        "seconds": 52.564802500011865,
+        "prefill_seconds": 50.56798069999786,
+        "decode_seconds": 1.9172773000027519,
+        "generated_tokens": 8,
+        "shared_prefix_tokens": 0,
+        "shared_prefills": 0,
+        "peak_gpu_bytes": 5829083136
+      },
+      "shared_prefix": {
+        "seconds": 24.15991759998724,
+        "prefill_seconds": 22.54776159999892,
+        "decode_seconds": 1.4847886000061408,
+        "generated_tokens": 8,
+        "shared_prefix_tokens": 6600,
+        "shared_prefills": 1,
+        "peak_gpu_bytes": 5825886208
+      },
+      "identical_generated_text": true
+    }
+  ],
+  "baseline_total_seconds": 52.564802500011865,
+  "shared_total_seconds": 24.15991759998724,
+  "speedup_ratio": 2.1757028881604974
+}

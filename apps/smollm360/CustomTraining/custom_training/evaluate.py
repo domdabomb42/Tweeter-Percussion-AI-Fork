@@ -7,6 +7,7 @@ import random
 import re
 import statistics
 import torch
+from . import MODEL_ID
 from .baselines import feature_instances, train_statistics
 from .prepare import load_prepared, tokenizer_for_model
 from .serializer import serialize_object
@@ -177,7 +178,7 @@ def evaluate(dataset_dir, checkpoint_dir, output_path, baseline_path=None,
     model, device, dtype = load_model(adapter=checkpoint_dir, cpu=cpu)
     tokenizer = tokenizer_for_model(local_only=True)
     stats = train_statistics(dataset_dir)
-    results = {"model": "SmolLM2-360M + LoRA", "checkpoint": str(checkpoint_dir),
+    results = {"model": MODEL_ID.rsplit("/", 1)[-1] + " + LoRA", "checkpoint": str(checkpoint_dir),
                "device": str(device), "dtype": str(dtype),
                "feature_query_cap_per_parameter": cap_per_feature,
                "training_only_statistical_baselines": stats}
@@ -197,7 +198,7 @@ def evaluate_base_features(dataset_dir, output_path, cap_per_feature=6, cpu=Fals
     model, device, dtype = load_model(cpu=cpu)
     tokenizer = tokenizer_for_model(local_only=True)
     stats = train_statistics(dataset_dir)
-    results = {"model": "original SmolLM2-360M", "device": str(device), "dtype": str(dtype)}
+    results = {"model": "original " + MODEL_ID.rsplit("/", 1)[-1], "device": str(device), "dtype": str(dtype)}
     for partition in (("validation", "test") if include_test else ("validation",)):
         rows = load_prepared(dataset_dir, partition)
         queries = select_feature_queries(rows, cap_per_feature, seed)
