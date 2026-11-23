@@ -7,7 +7,7 @@ from . import OUTPUT
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="V4EA full-track percussion generation")
+    parser = argparse.ArgumentParser(description="V4EA musical percussion generation")
     parser.add_argument("--output-dir", type=Path, default=OUTPUT)
     commands = parser.add_subparsers(dest="command", required=True)
     tokenizer = commands.add_parser("train-tokenizer")
@@ -22,7 +22,9 @@ def main(argv=None):
     training.add_argument("--resume-checkpoint")
     training.add_argument("--epochs", type=int, default=12)
     training.add_argument("--examples-per-epoch", type=int, default=268)
-    training.add_argument("--learning-rate", type=float, default=2e-5)
+    training.add_argument("--lora-learning-rate", type=float)
+    training.add_argument("--embedding-learning-rate", type=float)
+    training.add_argument("--warmup-fraction", type=float, default=0.1)
     training.add_argument("--accumulation", type=int, default=8)
     training.add_argument("--save-steps", type=int, default=10)
     training.add_argument("--patience", type=int, default=5)
@@ -38,8 +40,11 @@ def main(argv=None):
     generation.add_argument("--input", type=Path, required=True)
     generation.add_argument("--output", type=Path, required=True)
     generation.add_argument("--target-note-count", type=int, required=True)
-    generation.add_argument("--max-new-tokens", type=int, default=3072)
+    generation.add_argument("--max-new-tokens", type=int, default=512)
     generation.add_argument("--cpu", action="store_true")
+    comparison = commands.add_parser("compare", help="combine three saved evaluation reports")
+    comparison.add_argument("--reports", type=Path, nargs=3, required=True)
+    comparison.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         if args.command == "train-tokenizer":
@@ -58,17 +63,23 @@ def main(argv=None):
             from .trainer import train
             result = train(args.output_dir, resume_checkpoint=args.resume_checkpoint,
                            epochs=args.epochs, examples_per_epoch=args.examples_per_epoch,
-                           learning_rate=args.learning_rate, accumulation=args.accumulation,
+                           lora_learning_rate=args.lora_learning_rate,
+                           embedding_learning_rate=args.embedding_learning_rate,
+                           warmup_fraction=args.warmup_fraction,
+                           accumulation=args.accumulation,
                            save_steps=args.save_steps, patience=args.patience, seed=args.seed,
                            cpu=args.cpu, dry_run=args.dry_run,
                            progress_seconds=args.progress_seconds)
         elif args.command == "evaluate":
             from .inference import evaluate
             result = evaluate(args.output_dir, args.partition, args.cpu)
-        else:
+        elif args.command == "generate":
             from .inference import generate
             result = generate(args.output_dir, args.input, args.output,
                               args.target_note_count, args.max_new_tokens, args.cpu)
+        else:
+            from .inference import compare_reports
+            result = compare_reports(args.reports, args.output)
     except (ValueError, FileNotFoundError, FileExistsError, RuntimeError, OSError) as exc:
         parser.exit(2, f"V4EA: {exc}\n")
     print(json.dumps(result, indent=2, default=str))

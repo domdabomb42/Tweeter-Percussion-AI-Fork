@@ -1,4 +1,4 @@
-"""Train a fresh BPE vocabulary and prepare lossless full-track targets."""
+"""Train a fresh BPE vocabulary and prepare musical V4EA targets."""
 from collections import OrderedDict
 import hashlib
 import json
@@ -8,12 +8,13 @@ import tempfile
 import time
 
 from . import END_MARKER, MODEL_ID, MODEL_REVISION, MODEL_ROOT, OUTPUT, TARGET_MARKER, VERSION
-from percussion_generation_v3.codec_v2 import SCHEMA_SHA256, decode_v2, dumps, encode_v2
+from percussion_generation_v3.codec_v2 import dumps
 from percussion_generation_v3.data import AUGMENTED_SESSIONS
 from percussion_generation_v3.lossless_dataset import _row_groups, _source_output, _source_path
 from percussion_generation_v3.roles import role
 from custom_extractor import extract_tweeter
 from custom_extractor.models import Composition
+from .music import SCHEMA_SHA256, encode_input, encode_target, decode_target
 
 
 def sha256(path):
@@ -52,13 +53,10 @@ def texts_for_pair(row, generated, composition=None):
     if len(remaining) + 1 != len(composition.tracks):
         raise ValueError("target track ID is ambiguous")
     condition = Composition(composition.global_settings, remaining)
-    condition_object = {"global": condition.global_settings,
-                        "tracks": [{"role": role(track), "track": track} for track in remaining]}
-    target_object = {"global": {}, "tracks": [{"role": "percussion", "track": target}]}
-    condition_text = encode_v2(condition_object)
-    target_text = encode_v2(target_object)
-    if decode_v2(condition_text) != condition_object or decode_v2(target_text) != target_object:
-        raise ValueError("lossless codec round trip failed")
+    target_text = encode_target(target)
+    decoded = decode_target(target_text, len(target["notes"]))
+    if decoded["notes"] != target["notes"] or decoded["instrument"] != target["instrument"]["name"]:
+        raise ValueError("musical target round trip failed")
     prefix = prompt_for_composition(condition, len(target["notes"]))
     return prefix, target_text + "\n" + END_MARKER, target
 
@@ -66,10 +64,26 @@ def texts_for_pair(row, generated, composition=None):
 def prompt_for_composition(composition, target_note_count):
     if type(target_note_count) is not int or not 1 <= target_note_count <= 64:
         raise ValueError("target note count must be 1..64")
-    condition = {"global": composition.global_settings,
-                 "tracks": [{"role": role(track), "track": track}
-                            for track in composition.tracks]}
-    return encode_v2(condition) + TARGET_MARKER + str(target_note_count) + "\n"
+    return encode_input(composition, target_note_count) + TARGET_MARKER
+
+
+def build_preset_catalog(groups, generated):
+    """Use original native tracks as sound templates; store no target notes."""
+    from copy import deepcopy
+    catalog = {}
+    for split in ("train", "validation", "test"):
+        for row in groups[split]:
+            if row.get("augmentation"):
+                continue
+            track = extract_tweeter(_source_path(row, generated)).track(row["target_track_id"])
+            name = track["instrument"]["name"]
+            if name not in catalog:
+                template = deepcopy(track)
+                template["id"] = 0
+                template["notes"] = []
+                template["playback"]["cursor"] = None
+                catalog[name] = template
+    return catalog
 
 
 def _unique_train_rows(rows):
@@ -205,6 +219,7 @@ def prepare(output_dir=OUTPUT, source_output=None, progress_seconds=180, dry_run
                           "target_tokens": sum(len(r["target_ids"]) for r in result)}
     if failures:
         raise ValueError(f"{len(failures)} full-track examples exceed 8192 tokens; first: {failures[:3]}")
+    catalog = build_preset_catalog(groups, generated)
     temp = Path(tempfile.mkdtemp(prefix=".v4ea_dataset_", dir=output))
     try:
         (temp / "rhythm").mkdir()
@@ -213,7 +228,7 @@ def prepare(output_dir=OUTPUT, source_output=None, progress_seconds=180, dry_run
             path = temp / "rhythm" / f"{split}.jsonl"
             path.write_text("".join(dumps(row) + "\n" for row in rows), encoding="utf-8")
             digest.update(split.encode() + b"\0" + path.read_bytes())
-        manifest = {"version": VERSION, "encoding": "lossless-v2",
+        manifest = {"version": VERSION, "encoding": "musical-v2",
                     "model_id": MODEL_ID, "revision": MODEL_REVISION,
                     "codec_schema_sha256": SCHEMA_SHA256,
                     "tokenizer_sha256": identity["tokenizer_sha256"],
@@ -223,11 +238,12 @@ def prepare(output_dir=OUTPUT, source_output=None, progress_seconds=180, dry_run
                     "source_partitions": {name: sorted(members) for name, members in sources.items()},
                     "splits": lengths, "max_length": 8192,
                     "prepared_dataset_sha256": digest.hexdigest(),
-                    "target": "complete lossless percussion track plus [END_TRACK] and EOS"}
-        shutil.copy2(source / "fixed_preset.json", temp / "fixed_preset.json")
+                    "target": "percussion identity, notes, timing, then [END_MUSIC] and EOS",
+                    "preset_catalog_sha256": hashlib.sha256(dumps(catalog).encode()).hexdigest()}
+        (temp / "preset_catalog.json").write_text(dumps(catalog) + "\n", encoding="utf-8")
         (temp / "manifest.json").write_text(dumps(manifest) + "\n", encoding="utf-8")
         (temp / "rhythm").rename(output / "rhythm")
-        (temp / "fixed_preset.json").replace(output / "fixed_preset.json")
+        (temp / "preset_catalog.json").replace(output / "preset_catalog.json")
         (temp / "manifest.json").replace(output / "manifest.json")
     finally:
         if temp.exists():
@@ -253,6 +269,9 @@ def verify_dataset(output_dir=OUTPUT):
         groups[split] = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
     if digest.hexdigest() != manifest["prepared_dataset_sha256"]:
         raise ValueError("V4EA prepared dataset changed")
+    catalog = json.loads((output / "preset_catalog.json").read_text(encoding="utf-8"))
+    if hashlib.sha256(dumps(catalog).encode()).hexdigest() != manifest["preset_catalog_sha256"]:
+        raise ValueError("V4EA preset catalog changed")
     sources = {split: {row["source"] for row in groups[split]}
                for split in ("train", "validation", "test")}
     if any(sources[a] & sources[b] for a, b in

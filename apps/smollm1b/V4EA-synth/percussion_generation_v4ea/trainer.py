@@ -1,4 +1,4 @@
-"""Rotating full-track training with exact step checkpoints and fixed validation."""
+"""Full-gradient musical training with exact step checkpoints."""
 import json
 import math
 from pathlib import Path
@@ -10,11 +10,50 @@ from .model import load_model
 from .pipeline import verify_dataset
 from percussion_generation_v3.checkpoints import (atomic_json, fingerprints,
     load_checkpoint_state, resolve_checkpoint, save_best_adapter, save_checkpoint)
-from percussion_generation_v3.model import (cached_target_loss, consume_loss_group,
-    move_adam_statistics)
-from percussion_generation_v3.rotating_train import cosine_scheduler
+from percussion_generation_v3.model import consume_loss_group, move_adam_statistics
 from percussion_generation_v3.rotation import select_epoch_indices, validate_pool
 from percussion_generation_v3.data import AUGMENTED_SESSIONS
+
+
+def full_sequence_loss(model, row, device):
+    """Transformers shifts labels internally; the final prefix token predicts target[0]."""
+    import torch
+    prefix, target = row["prefix_ids"], row["target_ids"]
+    if not prefix or len(target) < 2 or len(prefix) + len(target) > 8192:
+        raise ValueError("invalid or over-context musical example")
+    ids = torch.tensor([prefix + target], dtype=torch.long, device=device)
+    labels = torch.tensor([[-100] * len(prefix) + target], dtype=torch.long, device=device)
+    return model(input_ids=ids, labels=labels, use_cache=False).loss
+
+
+def optimizer_groups(model, lora_lr, embedding_lr):
+    import torch
+    underlying = getattr(model, "peft_model", model)
+    embedding = underlying.get_input_embeddings().weight
+    if not embedding.requires_grad:
+        raise ValueError("remapped embeddings are frozen")
+    lora = [parameter for name, parameter in underlying.named_parameters()
+            if "lora_" in name and parameter.requires_grad]
+    other = [name for name, parameter in underlying.named_parameters()
+             if parameter.requires_grad and id(parameter) != id(embedding) and "lora_" not in name]
+    if not lora or other:
+        raise ValueError(f"unexpected trainable parameter groups: {other[:5]}")
+    return torch.optim.AdamW([
+        {"params": lora, "lr": lora_lr, "initial_lr": lora_lr, "weight_decay": 0.01,
+         "name": "lora"},
+        {"params": [embedding], "lr": embedding_lr, "initial_lr": embedding_lr,
+         "weight_decay": 0.0, "name": "embedding"}], foreach=False)
+
+
+def warmup_cosine_scheduler(optimizer, total_updates, warmup_fraction=0.1):
+    import torch
+    warmup = max(1, math.ceil(total_updates * warmup_fraction))
+    def scale(step):
+        if step < warmup:
+            return (step + 1) / warmup
+        span = max(1, total_updates - warmup)
+        return 0.5 * (1 + math.cos(math.pi * min(step - warmup, span) / span))
+    return torch.optim.lr_scheduler.LambdaLR(optimizer, scale), warmup
 
 
 def validation_loss(model, rows, device):
@@ -23,7 +62,7 @@ def validation_loss(model, rows, device):
     weighted = tokens = 0
     with torch.inference_mode():
         for row in rows:
-            value = float(cached_target_loss(model, row, device))
+            value = float(full_sequence_loss(model, row, device))
             count = len(row["target_ids"])
             weighted += value * count
             tokens += count
@@ -40,7 +79,8 @@ def _validate_pool(rows, manifest):
 
 
 def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=12,
-          examples_per_epoch=268, learning_rate=2e-5, accumulation=8,
+          examples_per_epoch=268, lora_learning_rate=None, embedding_learning_rate=None,
+          warmup_fraction=0.1, accumulation=8,
           save_steps=10, patience=5, seed=415, cpu=False, dry_run=False,
           progress_seconds=180, stop_after_steps=None, model_loader=None,
           loss_fn=None, validation_fn=None):
@@ -48,6 +88,10 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=12,
     output = Path(output_dir)
     manifest, groups = verify_dataset(output)
     rows = groups["train"]
+    if lora_learning_rate is None:
+        lora_learning_rate = 5e-5 if "1.7B" in MODEL_ID else 1e-4
+    if embedding_learning_rate is None:
+        embedding_learning_rate = 1e-4 if "135M" in MODEL_ID else 5e-5
     validation20 = groups["validation20"]
     validation10 = groups["validation"]
     _validate_pool(rows, manifest)
@@ -59,7 +103,9 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=12,
         metadata = json.loads((checkpoint / "metadata.json").read_text(encoding="utf-8"))
         config = metadata["config"]
         expected = {"epochs": epochs, "examples_per_epoch": examples_per_epoch,
-                    "learning_rate": learning_rate, "accumulation": accumulation,
+                    "lora_learning_rate": lora_learning_rate,
+                    "embedding_learning_rate": embedding_learning_rate,
+                    "warmup_fraction": warmup_fraction, "accumulation": accumulation,
                     "save_steps": save_steps, "patience": patience, "seed": seed,
                     "device_type": current_device,
                     "cuda_device_count": torch.cuda.device_count() if current_device == "cuda" else 0,
@@ -75,9 +121,12 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=12,
                   "tokenizer_sha256": manifest["tokenizer_sha256"],
                   "prepared_dataset_sha256": manifest["prepared_dataset_sha256"],
                   "codec_schema_sha256": manifest["codec_schema_sha256"],
+                  "preset_catalog_sha256": manifest["preset_catalog_sha256"],
                   "initialization": "pretrained transformer, remapped fresh vocabulary, new LoRA",
                   "epochs": epochs, "examples_per_epoch": examples_per_epoch,
-                  "learning_rate": learning_rate, "accumulation": accumulation,
+                  "lora_learning_rate": lora_learning_rate,
+                  "embedding_learning_rate": embedding_learning_rate,
+                  "warmup_fraction": warmup_fraction, "accumulation": accumulation,
                   "save_steps": save_steps, "patience": patience, "seed": seed,
                   "device_type": current_device,
                   "cuda_device_count": torch.cuda.device_count() if current_device == "cuda" else 0,
@@ -88,31 +137,46 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=12,
             config["revision"] != MODEL_REVISION or
             config["tokenizer_sha256"] != manifest["tokenizer_sha256"] or
             config["prepared_dataset_sha256"] != manifest["prepared_dataset_sha256"] or
-            config["codec_schema_sha256"] != manifest["codec_schema_sha256"]):
+            config["codec_schema_sha256"] != manifest["codec_schema_sha256"] or
+            config["preset_catalog_sha256"] != manifest["preset_catalog_sha256"]):
         raise ValueError("checkpoint belongs to another tokenizer, dataset, or model")
     if (not 1 <= epochs <= 30 or not 67 <= examples_per_epoch <= len(rows) or
             accumulation != 8 or save_steps < 1 or patience < 1 or
-            not 0 < learning_rate <= 0.001):
+            not 0 < lora_learning_rate <= 0.001 or
+            not 0 < embedding_learning_rate <= 0.001 or
+            not 0 < warmup_fraction < 1):
         raise ValueError("invalid V4EA training configuration")
     updates_per_epoch = math.ceil(examples_per_epoch / accumulation)
     plan = {**config, "train_pool": len(rows), "validation20_pairs": len(validation20),
             "original_training_pairs": 67,
             "optimizer_updates_per_epoch": updates_per_epoch,
             "total_optimizer_updates": epochs * updates_per_epoch,
+            "warmup_updates": math.ceil(epochs * updates_per_epoch * warmup_fraction),
             "resume_from": str(checkpoint) if resume_checkpoint else None}
     if dry_run:
         return plan
     model_loader = model_loader or load_model
-    loss_fn = loss_fn or cached_target_loss
+    loss_fn = loss_fn or full_sequence_loss
     validation_fn = validation_fn or validation_loss
+    if saved is None:
+        torch.manual_seed(seed)
+        random.seed(seed)
+        if current_device == "cuda":
+            torch.cuda.manual_seed_all(seed)
     model, device = model_loader(output, adapter=adapter, cpu=cpu, trainable=True)
-    model.config.use_cache = True
-    optimizer = torch.optim.AdamW((p for p in model.parameters() if p.requires_grad),
-                                  lr=learning_rate, weight_decay=0.01, foreach=False)
-    scheduler = cosine_scheduler(optimizer, plan["total_optimizer_updates"])
+    model.config.use_cache = False
+    underlying = getattr(model, "peft_model", model)
+    if hasattr(underlying, "gradient_checkpointing_enable"):
+        underlying.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
+    optimizer = optimizer_groups(model, lora_learning_rate, embedding_learning_rate)
+    scheduler, _ = warmup_cosine_scheduler(optimizer, plan["total_optimizer_updates"], warmup_fraction)
+    embedding_dtype = underlying.get_input_embeddings().weight.dtype
+    scaler = torch.amp.GradScaler("cuda", enabled=device.type == "cuda" and embedding_dtype == torch.float16)
     if saved:
         optimizer.load_state_dict(saved["optimizer"])
         scheduler.load_state_dict(saved["scheduler"])
+        if saved.get("scaler") is not None:
+            scaler.load_state_dict(saved["scaler"])
         move_adam_statistics(optimizer, torch.device("cpu"))
         random.setstate(saved["python_rng"])
         torch.set_rng_state(saved["torch_rng"])
@@ -131,15 +195,13 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=12,
                 (position % accumulation and position != len(order))):
             raise ValueError("checkpoint example order or position is invalid")
     else:
-        torch.manual_seed(seed)
-        random.seed(seed)
-        if device.type == "cuda":
-            torch.cuda.manual_seed_all(seed)
         epoch_index = position = global_step = 0
         order = []
         history = {"plan": plan, "epochs": [], "stale_epochs": 0}
         weighted = target_tokens = processed = 0
         elapsed = epoch_elapsed = 0.0
+    history["plan"]["trainable_parameters"] = sum(parameter.numel() for parameter in model.parameters()
+                                                  if parameter.requires_grad)
     run_started = epoch_started = last_report = time.perf_counter()
     checkpoint_root.mkdir(parents=True, exist_ok=True)
 
@@ -151,7 +213,8 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=12,
                 "history": history, "weighted_loss": weighted,
                 "target_tokens": target_tokens, "examples_processed": processed,
                 "cumulative_elapsed_seconds": elapsed + now - run_started,
-                "epoch_elapsed_seconds": epoch_elapsed + now - epoch_started}
+                "epoch_elapsed_seconds": epoch_elapsed + now - epoch_started,
+                "scaler": scaler.state_dict()}
 
     if saved and (epoch_index >= epochs or history.get("early_stopped")):
         return history
@@ -173,19 +236,30 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=12,
             row = rows[order[index]]
             group_start = (index // accumulation) * accumulation
             group_size = min(accumulation, len(order) - group_start)
-            loss = loss_fn(model, row, device)
-            (loss / group_size).backward()
+            try:
+                loss = loss_fn(model, row, device)
+            except torch.cuda.OutOfMemoryError as exc:
+                raise RuntimeError(
+                    f"full-gradient example needs more GPU memory: {row['source']} "
+                    f"track {row['target_track_id']}, {row['tokens']} tokens; "
+                    "use a larger-memory GPU or --cpu (slow), without truncating context") from exc
+            scaler.scale(loss / group_size).backward()
             pending.append((loss.detach(), len(row["target_ids"]), row))
             processed += 1
             if (index + 1) % accumulation == 0 or index + 1 == len(order):
                 group_weighted, group_tokens = consume_loss_group(pending)
                 weighted += group_weighted
                 target_tokens += group_tokens
+                scaler.unscale_(optimizer)
                 torch.nn.utils.clip_grad_norm_((p for p in model.parameters() if p.requires_grad),
                                                1.0, foreach=False)
                 if device.type == "cuda":
                     move_adam_statistics(optimizer, device)
-                optimizer.step()
+                previous_scale = scaler.get_scale()
+                scaler.step(optimizer)
+                scaler.update()
+                if scaler.get_scale() < previous_scale:
+                    raise FloatingPointError("FP16 gradient overflow; optimizer step skipped")
                 scheduler.step()
                 optimizer.zero_grad(set_to_none=True)
                 if device.type == "cuda":
@@ -218,7 +292,9 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=12,
                  "target_tokens": target_tokens,
                  "epoch_seconds": epoch_elapsed + now - epoch_started,
                  "cumulative_seconds": elapsed + now - run_started,
-                 "learning_rate": optimizer.param_groups[0]["lr"]}
+                 "lora_learning_rate": optimizer.param_groups[0]["lr"],
+                 "embedding_learning_rate": optimizer.param_groups[1]["lr"],
+                 "peak_gpu_memory_bytes": torch.cuda.max_memory_allocated(device) if device.type == "cuda" else None}
         history["epochs"].append(entry)
         if val20["loss"] < history.get("best_validation_loss", float("inf")):
             history["best_epoch"] = epoch_index + 1
@@ -229,6 +305,7 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=12,
                 "tokenizer_sha256": manifest["tokenizer_sha256"],
                 "prepared_dataset_sha256": manifest["prepared_dataset_sha256"],
                 "codec_schema_sha256": manifest["codec_schema_sha256"],
+                "preset_catalog_sha256": manifest["preset_catalog_sha256"],
                 "best_epoch": epoch_index+1, "validation20_loss": val20["loss"]})
         else:
             history["stale_epochs"] += 1

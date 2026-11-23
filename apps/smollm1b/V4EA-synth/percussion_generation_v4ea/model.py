@@ -1,7 +1,7 @@
 """Fresh LoRA plus trainable remapped embeddings for a newly trained tokenizer."""
 from pathlib import Path
 
-from . import MODEL_ROOT
+from . import MODEL_ID, MODEL_REVISION, MODEL_ROOT, VERSION
 from .pipeline import load_new_tokenizer, sha256
 
 
@@ -80,6 +80,18 @@ def load_model(output_dir, adapter=None, cpu=False, trainable=True):
         peft_model = get_peft_model(base, lora)
     else:
         path = Path(adapter)
+        import json
+        metadata_path = path / "experiment_metadata.json"
+        if metadata_path.exists():
+            info = json.loads(metadata_path.read_text(encoding="utf-8"))
+        elif (path.parent / "metadata.json").exists():
+            info = json.loads((path.parent / "metadata.json").read_text(encoding="utf-8"))["config"]
+        else:
+            raise ValueError("adapter lacks musical experiment identity metadata")
+        if (info.get("version"), info.get("model_id"), info.get("revision"),
+                info.get("tokenizer_sha256")) != (
+                VERSION, MODEL_ID, MODEL_REVISION, identity["tokenizer_sha256"]):
+            raise ValueError("adapter belongs to another musical experiment or tokenizer")
         if not (path / "embedding.safetensors").is_file():
             raise FileNotFoundError("V4EA checkpoint lacks its trained embeddings")
         peft_model = PeftModel.from_pretrained(base, path, is_trainable=trainable)
