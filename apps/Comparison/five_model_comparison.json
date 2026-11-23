@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "test_targets": [
+    {
+      "source": "jamminlicious-002-session-coll.txt",
+      "target_track_id": 5,
+      "positions": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        7,
+        15,
+        31,
+        47,
+        51,
+        63
+      ]
+    },
+    {
+      "source": "jamminlicious-002-session-coll.txt",
+      "target_track_id": 4,
+      "positions": [
+        2,
+        18,
+        31,
+        43,
+        51,
+        63
+      ]
+    },
+    {
+      "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+      "target_track_id": 6,
+      "positions": [
+        12,
+        26,
+        39,
+        51,
+        62
+      ]
+    },
+    {
+      "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+      "target_track_id": 4,
+      "positions": [
+        8,
+        9,
+        23,
+        24,
+        40,
+        57,
+        58
+      ]
+    },
+    {
+      "source": "spring-2025-1st-take-session-coll.txt",
+      "target_track_id": 6,
+      "positions": [
+        0,
+        16,
+        24,
+        32,
+        40,
+        48,
+        56
+      ]
+    }
+  ],
+  "models": {
+    "135m": {
+      "greedy": {
+        "pairs": 5,
+        "structurally_valid_rate": 0.6,
+        "exact_note_count_rate": 0.2,
+        "native_export_success_rate": 0.6,
+        "rhythmic_jaccard_valid": 0.07777777777777778,
+        "valid_jaccard_denominator": 3,
+        "target_loss": 0.7390982519079755,
+        "target_loss_comparable_across_models": false,
+        "generation_token_budget": 128
+      },
+      "constrained": {
+        "pairs": 5,
+        "structurally_valid_rate": 1.0,
+        "exact_note_count_rate": 1.0,
+        "native_export_success_rate": 1.0,
+        "rhythmic_jaccard_valid": 0.08666666666666667,
+        "valid_jaccard_denominator": 5,
+        "target_loss": 0.7390982519079755,
+        "target_loss_comparable_across_models": false,
+        "generation_token_budget": 128
+      }
+    },
+    "360m": {
+      "greedy": {
+        "pairs": 5,
+        "structurally_valid_rate": 1.0,
+        "exact_note_count_rate": 0.0,
+        "native_export_success_rate": 1.0,
+        "rhythmic_jaccard_valid": 0.12857142857142856,
+        "valid_jaccard_denominator": 5,
+        "target_loss": 0.6904450004751032,
+        "target_loss_comparable_across_models": false,
+        "generation_token_budget": 512
+      },
+      "constrained": {
+        "pairs": 5,
+        "structurally_valid_rate": 1.0,
+        "exact_note_count_rate": 1.0,
+        "native_export_success_rate": 1.0,
+        "rhythmic_jaccard_valid": 0.13111111111111112,
+        "valid_jaccard_denominator": 5,
+        "target_loss": 0.6904450004751032,
+        "target_loss_comparable_across_models": false,
+        "generation_token_budget": 512
+      }
+    },
+    "135mea": {
+      "greedy": null,
+      "constrained": null
+    },
+    "360mea": {
+      "greedy": null,
+      "constrained": null
+    },
+    "17bea": {
+      "greedy": null,
+      "constrained": null
+    }
+  },
+  "pending": {
+    "135mea_greedy": "evaluation snapshot is missing",
+    "135mea_constrained": "evaluation snapshot is missing",
+    "360mea_greedy": "evaluation snapshot is missing",
+    "360mea_constrained": "evaluation snapshot is missing",
+    "17bea_greedy": "evaluation snapshot is missing",
+    "17bea_constrained": "evaluation snapshot is missing"
+  },
+  "sources": {
+    "v3_test_rows_sha256": "ed3f906405022fed0cc0f440a1ac528a16305c56ebad3e94f8c54ae020af90e5",
+    "135m_greedy": {
+      "path": "smollm135\\V3\\output\\evaluation\\v3_greedy_test.json",
+      "sha256": "9d50b69bf911a590bd2cffbb73f0ebe6d20d12d9a7e68f68cad5c2f6a78b188f"
+    },
+    "135m_constrained": {
+      "path": "smollm135\\V3\\output\\evaluation\\v3_constrained_test.json",
+      "sha256": "2247712a00bbb6bbab431ae77f60ad32d12b7149ada8dc49a5a1e8ad89575544"
+    },
+    "360m_greedy": {
+      "path": "Comparison\\smollm360_greedy_512_backup.json",
+      "sha256": "1317f36bc412f0b4f8f349d91bc0383c9b6507f424ec8f49184900efcda32f15"
+    },
+    "360m_constrained": {
+      "path": "Comparison\\smollm360_constrained_512_backup.json",
+      "sha256": "4f2f6866a1de53503adf9c9fbeb8eb69ba3e6cd718ed30192b62a2be65104d81"
+    }
+  },
+  "metric_scope": "five original-count held-out test requests per model and decoder"
+}

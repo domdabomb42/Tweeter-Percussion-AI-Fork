@@ -1,40 +1,49 @@
-# SmolLM2 V3 percussion comparison
+# Five-model percussion comparison
 
-The requested `smollm350` is the existing `smollm360` experiment.
-Both checkpoints were evaluated with greedy and constrained decoding on
-the same five held-out percussion targets from three sessions. They also
-received 30 requested-note-count trials each per decoding method.
-The constrained adapter is a copy of the rhythm adapter's weights;
-constrained decoding is a rule at inference, not a second trained model.
-The new augmented sessions were not used to train these checkpoints.
+This folder compares the historical **135M** and **360M** V3 percussion
+generators with the new **135MEA**, **360MEA**, and **17BEA** V4EA position
+generators. `EA` means the new V4EA experiment. The comparison uses the same
+five held-out target tracks and the original requested note count for each.
 
-| Decoding | Model | Test loss | Perplexity | Onset F1 | Exact count (30) | Valid (35) | Mean latency |
-| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| greedy | smollm135 | 0.739 | 2.094 | 0.082 | 0.0% | 65.7% | 36.345 s (cuda) |
-| greedy | smollm360 | 0.690 | 1.995 | 0.172 | 0.0% | 100.0% | 6.596 s (unrecorded) |
-| constrained | smollm135 | 0.739 | 2.094 | 0.151 | 100.0% | 100.0% | 34.720 s (cuda) |
-| constrained | smollm360 | 0.690 | 1.995 | 0.179 | 100.0% | 100.0% | 10.781 s (unrecorded) |
+Run this from `apps/Comparison` to build the report from saved evaluations:
 
-Constrained decoding achieved the requested count in all 30 sweep trials
-for each model; greedy decoding achieved it in none. Both constrained
-runs exported 35/35 valid tracks. The 360M checkpoint has lower held-out
-loss and higher onset F1 on this small test set. Onset F1
-remains below 0.18 in every condition, so count compliance alone does
-not establish that the rhythm fits the source music.
+```powershell
+python compare.py
+```
 
-Detailed tables cover groove proxies, diversity, training time and peak GPU use:
-[greedy results](greedy.md) and [constrained results](constrained.md).
-[comparison.json](comparison.json) holds the calculated measurements and source hashes.
-The complete 360M evaluations used a 512-token cap, but all outputs
-ended before 128 tokens. The 135M runs used a 128-token cap.
-The 360M reports did not record the evaluation device, so the latency
-figures are not a controlled speed comparison.
+The output is [five_model_comparison.md](five_model_comparison.md) and
+[five_model_comparison.json](five_model_comparison.json). Models without a
+finished evaluation appear as **Pending**. The command does not load or train
+a model.
 
-No human listening score has been measured. Groove scores are grid-based
-proxies and do not establish that a generated percussion line sounds good.
+After a V4EA model finishes training, evaluate both greedy and constrained
+decoding and save distinct report snapshots:
 
-## Reproduce
+```powershell
+python compare.py --evaluate-ea 135mea
+python compare.py --evaluate-ea 360mea
+python compare.py --evaluate-ea 17bea
+python compare.py --strict
+```
 
-From this directory run `python compare.py`. The raw
-V3 evaluation commands are given in each detailed report. They evaluate
-existing checkpoints and do not train a model.
+`--evaluate-ea` runs test evaluation only; it uses the model's current best
+adapter and writes snapshots under `reports/`. Use `--cpu` if needed. The
+comparison rejects a snapshot when its dataset or best adapter has changed.
+Run `--evaluate-ea` again after further training. Wait until training has
+finished before evaluating on the same GPU.
+
+The table compares structural validity, exact note count, native export rate,
+and rhythmic Jaccard on structurally valid outputs. Invalid outputs affect
+the validity rate, while Jaccard lists its own denominator. Loss and timing
+are excluded from the ranking because the tokenizers, input formats, and
+latency measurement scopes differ. The V3 135M evaluation used a 128-token
+generation cap; V3 360M and V4EA used 512.
+
+The original two-model V3 comparison is preserved in
+[README_v3_historical.md](README_v3_historical.md),
+[comparison.json](comparison.json), [greedy.md](greedy.md), and
+[constrained.md](constrained.md). Rebuild it with:
+
+```powershell
+python compare.py --historical-v3
+```

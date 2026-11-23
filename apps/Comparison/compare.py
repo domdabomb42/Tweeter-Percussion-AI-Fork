@@ -1,6 +1,6 @@
 """Reproduce the held-out SmolLM2-135M versus 360M V3 comparison.
 
-Run ``python compare.py`` from this directory after the two 135M test
+Run ``python compare.py --historical-v3`` from this directory after the two 135M test
 evaluations exist. The complete historical 360M evaluations are kept here.
 This script reads saved reports; it never trains a model.
 """
@@ -271,7 +271,7 @@ reference-track proxies and source hashes.
 
 ## Reproduce
 
-From `apps/Comparison`, run `python compare.py`. The script reads
+From `apps/Comparison`, run `python compare.py --historical-v3`. The script reads
 `../smollm135/V3/output/evaluation/v3_{decoding}_test.json` and the saved
 360M report in this folder, checkpoint histories and held-out row manifests. It checks
 that the two reports use identical test targets and generation requests, then
@@ -325,7 +325,7 @@ def render_overview(result: dict) -> str:
               "figures are not a controlled speed comparison.", "",
               "No human listening score has been measured. Groove scores are grid-based",
               "proxies and do not establish that a generated percussion line sounds good.", "",
-              "## Reproduce", "", "From this directory run `python compare.py`. The raw",
+             "## Reproduce", "", "From this directory run `python compare.py --historical-v3`. The raw",
               "V3 evaluation commands are given in each detailed report. They evaluate",
               "existing checkpoints and do not train a model.", ""]
     return "\n".join(lines)
@@ -404,9 +404,14 @@ def main() -> None:
     (HERE / "comparison.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     (HERE / "greedy.md").write_text(render_markdown(result, "greedy"), encoding="utf-8")
     (HERE / "constrained.md").write_text(render_markdown(result, "constrained"), encoding="utf-8")
-    (HERE / "README.md").write_text(render_overview(result), encoding="utf-8")
-    print("Wrote apps/Comparison/comparison.json, README.md, greedy.md, constrained.md")
+    (HERE / "README_v3_historical.md").write_text(render_overview(result), encoding="utf-8")
+    print("Wrote apps/Comparison/comparison.json, README_v3_historical.md, greedy.md, constrained.md")
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    if sys.argv[1:] == ["--historical-v3"]:
+        main()
+    else:
+        from five_model import main as five_model_main
+        raise SystemExit(five_model_main())
