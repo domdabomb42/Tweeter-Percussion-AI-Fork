@@ -88,9 +88,10 @@ def load_model(output_dir, adapter=None, cpu=False, trainable=True):
             info = json.loads((path.parent / "metadata.json").read_text(encoding="utf-8"))["config"]
         else:
             raise ValueError("adapter lacks musical experiment identity metadata")
+        manifest = json.loads((Path(output_dir) / "manifest.json").read_text(encoding="utf-8"))
         if (info.get("version"), info.get("model_id"), info.get("revision"),
                 info.get("tokenizer_sha256")) != (
-                VERSION, MODEL_ID, MODEL_REVISION, identity["tokenizer_sha256"]):
+                manifest["version"], MODEL_ID, MODEL_REVISION, identity["tokenizer_sha256"]):
             raise ValueError("adapter belongs to another musical experiment or tokenizer")
         if not (path / "embedding.safetensors").is_file():
             raise FileNotFoundError("V4EA checkpoint lacks its trained embeddings")

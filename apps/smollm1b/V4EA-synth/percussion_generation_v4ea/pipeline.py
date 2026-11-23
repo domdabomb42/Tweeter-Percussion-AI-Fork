@@ -1,4 +1,4 @@
-"""Train a fresh BPE vocabulary and prepare musical V4EA targets."""
+"""Train a fresh BPE vocabulary and prepare versioned V4EA targets."""
 from collections import OrderedDict
 import hashlib
 import json
@@ -7,14 +7,15 @@ import shutil
 import tempfile
 import time
 
-from . import END_MARKER, MODEL_ID, MODEL_REVISION, MODEL_ROOT, OUTPUT, TARGET_MARKER, VERSION
+from . import MODEL_ID, MODEL_REVISION, MODEL_ROOT, OUTPUT
 from percussion_generation_v3.codec_v2 import dumps
 from percussion_generation_v3.data import AUGMENTED_SESSIONS
 from percussion_generation_v3.lossless_dataset import _row_groups, _source_output, _source_path
 from percussion_generation_v3.roles import role
 from custom_extractor import extract_tweeter
 from custom_extractor.models import Composition
-from .music import SCHEMA_SHA256, encode_input, encode_target, decode_target
+from .target_format import (decode, encode, end_marker_for, format_for_version,
+                            prompt, schema_for, version_for)
 
 
 def sha256(path):
@@ -41,7 +42,7 @@ def source_groups(source_output=None):
     return root, groups, sources, generated, augmentation_sha
 
 
-def texts_for_pair(row, generated, composition=None):
+def texts_for_pair(row, generated, composition=None, target_format="positions-v1"):
     path = _source_path(row, generated)
     composition = composition if composition is not None else extract_tweeter(path)
     target = composition.track(row["target_track_id"])
@@ -53,18 +54,19 @@ def texts_for_pair(row, generated, composition=None):
     if len(remaining) + 1 != len(composition.tracks):
         raise ValueError("target track ID is ambiguous")
     condition = Composition(composition.global_settings, remaining)
-    target_text = encode_target(target)
-    decoded = decode_target(target_text, len(target["notes"]))
-    if decoded["notes"] != target["notes"] or decoded["instrument"] != target["instrument"]["name"]:
+    target_text = encode(target, target_format)
+    decoded = decode(target_text, len(target["notes"]), target_format)
+    if target_format == "positions-v1":
+        if decoded != [note["step"] for note in target["notes"]]:
+            raise ValueError("position target round trip failed")
+    elif decoded["notes"] != target["notes"] or decoded["instrument"] != target["instrument"]["name"]:
         raise ValueError("musical target round trip failed")
-    prefix = prompt_for_composition(condition, len(target["notes"]))
-    return prefix, target_text + "\n" + END_MARKER, target
+    prefix = prompt_for_composition(condition, len(target["notes"]), target_format)
+    return prefix, target_text, target
 
 
-def prompt_for_composition(composition, target_note_count):
-    if type(target_note_count) is not int or not 1 <= target_note_count <= 64:
-        raise ValueError("target note count must be 1..64")
-    return encode_input(composition, target_note_count) + TARGET_MARKER
+def prompt_for_composition(composition, target_note_count, target_format="positions-v1"):
+    return prompt(composition, target_note_count, target_format)
 
 
 def build_preset_catalog(groups, generated):
@@ -98,7 +100,7 @@ def _unique_train_rows(rows):
 
 
 def train_tokenizer(output_dir=OUTPUT, source_output=None, vocab_size=16384,
-                    progress_seconds=180, dry_run=False):
+                    progress_seconds=180, dry_run=False, target_format="positions-v1"):
     from transformers import AutoTokenizer
     if not 4096 <= vocab_size <= 49152:
         raise ValueError("vocab size must be 4096..49152")
@@ -109,6 +111,7 @@ def train_tokenizer(output_dir=OUTPUT, source_output=None, vocab_size=16384,
     train_rows = list(_unique_train_rows(groups["train"]))
     source_ids = {(r["source"], r.get("augmentation", {}).get("file")) for r in train_rows}
     plan = {"model_id": MODEL_ID, "revision": MODEL_REVISION,
+            "target_format": target_format,
             "source_dataset": str(source.resolve()), "train_pairs": len(train_rows),
             "train_session_variants": len(source_ids), "vocab_size_requested": vocab_size,
             "augmentation_manifest_sha256": augmentation_sha,
@@ -130,7 +133,7 @@ def train_tokenizer(output_dir=OUTPUT, source_output=None, vocab_size=16384,
                 cache[key] = extract_tweeter(_source_path(row, generated))
                 if len(cache) > 16:
                     cache.popitem(last=False)
-            prefix, target, _ = texts_for_pair(row, generated, cache[key])
+            prefix, target, _ = texts_for_pair(row, generated, cache[key], target_format)
             yield [prefix, target]
             now = time.monotonic()
             if progress_seconds and now - last >= progress_seconds:
@@ -138,7 +141,7 @@ def train_tokenizer(output_dir=OUTPUT, source_output=None, vocab_size=16384,
                 last = now
     trained = old.train_new_from_iterator(corpus(), vocab_size=vocab_size,
                                           length=len(train_rows),
-                                          new_special_tokens=[END_MARKER])
+                                          new_special_tokens=[end_marker_for(target_format)])
     if trained.eos_token_id is None or trained.eos_token != old.eos_token:
         raise ValueError("new tokenizer lost the pinned EOS token")
     output.mkdir(parents=True, exist_ok=True)
@@ -171,11 +174,14 @@ def load_new_tokenizer(output_dir=OUTPUT):
     return tokenizer, identity
 
 
-def prepare(output_dir=OUTPUT, source_output=None, progress_seconds=180, dry_run=False):
+def prepare(output_dir=OUTPUT, source_output=None, progress_seconds=180,
+            dry_run=False, target_format="positions-v1"):
     output = Path(output_dir)
     if (output / "manifest.json").exists() or (output / "rhythm").exists():
         raise FileExistsError("V4EA dataset already exists; use a new output directory")
     tokenizer, identity = load_new_tokenizer(output)
+    if identity.get("target_format", "musical-v2") != target_format:
+        raise ValueError("tokenizer target format differs from requested dataset format")
     source, groups, sources, generated, augmentation_sha = source_groups(source_output)
     plan = {"train_pairs": len(groups["train"]), "validation_pairs": len(groups["validation"]),
             "fixed_validation_pairs": len(groups["validation20"]),
@@ -198,13 +204,13 @@ def prepare(output_dir=OUTPUT, source_output=None, progress_seconds=180, dry_run
                 cache[key] = extract_tweeter(_source_path(row, generated))
                 if len(cache) > 16:
                     cache.popitem(last=False)
-            prefix, target, track = texts_for_pair(row, generated, cache[key])
+            prefix, target, track = texts_for_pair(row, generated, cache[key], target_format)
             prefix_ids = tokenizer.encode(prefix, add_special_tokens=False)
             target_ids = tokenizer.encode(target, add_special_tokens=False) + [tokenizer.eos_token_id]
             count = len(prefix_ids) + len(target_ids)
             if count > 8192:
                 failures.append((split, row["source"], row["target_track_id"], count))
-            new = {**row, "encoding": VERSION, "prefix": prefix, "target": target,
+            new = {**row, "encoding": version_for(target_format), "prefix": prefix, "target": target,
                    "prefix_ids": prefix_ids, "target_ids": target_ids, "tokens": count,
                    "target_track_sha256": hashlib.sha256(dumps(track).encode()).hexdigest()}
             result.append(new)
@@ -228,9 +234,9 @@ def prepare(output_dir=OUTPUT, source_output=None, progress_seconds=180, dry_run
             path = temp / "rhythm" / f"{split}.jsonl"
             path.write_text("".join(dumps(row) + "\n" for row in rows), encoding="utf-8")
             digest.update(split.encode() + b"\0" + path.read_bytes())
-        manifest = {"version": VERSION, "encoding": "musical-v2",
+        manifest = {"version": version_for(target_format), "encoding": target_format,
                     "model_id": MODEL_ID, "revision": MODEL_REVISION,
-                    "codec_schema_sha256": SCHEMA_SHA256,
+                    "codec_schema_sha256": schema_for(target_format),
                     "tokenizer_sha256": identity["tokenizer_sha256"],
                     "tokenizer_kind": identity["tokenizer_kind"],
                     "source_dataset": str(source.resolve()),
@@ -238,12 +244,20 @@ def prepare(output_dir=OUTPUT, source_output=None, progress_seconds=180, dry_run
                     "source_partitions": {name: sorted(members) for name, members in sources.items()},
                     "splits": lengths, "max_length": 8192,
                     "prepared_dataset_sha256": digest.hexdigest(),
-                    "target": "percussion identity, notes, timing, then [END_MUSIC] and EOS",
+                    "target": ("ascending percussion step numbers, then [END_RHYTHM] and EOS"
+                               if target_format == "positions-v1" else
+                               "percussion identity, notes, timing, then [END_MUSIC] and EOS"),
                     "preset_catalog_sha256": hashlib.sha256(dumps(catalog).encode()).hexdigest()}
         (temp / "preset_catalog.json").write_text(dumps(catalog) + "\n", encoding="utf-8")
+        if target_format == "positions-v1":
+            preset_source = MODEL_ROOT / "V3/output/fixed_preset.json"
+            shutil.copy2(preset_source, temp / "fixed_preset.json")
+            manifest["fixed_preset_sha256"] = sha256(temp / "fixed_preset.json")
         (temp / "manifest.json").write_text(dumps(manifest) + "\n", encoding="utf-8")
         (temp / "rhythm").rename(output / "rhythm")
         (temp / "preset_catalog.json").replace(output / "preset_catalog.json")
+        if target_format == "positions-v1":
+            (temp / "fixed_preset.json").replace(output / "fixed_preset.json")
         (temp / "manifest.json").replace(output / "manifest.json")
     finally:
         if temp.exists():
@@ -255,9 +269,13 @@ def verify_dataset(output_dir=OUTPUT):
     output = Path(output_dir)
     _, identity = load_new_tokenizer(output)
     manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
+    target_format = format_for_version(manifest["version"])
+    if identity.get("target_format", "musical-v2") != target_format or manifest["encoding"] != target_format:
+        raise ValueError("V4EA tokenizer and target format differ")
     if (manifest["version"], manifest["model_id"], manifest["revision"],
             manifest["codec_schema_sha256"], manifest["tokenizer_sha256"]) != (
-            VERSION, MODEL_ID, MODEL_REVISION, SCHEMA_SHA256, identity["tokenizer_sha256"]):
+            version_for(target_format), MODEL_ID, MODEL_REVISION,
+            schema_for(target_format), identity["tokenizer_sha256"]):
         raise ValueError("V4EA dataset identity mismatch")
     if sha256(AUGMENTED_SESSIONS / "manifest.json") != manifest["source_augmentation_manifest_sha256"]:
         raise ValueError("augmentation manifest changed")
@@ -272,6 +290,8 @@ def verify_dataset(output_dir=OUTPUT):
     catalog = json.loads((output / "preset_catalog.json").read_text(encoding="utf-8"))
     if hashlib.sha256(dumps(catalog).encode()).hexdigest() != manifest["preset_catalog_sha256"]:
         raise ValueError("V4EA preset catalog changed")
+    if target_format == "positions-v1" and sha256(output / "fixed_preset.json") != manifest["fixed_preset_sha256"]:
+        raise ValueError("V4EA fixed preset changed")
     sources = {split: {row["source"] for row in groups[split]}
                for split in ("train", "validation", "test")}
     if any(sources[a] & sources[b] for a, b in

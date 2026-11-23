@@ -1,91 +1,67 @@
-# V4EA musical percussion experiment
+# V4EA percussion generation
 
-This is a new, isolated experiment. Its default output is
-`../MostRecentOutput/V4EA-music-v3`; historical V3 and V4EA outputs are left
-untouched. Run the commands below from this model's `V4EA-synth` directory.
+The default new experiment writes to `../MostRecentOutput/V4EA-positions-v1`.
+The historical full musical target, its tokenizer, dataset, and checkpoints remain
+in `../MostRecentOutput/V4EA-music-v3`. The two output directories are separate.
 
-The deterministic version-3 input is a positional JSON array containing the
-requested note count and, in original order, each conditioning track's role,
-instrument name, loop length, and note step/pitch pairs. The
-version-2 target contains only a percussion instrument name, loop length,
-note duration, transposition, and step/pitch pairs. It ends with `[END_MUSIC]`
-and the pinned model's EOS token. Synth, effects, mixing, playback, track IDs,
-and unrelated metadata are never output tokens. Instrument usernames remain
-in the native source tracks and preset catalog but are excluded from model input. All three model sizes use the
-same schema and source sessions; each trains its own BPE tokenizer from the
-67 original training pairs and their permitted augmented children.
+Both formats use the same `V4EA-MUSIC-INPUT-3` conditioning array: requested
+note count, then every remaining track's role, instrument name, loop length,
+and `[step,pitch]` pairs in original order. `instrument.username` stays in
+native Tweeter files but is omitted from model input. The new target is only
+ascending, space separated tracker step numbers from 0 to 63, followed by
+`[END_RHYTHM]` and EOS. It is the V3 rhythm target grammar. A fixed, validated
+V3 percussion preset supplies instrument, pitch, synth, effects, mixing, and
+playback settings during native export. The original `V4EA-MUSIC-TARGET-2`
+full musical target, its `[END_MUSIC]` marker, and named preset catalog remain
+available through the historical output directory.
 
-The preparation step creates a validated instrument preset catalog from
-original native tracks, strips notes, and stores the sound settings separately
-from model targets. It includes sound templates for held-out instrument names
-so native reconstruction can be evaluated; held-out notes are never in the
-tokenizer corpus or training pool. Generation selects the named preset, adds
-the predicted notes and timing, assigns a free track ID, and verifies export
-and reimport. Unknown instruments or malformed music fail clearly. There is
-no fallback rhythm. An instrument absent from the training targets may still
-be difficult for the model to predict accurately.
-The inherited split preserves all 67 original training pairs and the original
-10 validation pairs; their broader beat-sequence family overlap remains.
+Preparation uses the same 2,688 training pairs, held-out source splits, and
+augmented sessions. It trains a fresh BPE tokenizer from the chosen target
+format and saves a separate dataset. Training keeps the rank-16 LoRA
+architecture, tied trainable embeddings, target-only loss masking, learning
+rates, and full-pool coverage sampler. The default sampler presents the entire
+2,688-pair pool twice, validating every 536 examples. Checkpoints save every
+10 optimizer updates. Early stopping starts only after one pass. The inherited
+67 original training pairs and original 10 validation pairs have a broader
+beat-sequence family overlap.
 
-Training uses a fresh rank-16 LoRA adapter and newly remapped, trainable tied
-embeddings from the pinned pretrained model. Each forward pass includes the
-entire conditioning prefix and target. Prefix labels are `-100`, so target
-cross-entropy backpropagates through the prefix. No detached KV cache is used
-for training. Gradient checkpointing, disabled training cache, pretrained
-BF16/FP16 precision on supported GPUs, 8-example accumulation, and optional
-CPU execution control memory. The 8192-token limit is strict. A 6 GB GPU is
-unlikely to fit full-context 1.7B training; use a larger GPU or `--cpu` (slow).
-
-Default learning rates are:
-
-| Model | LoRA | Embeddings |
-| --- | ---: | ---: |
-| 135M | 1e-4 | 1e-4 |
-| 360M | 1e-4 | 5e-5 |
-| 1.7B | 5e-5 | 5e-5 |
-
-AdamW uses 0.01 weight decay for LoRA, gradient clipping at 1.0, 10% linear
-warmup, then cosine decay. The default sampler shuffles all 2,688 training
-pairs without replacement. It takes 536 per validation interval, continues
-across interval boundaries, and reshuffles only after a complete pass.
-Two passes mean 5,376 example presentations: ten 536-example intervals
-and a final 16-example interval, about 672 optimizer updates and 68 warmup
-updates. The natural pool ratio is 67 original to 2,621 augmented pairs;
-originals are not forced into each interval. The fixed 20-pair validation
-set determines the best adapter. Patience is 5, but stopping cannot occur
-before one full pass. Checkpoints every 10 optimizer updates include LoRA,
-embeddings, optimizer, scheduler, scaler, RNG, selected order, and sampler
-permutation/cursor. Coverage and original/augmented counts are logged.
-The new run uses `checkpoints/rhythm_coverage_v1`, leaving prior
-`checkpoints/rhythm` results intact.
+Run from this `V4EA-synth` folder. The training command runs the full job.
 
 ```powershell
 python -m percussion_generation_v4ea train-tokenizer --vocab-size 16384
 python -m percussion_generation_v4ea prepare
 python -m percussion_generation_v4ea validate
 python -m percussion_generation_v4ea train --dataset-passes 2 --examples-per-epoch 536 --lora-learning-rate 1e-4 --embedding-learning-rate 5e-5 --save-steps 10 --patience 5
-python -m percussion_generation_v4ea train --resume-checkpoint latest --dataset-passes 2 --examples-per-epoch 536 --lora-learning-rate 1e-4 --embedding-learning-rate 5e-5 --save-steps 10 --patience 5
-python -m percussion_generation_v4ea evaluate --partition validation20
-python -m percussion_generation_v4ea evaluate --partition test
-python -m percussion_generation_v4ea generate --input ..\..\L2Ork-Tweeter\sessions\canada-start-session-coll.txt --output .\generated-percussion.txt --target-note-count 8
 ```
 
-The commands use this model's learning rates. If the tokenizer and dataset
-already exist, start at `train`; preparation refuses to overwrite them.
-To resume a historical 67/201 run, use `train --sampler legacy
---resume-checkpoint latest --epochs 12 --examples-per-epoch 268` with
-the original learning-rate/device flags. Use `--checkpoint-run legacy`
-with `evaluate` or `generate` to select its best adapter explicitly.
-For CPU use, add `--cpu` to train, resume, evaluate, and generate; resume must
-use the same device type as the checkpoint. Run the 1.7B `train --dry-run`
-first to inspect the plan. Preparation refuses to overwrite a tokenizer or
-dataset; use a new output directory to rebuild. Evaluation writes
-`evaluation_validation20.json` or `evaluation_test.json` into the experiment
-output. Generated-track metrics are comparable across model sizes; token
-cross-entropy is tokenizer-specific and is not directly comparable.
-
-From any one V4EA directory, after all three test evaluations exist:
+Resume or evaluate:
 
 ```powershell
-python -m percussion_generation_v4ea compare --reports ..\..\smollm135\MostRecentOutput\V4EA-music-v3\evaluation_test.json ..\..\smollm360\MostRecentOutput\V4EA-music-v3\evaluation_test.json ..\..\smollm1b\MostRecentOutput\V4EA-music-v3\evaluation_test.json --output .\three-model-comparison.json
+python -m percussion_generation_v4ea train --resume-checkpoint latest --dataset-passes 2 --examples-per-epoch 536 --lora-learning-rate 1e-4 --embedding-learning-rate 5e-5 --save-steps 10 --patience 5
+python -m percussion_generation_v4ea evaluate --partition validation20
+python -m percussion_generation_v4ea evaluate --partition test --constrained
 ```
+
+After training, this PowerShell loop creates five native Tweeter text files in
+`QuickRunOutputs`. The same source is used with five requested note counts.
+`--constrained` enforces ascending positions and the count during inference;
+it does not change training.
+
+```powershell
+$counts = @(4, 6, 8, 10, 12)
+for ($i = 0; $i -lt 5; $i++) {
+  python -m percussion_generation_v4ea generate --input ..\..\L2Ork-Tweeter\sessions\1st-beat-fall-2021-session-coll.txt --output ".\QuickRunOutputs\percussion_$($i + 1).txt" --target-note-count $counts[$i] --constrained
+  if ($LASTEXITCODE -ne 0) { throw "Generation $($i + 1) failed" }
+}
+```
+
+The historical musical experiment is selected explicitly:
+
+```powershell
+python -m percussion_generation_v4ea --output-dir ..\MostRecentOutput\V4EA-music-v3 evaluate --partition validation20 --checkpoint-run legacy
+python -m percussion_generation_v4ea --output-dir ..\MostRecentOutput\V4EA-music-v3 generate --input ..\..\L2Ork-Tweeter\sessions\canada-start-session-coll.txt --output .\QuickRunOutputs\historical.txt --target-note-count 8 --checkpoint-run legacy
+```
+
+For a new full musical target dataset, use a fresh output directory and pass
+`--target-format musical-v2` to both `train-tokenizer` and `prepare`.
+Preparation refuses to overwrite an existing dataset or tokenizer.

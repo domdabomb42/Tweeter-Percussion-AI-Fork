@@ -4,7 +4,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 MODEL_ROOT = ROOT.parent
-OUTPUT = MODEL_ROOT / "MostRecentOutput" / "V4EA-music-v3"
+OUTPUT = MODEL_ROOT / "MostRecentOutput" / "V4EA-positions-v1"
 V3_ROOT = MODEL_ROOT / "V3"
 if str(V3_ROOT) not in sys.path:
     sys.path.insert(0, str(V3_ROOT))
@@ -16,3 +16,6 @@ from custom_training import MODEL_ID, MODEL_REVISION  # noqa: E402
 VERSION = "v4ea-music-v3"
 TARGET_MARKER = "\nPERCUSSION_MUSIC_TARGET\n"
 END_MARKER = "[END_MUSIC]"
+POSITIONS_VERSION = "v4ea-positions-v1"
+POSITIONS_MARKER = "\nRHYTHM_TARGET="
+POSITIONS_END_MARKER = "[END_RHYTHM]"

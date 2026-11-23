@@ -1,14 +1,16 @@
-"""Strict musical generation, native reconstruction, and comparison reports."""
+"""Versioned V4EA generation, native reconstruction, and evaluation."""
 from copy import deepcopy
 import json
 from pathlib import Path
 import tempfile
 import time
 
-from . import END_MARKER, MODEL_ID, MODEL_REVISION, OUTPUT, VERSION
+from . import MODEL_ID, MODEL_REVISION, OUTPUT
 from .model import load_model
-from .music import TARGET_TAG, compact, decode_target, reconstruct
+from .music import TARGET_TAG, compact, reconstruct
 from .pipeline import load_new_tokenizer, prompt_for_composition, verify_dataset
+from .target_format import decode, end_marker_for, format_for_version
+from percussion_generation_v3.inference import PositionConstraint, choose_loop_ms, build_track
 from .trainer import validation_loss
 from custom_extractor import extract_tweeter, export_tweeter
 from custom_extractor.models import Composition
@@ -26,7 +28,7 @@ def _best(output_dir, checkpoint_run="auto"):
     adapter = (coverage if checkpoint_run == "coverage" or
                (checkpoint_run == "auto" and coverage.is_dir()) else legacy)
     metadata = json.loads((adapter / "experiment_metadata.json").read_text(encoding="utf-8"))
-    for key, expected in (("version", VERSION), ("model_id", MODEL_ID),
+    for key, expected in (("version", manifest["version"]), ("model_id", MODEL_ID),
                           ("revision", MODEL_REVISION),
                           ("tokenizer_sha256", manifest["tokenizer_sha256"]),
                           ("prepared_dataset_sha256", manifest["prepared_dataset_sha256"]),
@@ -34,56 +36,77 @@ def _best(output_dir, checkpoint_run="auto"):
                           ("preset_catalog_sha256", manifest["preset_catalog_sha256"])):
         if metadata.get(key) != expected:
             raise ValueError(f"best adapter has incompatible {key}")
+    if (manifest.get("fixed_preset_sha256") is not None and
+            metadata.get("fixed_preset_sha256") != manifest["fixed_preset_sha256"]):
+        raise ValueError("best adapter has incompatible fixed preset")
     return adapter, groups
 
 
 def _decode_generated(model, tokenizer, device, composition, count, catalog,
-                      max_new_tokens, enforce_count=True):
+                      max_new_tokens, enforce_count=True, target_format="musical-v2",
+                      constrained=False):
     import torch
-    ids = tokenizer.encode(prompt_for_composition(composition, count), add_special_tokens=False)
+    ids = tokenizer.encode(prompt_for_composition(composition, count, target_format), add_special_tokens=False)
     limit = min(max_new_tokens, 8192 - len(ids))
     if limit < 2:
-        raise ValueError("musical input leaves no target context")
+        raise ValueError("V4EA input leaves no target context")
     started = time.perf_counter()
-    # Constrain the opening schema tag; strict parsing validates the remaining
-    # variable-length musical fields and refuses malformed completions.
-    opening = compact([TARGET_TAG])[:-1] + ","
-    vocabulary = list(range(len(tokenizer)))
-    pieces = [tokenizer.decode([token_id], skip_special_tokens=False)
-              for token_id in vocabulary]
-    allowed_cache = {}
-    def allowed_tokens(_batch, sequence):
-        current_ids = tuple(sequence[len(ids):].tolist())
-        if current_ids in allowed_cache:
-            return allowed_cache[current_ids]
-        current = tokenizer.decode(list(current_ids), skip_special_tokens=False)
-        if current.startswith(opening):
-            return vocabulary
-        allowed = []
-        for token_id, piece in enumerate(pieces):
-            candidate = current + piece
-            if candidate != current and (opening.startswith(candidate) or candidate.startswith(opening)):
-                allowed.append(token_id)
-        if not allowed:
-            raise ValueError("tokenizer cannot emit musical schema opening")
-        allowed_cache[current_ids] = allowed
-        return allowed
+    # The optional position constraint enforces exact count; the historical
+    # musical decoder still constrains its schema opening.
+    options = {}
+    if target_format == "positions-v1" and constrained:
+        constraint = PositionConstraint(tokenizer, count)
+        options["prefix_allowed_tokens_fn"] = lambda _batch, sequence: constraint.allowed(
+            sequence[len(ids):].tolist())
+    if target_format == "musical-v2":
+        opening = compact([TARGET_TAG])[:-1] + ","
+        vocabulary = list(range(len(tokenizer)))
+        pieces = [tokenizer.decode([token_id], skip_special_tokens=False)
+                  for token_id in vocabulary]
+        allowed_cache = {}
+        def allowed_tokens(_batch, sequence):
+            current_ids = tuple(sequence[len(ids):].tolist())
+            if current_ids in allowed_cache:
+                return allowed_cache[current_ids]
+            current = tokenizer.decode(list(current_ids), skip_special_tokens=False)
+            if current.startswith(opening):
+                return vocabulary
+            allowed = []
+            for token_id, piece in enumerate(pieces):
+                candidate = current + piece
+                if candidate != current and (opening.startswith(candidate) or candidate.startswith(opening)):
+                    allowed.append(token_id)
+            if not allowed:
+                raise ValueError("tokenizer cannot emit musical schema opening")
+            allowed_cache[current_ids] = allowed
+            return allowed
+        options["prefix_allowed_tokens_fn"] = allowed_tokens
     with torch.inference_mode():
         output = model.peft_model.generate(
             input_ids=torch.tensor([ids], dtype=torch.long, device=device),
+            attention_mask=torch.ones((1, len(ids)), dtype=torch.long, device=device),
             max_new_tokens=limit, do_sample=False, use_cache=True,
-            prefix_allowed_tokens_fn=allowed_tokens,
-            eos_token_id=tokenizer.eos_token_id, pad_token_id=tokenizer.eos_token_id)
+            eos_token_id=tokenizer.eos_token_id, pad_token_id=tokenizer.eos_token_id,
+            **options)
     text = tokenizer.decode(output[0, len(ids):], skip_special_tokens=False)
     duration = time.perf_counter() - started
-    if "\n" + END_MARKER not in text:
-        raise ValueError("model did not complete musical target")
-    packed = text.split("\n" + END_MARKER, 1)[0]
-    return decode_target(packed, count if enforce_count else None, catalog), duration
+    ending = "\n" + end_marker_for(target_format)
+    if ending not in text:
+        raise ValueError("model did not complete percussion target")
+    packed = text.split(ending, 1)[0] + ending
+    return decode(packed, count if enforce_count else None, target_format,
+                  catalog if target_format == "musical-v2" else None), duration
 
 
 def _export_checked(composition, musical, catalog, output_path):
-    candidate, track = reconstruct(composition, musical, catalog)
+    if isinstance(musical, list):
+        track = build_track(composition, musical, catalog, choose_loop_ms(composition))
+        candidate = deepcopy(composition)
+        candidate.tracks.append(track)
+        from custom_extractor.validator import validate
+        validate(candidate)
+    else:
+        candidate, track = reconstruct(composition, musical, catalog)
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     export_tweeter(candidate, output_path)
@@ -96,31 +119,42 @@ def _export_checked(composition, musical, catalog, output_path):
 
 def generate(output_dir=OUTPUT, input_path=None, output_path=None,
              target_note_count=None, max_new_tokens=512, cpu=False,
-             checkpoint_run="auto"):
+             checkpoint_run="auto", constrained=False):
     output_path = Path(output_path)
     if output_path.exists():
         raise FileExistsError(output_path)
     adapter, _ = _best(output_dir, checkpoint_run)
+    manifest, _ = verify_dataset(output_dir)
+    target_format = format_for_version(manifest["version"])
     tokenizer, _ = load_new_tokenizer(output_dir)
-    catalog = json.loads((Path(output_dir) / "preset_catalog.json").read_text(encoding="utf-8"))
+    catalog_path = "fixed_preset.json" if target_format == "positions-v1" else "preset_catalog.json"
+    catalog = json.loads((Path(output_dir) / catalog_path).read_text(encoding="utf-8"))
     composition = extract_tweeter(input_path)
     model, device = load_model(output_dir, adapter=adapter, cpu=cpu, trainable=False)
     model.eval()
+    if constrained and target_format != "positions-v1":
+        raise ValueError("constrained position decoding requires positions-v1")
     musical, duration = _decode_generated(model, tokenizer, device, composition,
-                                          target_note_count, catalog, max_new_tokens)
+                                          target_note_count, catalog, max_new_tokens,
+                                          target_format=target_format, constrained=constrained)
     track = _export_checked(composition, musical, catalog, output_path)
     return {"output": str(output_path), "track_id": track["id"],
-            "instrument": musical["instrument"], "notes": len(track["notes"]),
-            "generation_seconds": duration, "target_format": VERSION}
+            "instrument": track["instrument"]["name"], "notes": len(track["notes"]),
+            "generation_seconds": duration, "target_format": target_format}
 
 
 def evaluate(output_dir=OUTPUT, partition="validation20", cpu=False,
-             max_new_tokens=512, checkpoint_run="auto"):
+             max_new_tokens=512, checkpoint_run="auto", constrained=False):
     adapter, groups = _best(output_dir, checkpoint_run)
+    manifest, _ = verify_dataset(output_dir)
+    target_format = format_for_version(manifest["version"])
+    if constrained and target_format != "positions-v1":
+        raise ValueError("constrained position decoding requires positions-v1")
     if partition not in ("validation20", "validation", "test"):
         raise ValueError("evaluation partition must be validation20, validation, or test")
     tokenizer, _ = load_new_tokenizer(output_dir)
-    catalog = json.loads((Path(output_dir) / "preset_catalog.json").read_text(encoding="utf-8"))
+    catalog_path = "fixed_preset.json" if target_format == "positions-v1" else "preset_catalog.json"
+    catalog = json.loads((Path(output_dir) / catalog_path).read_text(encoding="utf-8"))
     augmentation = json.loads((AUGMENTED_SESSIONS / "manifest.json").read_text(encoding="utf-8"))
     generated_lookup = {item["augmented_filename"]: item for item in augmentation["generated"]}
     model, device = load_model(output_dir, adapter=adapter, cpu=cpu, trainable=False)
@@ -141,11 +175,16 @@ def evaluate(output_dir=OUTPUT, partition="validation20", cpu=False,
             try:
                 musical, seconds = _decode_generated(
                     model, tokenizer, device, conditioning, len(expected["notes"]),
-                    catalog, max_new_tokens, enforce_count=False)
+                    catalog, max_new_tokens, enforce_count=False,
+                    target_format=target_format, constrained=constrained)
                 counts["structurally_valid"] += 1
-                counts["exact_note_count"] += len(musical["notes"]) == len(expected["notes"])
-                counts["instrument_correct"] += musical["instrument"] == expected["instrument"]["name"]
-                actual_steps = {item["step"] for item in musical["notes"]}
+                actual_notes = ([{"step": step} for step in musical] if isinstance(musical, list)
+                                else musical["notes"])
+                counts["exact_note_count"] += len(actual_notes) == len(expected["notes"])
+                instrument = (catalog["instrument_name"] if isinstance(musical, list)
+                              else musical["instrument"])
+                counts["instrument_correct"] += instrument == expected["instrument"]["name"]
+                actual_steps = {item["step"] for item in actual_notes}
                 expected_steps = {item["step"] for item in expected["notes"]}
                 overlaps.append(len(actual_steps & expected_steps) / len(actual_steps | expected_steps))
                 patterns.add(tuple(sorted(actual_steps)))

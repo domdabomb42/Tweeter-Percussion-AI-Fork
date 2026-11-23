@@ -19,6 +19,9 @@ from percussion_generation_v4ea.trainer import (train, full_sequence_loss,
     optimizer_groups, warmup_cosine_scheduler)
 from percussion_generation_v4ea.coverage_sampler import new_sampler, draw, validate_sampler
 from percussion_generation_v4ea.inference import _best, _decode_generated
+from percussion_generation_v4ea.inference import _export_checked
+from percussion_generation_v4ea.target_format import decode as decode_v4_target
+from percussion_generation_v4ea import POSITIONS_END_MARKER, POSITIONS_VERSION
 from percussion_generation_v3.checkpoints import load_checkpoint_state, resolve_checkpoint
 from percussion_generation_v3.rotation import select_epoch_indices
 from percussion_generation_v3.lossless_dataset import _source_path
@@ -53,6 +56,30 @@ class TinyCausal(torch.nn.Module):
 
 
 class V4EATests(unittest.TestCase):
+    def test_default_numeric_target_and_native_export(self):
+        _, groups, _, generated, _ = source_groups()
+        row = next(item for item in groups["train"] if not item.get("augmentation"))
+        original = extract_tweeter(_source_path(row, generated))
+        prefix, target, track = texts_for_pair(row, generated, original)
+        steps = [note["step"] for note in track["notes"]]
+        self.assertEqual(target, " ".join(map(str, steps)) + "\n" + POSITIONS_END_MARKER)
+        self.assertEqual(decode_v4_target(target, len(steps), "positions-v1"), steps)
+        conditioning = Composition(original.global_settings,
+            [item for item in original.tracks if item["id"] != row["target_track_id"]])
+        self.assertEqual(prefix, prompt_for_composition(conditioning, len(steps)))
+        self.assertIn("RHYTHM_TARGET=", prefix)
+        self.assertNotIn("V4EA-MUSIC-TARGET-2", target)
+        preset = json.loads((MODEL_ROOT / "V3/output/fixed_preset.json").read_text())
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "generated.txt"
+            built = _export_checked(conditioning, steps, preset, path)
+            self.assertEqual([note["step"] for note in built["notes"]], steps)
+            self.assertEqual(extract_tweeter(path).tracks[-1], built)
+
+    def test_numeric_target_rejects_wrong_count(self):
+        with self.assertRaises(ValueError):
+            decode_v4_target("1 2\n[END_RHYTHM]", 3, "positions-v1")
+
     def test_real_musical_pairs_and_splits(self):
         _, groups, sources, generated, _ = source_groups()
         self.assertEqual(tuple(len(groups[key]) for key in
@@ -64,7 +91,7 @@ class V4EATests(unittest.TestCase):
                 next(row for row in groups["train"] if row.get("augmentation"))]
         for row in rows:
             composition = extract_tweeter(_source_path(row, generated))
-            prefix, target, track = texts_for_pair(row, generated, composition)
+            prefix, target, track = texts_for_pair(row, generated, composition, "musical-v2")
             packed = target.split("\n" + END_MARKER)[0]
             musical = decode_target(packed, len(track["notes"]))
             self.assertEqual(musical["notes"], track["notes"])
@@ -74,8 +101,8 @@ class V4EATests(unittest.TestCase):
             self.assertNotIn("effects", prefix + target)
             remaining = Composition(composition.global_settings,
                 [item for item in composition.tracks if item["id"] != row["target_track_id"]])
-            self.assertEqual(prefix, prompt_for_composition(remaining, len(track["notes"])))
-            self.assertEqual(prefix, prompt_for_composition(remaining, len(track["notes"])))
+            self.assertEqual(prefix, prompt_for_composition(remaining, len(track["notes"]), "musical-v2"))
+            self.assertEqual(prefix, prompt_for_composition(remaining, len(track["notes"]), "musical-v2"))
             encoded = json.loads(encode_input(remaining, len(track["notes"])))
             self.assertTrue(all(len(entry) == 4 for entry in encoded[2]))
             self.assertEqual(encoded[2][0][1], remaining.tracks[0]["instrument"]["name"])
@@ -140,7 +167,7 @@ class V4EATests(unittest.TestCase):
                 "validation20": groups["validation"][:1], "test": groups["test"][:1]}
         old_path = MODEL_ROOT / "V3/output/tokenizer"
         old = AutoTokenizer.from_pretrained(old_path, local_files_only=True)
-        prefix, target, _ = texts_for_pair(original, generated)
+        prefix, target, _ = texts_for_pair(original, generated, target_format="musical-v2")
         fresh = old.train_new_from_iterator([prefix, target], vocab_size=512,
                                             new_special_tokens=[END_MARKER])
         with tempfile.TemporaryDirectory() as directory:
@@ -154,7 +181,7 @@ class V4EATests(unittest.TestCase):
             (output / "tokenizer_identity.json").write_text(json.dumps(identity), encoding="utf-8")
             with patch("percussion_generation_v4ea.pipeline.source_groups",
                        return_value=(root, mini, sources, generated, augmentation_sha)):
-                result = prepare(output)
+                result = prepare(output, target_format="musical-v2")
             manifest, converted = verify_dataset(output)
             self.assertEqual(result["train_pairs"], 2)
             self.assertEqual(len(converted["validation20"]), 1)
@@ -162,14 +189,63 @@ class V4EATests(unittest.TestCase):
             self.assertEqual(converted["train"][0]["target"], target)
             self.assertTrue((output / "preset_catalog.json").is_file())
             with self.assertRaises(FileExistsError):
+                prepare(output, target_format="musical-v2")
+
+    def test_small_numeric_preparation_and_prompt_parity(self):
+        from transformers import AutoTokenizer
+        root, groups, sources, generated, augmentation_sha = source_groups()
+        original = next(row for row in groups["train"] if not row.get("augmentation"))
+        mini = {"train": [original], "validation": groups["validation"][:1],
+                "validation20": groups["validation"][:1], "test": groups["test"][:1]}
+        old = AutoTokenizer.from_pretrained(MODEL_ROOT / "V3/output/tokenizer",
+                                            local_files_only=True)
+        prefix, target, _ = texts_for_pair(original, generated)
+        fresh = old.train_new_from_iterator([prefix, target], vocab_size=512,
+                                            new_special_tokens=[POSITIONS_END_MARKER])
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            (output / "tokenizer").mkdir()
+            fresh.save_pretrained(output / "tokenizer")
+            identity = {"model_id": MODEL_ID, "revision": MODEL_REVISION,
+                        "target_format": "positions-v1",
+                        "tokenizer_sha256": sha256(output / "tokenizer/tokenizer.json"),
+                        "eos_token_id": fresh.eos_token_id,
+                        "tokenizer_kind": "fresh-bpe-smoke"}
+            (output / "tokenizer_identity.json").write_text(json.dumps(identity))
+            with patch("percussion_generation_v4ea.pipeline.source_groups",
+                       return_value=(root, mini, sources, generated, augmentation_sha)):
                 prepare(output)
+            manifest, converted = verify_dataset(output)
+            self.assertEqual(manifest["version"], POSITIONS_VERSION)
+            self.assertTrue((output / "fixed_preset.json").is_file())
+            row = converted["train"][0]
+            self.assertEqual(row["prefix"], prefix)
+            self.assertEqual(row["target"], target)
+            self.assertEqual(row["prefix_ids"], fresh.encode(prefix, add_special_tokens=False))
+            self.assertEqual(row["target_ids"], fresh.encode(target, add_special_tokens=False) + [fresh.eos_token_id])
+            class FakeGenerator:
+                def generate(self, input_ids, prefix_allowed_tokens_fn, **kwargs):
+                    sequence = input_ids[0]
+                    for token_id in row["target_ids"]:
+                        self_allowed = prefix_allowed_tokens_fn(0, sequence)
+                        if token_id not in self_allowed:
+                            raise AssertionError("numeric constraint rejects real target")
+                        sequence = torch.cat([sequence, torch.tensor([token_id])])
+                    return sequence.unsqueeze(0)
+            original_session = extract_tweeter(_source_path(original, generated))
+            conditioning = Composition(original_session.global_settings,
+                [item for item in original_session.tracks if item["id"] != original["target_track_id"]])
+            predicted, _ = _decode_generated(SimpleNamespace(peft_model=FakeGenerator()),
+                fresh, torch.device("cpu"), conditioning, len(original["target_positions"]),
+                {}, 512, target_format="positions-v1", constrained=True)
+            self.assertEqual(predicted, original["target_positions"])
 
     def test_constrained_opening_matches_tokenized_target(self):
         from transformers import AutoTokenizer
         _, groups, _, generated, _ = source_groups()
         row = next(item for item in groups["train"] if not item.get("augmentation"))
         original = extract_tweeter(_source_path(row, generated))
-        prefix, target, track = texts_for_pair(row, generated, original)
+        prefix, target, track = texts_for_pair(row, generated, original, "musical-v2")
         old = AutoTokenizer.from_pretrained(MODEL_ROOT / "V3/output/tokenizer",
                                             local_files_only=True)
         tokenizer = old.train_new_from_iterator([prefix, target], vocab_size=512,
@@ -261,7 +337,7 @@ class V4EATests(unittest.TestCase):
         validate_sampler(state, len(rows), 415)
 
     def test_checkpoint_run_selection_preserves_legacy(self):
-        manifest = {"tokenizer_sha256": "a", "prepared_dataset_sha256": "b",
+        manifest = {"version": VERSION, "tokenizer_sha256": "a", "prepared_dataset_sha256": "b",
                     "codec_schema_sha256": SCHEMA_SHA256, "preset_catalog_sha256": "d"}
         metadata = {"version": VERSION, "model_id": MODEL_ID,
                     "revision": MODEL_REVISION, **manifest}
@@ -292,7 +368,7 @@ class V4EATests(unittest.TestCase):
                              "prefix_ids": [1, 2], "target_ids": [3, 4]})
         groups = {"train": rows, "validation": rows[:10],
                   "validation20": rows[:20], "test": rows[:5]}
-        manifest = {"tokenizer_sha256": "a", "prepared_dataset_sha256": "b",
+        manifest = {"version": VERSION, "tokenizer_sha256": "a", "prepared_dataset_sha256": "b",
                     "codec_schema_sha256": SCHEMA_SHA256, "preset_catalog_sha256": "d"}
         def loader(output, adapter, cpu, trainable):
             model = TinyCausal()

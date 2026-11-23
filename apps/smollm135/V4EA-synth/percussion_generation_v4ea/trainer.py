@@ -143,11 +143,12 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=None,
     else:
         if (checkpoint_root / "latest.json").exists():
             raise FileExistsError("new V4EA run already has checkpoints; use --resume-checkpoint latest")
-        config = {"version": VERSION, "model_id": MODEL_ID, "revision": MODEL_REVISION,
+        config = {"version": manifest["version"], "model_id": MODEL_ID, "revision": MODEL_REVISION,
                   "tokenizer_sha256": manifest["tokenizer_sha256"],
                   "prepared_dataset_sha256": manifest["prepared_dataset_sha256"],
                   "codec_schema_sha256": manifest["codec_schema_sha256"],
                   "preset_catalog_sha256": manifest["preset_catalog_sha256"],
+                  "fixed_preset_sha256": manifest.get("fixed_preset_sha256"),
                   "initialization": "pretrained transformer, remapped fresh vocabulary, new LoRA",
                   "epochs": epochs, "examples_per_epoch": examples_per_epoch,
                   "lora_learning_rate": lora_learning_rate,
@@ -163,12 +164,13 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=None,
                            "total_examples": total_examples})
         saved = None
         adapter = None
-    if (config["version"] != VERSION or config["model_id"] != MODEL_ID or
+    if (config["version"] != manifest["version"] or config["model_id"] != MODEL_ID or
             config["revision"] != MODEL_REVISION or
             config["tokenizer_sha256"] != manifest["tokenizer_sha256"] or
             config["prepared_dataset_sha256"] != manifest["prepared_dataset_sha256"] or
             config["codec_schema_sha256"] != manifest["codec_schema_sha256"] or
-            config["preset_catalog_sha256"] != manifest["preset_catalog_sha256"]):
+            config["preset_catalog_sha256"] != manifest["preset_catalog_sha256"] or
+            config.get("fixed_preset_sha256") != manifest.get("fixed_preset_sha256")):
         raise ValueError("checkpoint belongs to another tokenizer, dataset, or model")
     if (not 1 <= epochs <= 100 or not 1 <= examples_per_epoch <= len(rows) or
             accumulation != 8 or save_steps < 1 or patience < 1 or
@@ -390,12 +392,13 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=None,
             history["best_validation_loss"] = val20["loss"]
             history["stale_epochs"] = 0
             save_best_adapter(checkpoint_root, model, {
-                "version": VERSION, "model_id": MODEL_ID, "revision": MODEL_REVISION,
+                "version": manifest["version"], "model_id": MODEL_ID, "revision": MODEL_REVISION,
                 "sampler_version": config.get("sampler_version", "legacy-67-201"),
                 "tokenizer_sha256": manifest["tokenizer_sha256"],
                 "prepared_dataset_sha256": manifest["prepared_dataset_sha256"],
                 "codec_schema_sha256": manifest["codec_schema_sha256"],
                 "preset_catalog_sha256": manifest["preset_catalog_sha256"],
+                "fixed_preset_sha256": manifest.get("fixed_preset_sha256"),
                 "best_epoch": epoch_index+1, "validation20_loss": val20["loss"]})
         else:
             history["stale_epochs"] += 1
