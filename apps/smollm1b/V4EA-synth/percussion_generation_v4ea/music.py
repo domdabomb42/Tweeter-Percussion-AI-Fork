@@ -1,6 +1,6 @@
 """Versioned musical schema shared by the three V4EA model sizes.
 
-Input: [tag, requested_count, [[role, instrument_name, username, loop_ms,
+Input: [tag, requested_count, [[role, instrument_name, loop_ms,
          [[step, pitch], ...]], ...]] in original track order.
 Target: [tag, instrument_name, loop_ms, note_duration_ms,
          transposition_semitones, [[step, pitch], ...]].
@@ -16,7 +16,7 @@ from percussion_generation_v3.roles import role
 from custom_extractor.validator import validate
 from custom_extractor.models import Composition
 
-INPUT_TAG = "V4EA-MUSIC-INPUT-2"
+INPUT_TAG = "V4EA-MUSIC-INPUT-3"
 TARGET_TAG = "V4EA-MUSIC-TARGET-2"
 SCHEMA_SHA256 = hashlib.sha256(__doc__.encode("utf-8")).hexdigest()
 
@@ -30,8 +30,7 @@ def encode_input(composition, count):
         raise ValueError("requested note count must be 1..64")
     tracks = []
     for track in composition.tracks:
-        tracks.append([role(track), track["instrument"]["name"],
-                       track["instrument"].get("username"), track["timing"]["loop_ms"],
+        tracks.append([role(track), track["instrument"]["name"], track["timing"]["loop_ms"],
                        [[note["step"], note["pitch"]] for note in track["notes"]]])
     return compact([INPUT_TAG, count, tracks])
 

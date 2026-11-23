@@ -1,16 +1,17 @@
 # V4EA musical percussion experiment
 
 This is a new, isolated experiment. Its default output is
-`../MostRecentOutput/V4EA-music-v2`; historical V3 and V4EA outputs are left
+`../MostRecentOutput/V4EA-music-v3`; historical V3 and V4EA outputs are left
 untouched. Run the commands below from this model's `V4EA-synth` directory.
 
-The deterministic version-2 input is a positional JSON array containing the
+The deterministic version-3 input is a positional JSON array containing the
 requested note count and, in original order, each conditioning track's role,
-instrument name and username, loop length, and note step/pitch pairs. The
+instrument name, loop length, and note step/pitch pairs. The
 version-2 target contains only a percussion instrument name, loop length,
 note duration, transposition, and step/pitch pairs. It ends with `[END_MUSIC]`
 and the pinned model's EOS token. Synth, effects, mixing, playback, track IDs,
-and unrelated metadata are never output tokens. All three model sizes use the
+and unrelated metadata are never output tokens. Instrument usernames remain
+in the native source tracks and preset catalog but are excluded from model input. All three model sizes use the
 same schema and source sessions; each trains its own BPE tokenizer from the
 67 original training pairs and their permitted augmented children.
 
@@ -74,5 +75,5 @@ cross-entropy is tokenizer-specific and is not directly comparable.
 From any one V4EA directory, after all three test evaluations exist:
 
 ```powershell
-python -m percussion_generation_v4ea compare --reports ..\..\smollm135\MostRecentOutput\V4EA-music-v2\evaluation_test.json ..\..\smollm360\MostRecentOutput\V4EA-music-v2\evaluation_test.json ..\..\smollm1b\MostRecentOutput\V4EA-music-v2\evaluation_test.json --output .\three-model-comparison.json
+python -m percussion_generation_v4ea compare --reports ..\..\smollm135\MostRecentOutput\V4EA-music-v3\evaluation_test.json ..\..\smollm360\MostRecentOutput\V4EA-music-v3\evaluation_test.json ..\..\smollm1b\MostRecentOutput\V4EA-music-v3\evaluation_test.json --output .\three-model-comparison.json
 ```

@@ -9,7 +9,7 @@ import torch
 
 from transformers import AutoTokenizer
 
-from percussion_generation_v4ea import END_MARKER, MODEL_ID, MODEL_REVISION, MODEL_ROOT
+from percussion_generation_v4ea import END_MARKER, MODEL_ID, MODEL_REVISION, MODEL_ROOT, VERSION
 from percussion_generation_v4ea.model import load_model
 from percussion_generation_v4ea.pipeline import sha256
 from percussion_generation_v4ea.trainer import full_sequence_loss, optimizer_groups
@@ -18,7 +18,7 @@ from percussion_generation_v4ea.trainer import full_sequence_loss, optimizer_gro
 def main():
     old_path = MODEL_ROOT / "V3/output/tokenizer"
     old = AutoTokenizer.from_pretrained(old_path, local_files_only=True)
-    corpus = ['["V4EA-MUSIC-INPUT-2",3,[["non_percussion","Bass",null,1000,[[0,42]]]]]'
+    corpus = ['["V4EA-MUSIC-INPUT-3",3,[["non_percussion","Bass",1000,[[0,42]]]]]'
               '\nPERCUSSION_MUSIC_TARGET\n',
               '["V4EA-MUSIC-TARGET-2","electrikick",1000,100,0,[[0,40],[16,42],[32,40]]]'
               '\n[END_MUSIC]']
@@ -59,7 +59,7 @@ def main():
         adapter = root / "adapter"
         model.save_pretrained(adapter)
         (adapter / "experiment_metadata.json").write_text(json.dumps({
-            "version": "v4ea-music-v2", "model_id": MODEL_ID,
+            "version": VERSION, "model_id": MODEL_ID,
             "revision": MODEL_REVISION, "tokenizer_sha256": identity["tokenizer_sha256"]}),
             encoding="utf-8")
         del model, optimizer, loss, embedding_grad, lora_grads

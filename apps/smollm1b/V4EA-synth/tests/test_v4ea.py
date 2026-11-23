@@ -1,5 +1,6 @@
 """Musical schema, gradients, splits, presets, scheduling, and resume."""
 import json
+from copy import deepcopy
 from pathlib import Path
 import tempfile
 import unittest
@@ -74,6 +75,22 @@ class V4EATests(unittest.TestCase):
                 [item for item in composition.tracks if item["id"] != row["target_track_id"]])
             self.assertEqual(prefix, prompt_for_composition(remaining, len(track["notes"])))
             self.assertEqual(prefix, prompt_for_composition(remaining, len(track["notes"])))
+            encoded = json.loads(encode_input(remaining, len(track["notes"])))
+            self.assertTrue(all(len(entry) == 4 for entry in encoded[2]))
+            self.assertEqual(encoded[2][0][1], remaining.tracks[0]["instrument"]["name"])
+            self.assertEqual(encoded[2][0][2], remaining.tracks[0]["timing"]["loop_ms"])
+
+    def test_username_excluded_from_prompt_but_preserved_natively(self):
+        _, groups, _, generated, _ = source_groups()
+        row = next(item for item in groups["train"] if not item.get("augmentation"))
+        composition = extract_tweeter(_source_path(row, generated))
+        original_username = composition.tracks[0]["instrument"]["username"]
+        changed = deepcopy(composition)
+        changed.tracks[0]["instrument"]["username"] = "V4EA_USERNAME_SENTINEL"
+        serialized = encode_input(changed, 4)
+        self.assertNotIn("V4EA_USERNAME_SENTINEL", serialized)
+        self.assertEqual(changed.tracks[0]["instrument"]["username"], "V4EA_USERNAME_SENTINEL")
+        self.assertEqual(composition.tracks[0]["instrument"]["username"], original_username)
 
     def test_target_validation(self):
         example = [TARGET_TAG, "electrikick", 1000, 100, 0, [[2, 40], [4, 42]]]
@@ -107,7 +124,7 @@ class V4EATests(unittest.TestCase):
         old = AutoTokenizer.from_pretrained(MODEL_ROOT / "V3/output/tokenizer",
                                             local_files_only=True)
         new = old.train_new_from_iterator(
-            ['["V4EA-MUSIC-INPUT-2",8,[["non_percussion","Bass",null,1000,[[0,42]]]]]',
+            ['["V4EA-MUSIC-INPUT-3",8,[["non_percussion","Bass",1000,[[0,42]]]]]',
              '["V4EA-MUSIC-TARGET-2","electrikick",1000,100,0,[[2,40]]]'],
             vocab_size=256, new_special_tokens=[END_MARKER])
         self.assertEqual(new.eos_token, old.eos_token)
@@ -214,6 +231,8 @@ class V4EATests(unittest.TestCase):
         remaining = Composition(original.global_settings,
             [item for item in original.tracks if item["id"] != row["target_track_id"]])
         candidate, predicted = reconstruct(remaining, musical, catalog)
+        self.assertEqual(predicted["instrument"]["username"],
+                         catalog[target["instrument"]["name"]]["instrument"]["username"])
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "roundtrip.txt"
             export_tweeter(candidate, path)
