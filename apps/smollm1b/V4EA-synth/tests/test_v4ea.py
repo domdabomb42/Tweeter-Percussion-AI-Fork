@@ -394,6 +394,9 @@ class V4EATests(unittest.TestCase):
             self.assertEqual(plan["total_example_presentations"], 536)
             self.assertEqual(plan["lora_learning_rate"], 5e-5 if "1.7B" in MODEL_ID else 1e-4)
             self.assertEqual(plan["embedding_learning_rate"], 1e-4 if "135M" in MODEL_ID else 5e-5)
+            epoch_plan = train(dry_run=True, **{key: value for key, value in options.items()
+                                               if key != "save_steps"})
+            self.assertEqual((epoch_plan["save_steps"], epoch_plan["patience"]), (0, 3))
             with self.assertRaisesRegex(InterruptedError, "smoke-test"):
                 train(stop_after_steps=1, **options)
             root = Path(directory) / "checkpoints/rhythm_coverage_v1"
@@ -441,7 +444,7 @@ class V4EATests(unittest.TestCase):
                     return {"loss": 1.0, "pairs": len(selected),
                             "target_tokens": 2 * len(selected)}
                 gated = train(**{**options, "output_dir": gated_directory,
-                                 "save_steps": 1000, "patience": 1,
+                                 "save_steps": 0, "patience": 3,
                                  "validation_fn": flat_validation})
                 self.assertTrue(gated["early_stopped"])
                 self.assertGreaterEqual(gated["epochs"][-1]["example_presentations"], len(rows))
@@ -451,6 +454,31 @@ class V4EATests(unittest.TestCase):
                 for entry in gated["epochs"]:
                     self.assertEqual(entry["original_examples"] +
                                      entry["augmented_examples"], entry["training_examples"])
+                gated_root = Path(gated_directory) / "checkpoints/rhythm_coverage_v1"
+                self.assertFalse((gated_root / "periodic").exists())
+                self.assertEqual(len(list((gated_root / "epoch_boundaries").glob("epoch_*"))), 1)
+                self.assertTrue((gated_root / "final").is_dir())
+                self.assertEqual(resolve_checkpoint(gated_root, "latest").parent.name, "final")
+            with tempfile.TemporaryDirectory() as policy_directory:
+                old_options = {**options, "output_dir": policy_directory,
+                               "save_steps": 1, "patience": 5}
+                with self.assertRaisesRegex(InterruptedError, "smoke-test"):
+                    train(stop_after_steps=1, **old_options)
+                new_options = {**old_options, "save_steps": 0, "patience": 3}
+                with self.assertRaisesRegex(InterruptedError, "smoke-test"):
+                    train(resume_checkpoint="latest", stop_after_steps=2, **new_options)
+                policy_root = Path(policy_directory) / "checkpoints/rhythm_coverage_v1"
+                policy_checkpoint = resolve_checkpoint(policy_root, "latest")
+                policy_metadata = json.loads((policy_checkpoint / "metadata.json").read_text())
+                policy_state = load_checkpoint_state(policy_checkpoint,
+                                                     policy_metadata["config"],
+                                                     policy_metadata["fingerprints"])
+                self.assertEqual((policy_state["config"]["save_steps"],
+                                  policy_state["config"]["patience"]), (0, 3))
+                self.assertEqual((policy_state["global_step"],
+                                  policy_state["scheduler"]["last_epoch"]), (2, 2))
+                self.assertEqual(policy_state["history"]["checkpoint_policy_changes"][0]
+                                 ["at_optimizer_step"], 1)
             with tempfile.TemporaryDirectory() as boundary_directory:
                 boundary_options = {**options, "output_dir": boundary_directory,
                                     "save_steps": 1000, "patience": 100}

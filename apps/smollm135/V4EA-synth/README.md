@@ -20,8 +20,11 @@ augmented sessions. It trains a fresh BPE tokenizer from the chosen target
 format and saves a separate dataset. Training keeps the rank-16 LoRA
 architecture, tied trainable embeddings, target-only loss masking, learning
 rates, and full-pool coverage sampler. The default sampler presents the entire
-2,688-pair pool twice, validating every 536 examples. Checkpoints save every
-10 optimizer updates. Early stopping starts only after one pass. The inherited
+2,688-pair pool twice, validating every 536 examples. A complete
+resumable checkpoint is saved after each epoch; only the latest epoch
+checkpoint is retained, alongside the best adapter and final checkpoint.
+Periodic step saves are disabled by default. Early stopping uses patience 3
+and starts only after one complete dataset pass. The inherited
 67 original training pairs and original 10 validation pairs have a broader
 beat-sequence family overlap.
 
@@ -31,13 +34,13 @@ Run from this `V4EA-synth` folder. The training command runs the full job.
 python -m percussion_generation_v4ea train-tokenizer --vocab-size 16384
 python -m percussion_generation_v4ea prepare
 python -m percussion_generation_v4ea validate
-python -m percussion_generation_v4ea train --dataset-passes 2 --examples-per-epoch 536 --lora-learning-rate 1e-4 --embedding-learning-rate 1e-4 --save-steps 10 --patience 5
+python -m percussion_generation_v4ea train --dataset-passes 2 --examples-per-epoch 536 --lora-learning-rate 1e-4 --embedding-learning-rate 1e-4 --save-steps 0 --patience 3
 ```
 
 Resume or evaluate:
 
 ```powershell
-python -m percussion_generation_v4ea train --resume-checkpoint latest --dataset-passes 2 --examples-per-epoch 536 --lora-learning-rate 1e-4 --embedding-learning-rate 1e-4 --save-steps 10 --patience 5
+python -m percussion_generation_v4ea train --resume-checkpoint latest --dataset-passes 2 --examples-per-epoch 536 --lora-learning-rate 1e-4 --embedding-learning-rate 1e-4 --save-steps 0 --patience 3
 python -m percussion_generation_v4ea evaluate --partition validation20
 python -m percussion_generation_v4ea evaluate --partition test --constrained
 ```
@@ -65,3 +68,14 @@ python -m percussion_generation_v4ea --output-dir ..\MostRecentOutput\V4EA-music
 For a new full musical target dataset, use a fresh output directory and pass
 `--target-format musical-v2` to both `train-tokenizer` and `prepare`.
 Preparation refuses to overwrite an existing dataset or tokenizer.
+
+For unattended sequential training of all three model sizes from the
+repository root:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\apps\run_v4ea_overnight.ps1
+```
+
+The runner prepares missing tokenizers and datasets, resumes existing
+checkpoints, and advances after successful completion. The 1.7B stage uses
+CPU on this 6 GB GPU machine; it may take much longer than one night.

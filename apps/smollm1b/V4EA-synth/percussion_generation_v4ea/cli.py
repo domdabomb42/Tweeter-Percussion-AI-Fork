@@ -32,8 +32,9 @@ def main(argv=None):
     training.add_argument("--embedding-learning-rate", type=float)
     training.add_argument("--warmup-fraction", type=float, default=0.1)
     training.add_argument("--accumulation", type=int, default=8)
-    training.add_argument("--save-steps", type=int, default=10)
-    training.add_argument("--patience", type=int, default=5)
+    training.add_argument("--save-steps", type=int, default=0,
+                          help="periodic optimizer-step saves; 0 saves complete state only at each epoch")
+    training.add_argument("--patience", type=int, default=3)
     training.add_argument("--seed", type=int, default=415)
     training.add_argument("--cpu", action="store_true")
     training.add_argument("--dry-run", action="store_true")

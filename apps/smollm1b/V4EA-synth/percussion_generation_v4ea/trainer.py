@@ -1,4 +1,4 @@
-"""Full-gradient musical training with exact step checkpoints."""
+"""Full-gradient V4EA training with complete epoch-boundary checkpoints."""
 import json
 import math
 from pathlib import Path
@@ -83,7 +83,7 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=None,
           examples_per_epoch=None, dataset_passes=2, sampler="coverage",
           lora_learning_rate=None, embedding_learning_rate=None,
           warmup_fraction=0.1, accumulation=8,
-          save_steps=10, patience=5, seed=415, cpu=False, dry_run=False,
+          save_steps=0, patience=3, seed=415, cpu=False, dry_run=False,
           progress_seconds=180, stop_after_steps=None, model_loader=None,
           loss_fn=None, validation_fn=None):
     import torch
@@ -121,12 +121,12 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=None,
     if resume_checkpoint:
         checkpoint = resolve_checkpoint(checkpoint_root, resume_checkpoint)
         metadata = json.loads((checkpoint / "metadata.json").read_text(encoding="utf-8"))
-        config = metadata["config"]
+        saved_config = metadata["config"]
         expected = {"epochs": epochs, "examples_per_epoch": examples_per_epoch,
                     "lora_learning_rate": lora_learning_rate,
                     "embedding_learning_rate": embedding_learning_rate,
                     "warmup_fraction": warmup_fraction, "accumulation": accumulation,
-                    "save_steps": save_steps, "patience": patience, "seed": seed,
+                    "seed": seed,
                     "device_type": current_device,
                     "cuda_device_count": torch.cuda.device_count() if current_device == "cuda" else 0,
                     "torch_version": torch.__version__}
@@ -136,9 +136,13 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=None,
                              "total_examples": total_examples})
         elif "sampler_version" in config:
             raise ValueError("legacy sampler cannot resume a coverage checkpoint")
-        if any(config.get(key) != value for key, value in expected.items()):
+        if any(saved_config.get(key) != value for key, value in expected.items()):
             raise ValueError("resume options, device, or PyTorch version differ from checkpoint")
-        saved = load_checkpoint_state(checkpoint, config, checksums)
+        saved = load_checkpoint_state(checkpoint, saved_config, checksums)
+        # Save cadence and early-stopping patience do not affect the optimizer
+        # or scheduler. Permit a running step-checkpoint experiment to adopt
+        # the epoch-only policy without restarting its training state.
+        config = {**saved_config, "save_steps": save_steps, "patience": patience}
         adapter = checkpoint / "adapter"
     else:
         if (checkpoint_root / "latest.json").exists():
@@ -173,7 +177,7 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=None,
             config.get("fixed_preset_sha256") != manifest.get("fixed_preset_sha256")):
         raise ValueError("checkpoint belongs to another tokenizer, dataset, or model")
     if (not 1 <= epochs <= 100 or not 1 <= examples_per_epoch <= len(rows) or
-            accumulation != 8 or save_steps < 1 or patience < 1 or
+            accumulation != 8 or save_steps < 0 or patience < 1 or
             not 0 < lora_learning_rate <= 0.001 or
             not 0 < embedding_learning_rate <= 0.001 or
             not 0 < warmup_fraction < 1):
@@ -223,6 +227,15 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=None,
         epoch_index, position = saved["epoch_index"], saved["next_position"]
         order, global_step = saved["selected_order"], saved["global_step"]
         history = saved["history"]
+        if (saved_config.get("save_steps"), saved_config.get("patience")) != (save_steps, patience):
+            history.setdefault("checkpoint_policy_changes", []).append({
+                "at_optimizer_step": global_step,
+                "old_save_steps": saved_config.get("save_steps"),
+                "new_save_steps": save_steps,
+                "old_patience": saved_config.get("patience"),
+                "new_patience": patience})
+            history["plan"]["save_steps"] = save_steps
+            history["plan"]["patience"] = patience
         weighted, target_tokens = saved["weighted_loss"], saved["target_tokens"]
         processed = saved["examples_processed"]
         elapsed = saved["cumulative_elapsed_seconds"]
@@ -343,13 +356,13 @@ def train(output_dir=OUTPUT, resume_checkpoint=None, epochs=None,
                     move_adam_statistics(optimizer, torch.device("cpu"))
                 global_step += 1
                 position = index + 1
-                if global_step % save_steps == 0:
+                if save_steps and global_step % save_steps == 0:
                     path = save_checkpoint(checkpoint_root, "periodic",
                         f"step_{global_step:08d}", model, optimizer, scheduler,
                         state_for(epoch_index, position, order))
                     print(f"saved V4EA checkpoint: {path}", flush=True)
                 if stop_after_steps is not None and global_step >= stop_after_steps:
-                    if global_step % save_steps:
+                    if not save_steps or global_step % save_steps:
                         save_checkpoint(checkpoint_root, "periodic",
                             f"step_{global_step:08d}", model, optimizer, scheduler,
                             state_for(epoch_index, position, order))
