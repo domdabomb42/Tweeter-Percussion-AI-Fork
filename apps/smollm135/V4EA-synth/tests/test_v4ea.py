@@ -17,7 +17,8 @@ from percussion_generation_v4ea.pipeline import (prompt_for_composition,
     source_groups, texts_for_pair, train_tokenizer, prepare, verify_dataset, sha256)
 from percussion_generation_v4ea.trainer import (train, full_sequence_loss,
     optimizer_groups, warmup_cosine_scheduler)
-from percussion_generation_v4ea.inference import _decode_generated
+from percussion_generation_v4ea.coverage_sampler import new_sampler, draw, validate_sampler
+from percussion_generation_v4ea.inference import _best, _decode_generated
 from percussion_generation_v3.checkpoints import load_checkpoint_state, resolve_checkpoint
 from percussion_generation_v3.rotation import select_epoch_indices
 from percussion_generation_v3.lossless_dataset import _source_path
@@ -240,6 +241,44 @@ class V4EATests(unittest.TestCase):
             self.assertEqual(restored.tracks[:-1], remaining.tracks)
             self.assertEqual(restored.tracks[-1], predicted)
 
+    def test_full_pool_shuffle_coverage_and_seed(self):
+        _, groups, _, _, _ = source_groups()
+        rows = groups["train"]
+        state = new_sampler(len(rows), 415)
+        first = []
+        for _ in range(5):
+            first.extend(draw(state, 536))
+        self.assertEqual(len(first), 2680)
+        self.assertEqual(len(set(first)), 2680)
+        first.extend(draw(state, 8))
+        self.assertEqual(set(first), set(range(2688)))
+        self.assertEqual(sum(not rows[i].get("augmentation") for i in first), 67)
+        second = draw(state, 2688)
+        self.assertEqual(set(second), set(range(2688)))
+        self.assertEqual(state["pass_index"], 1)
+        self.assertEqual(first, draw(new_sampler(len(rows), 415), 2688))
+        self.assertNotEqual(first, second)
+        validate_sampler(state, len(rows), 415)
+
+    def test_checkpoint_run_selection_preserves_legacy(self):
+        manifest = {"tokenizer_sha256": "a", "prepared_dataset_sha256": "b",
+                    "codec_schema_sha256": SCHEMA_SHA256, "preset_catalog_sha256": "d"}
+        metadata = {"version": VERSION, "model_id": MODEL_ID,
+                    "revision": MODEL_REVISION, **manifest}
+        with tempfile.TemporaryDirectory() as directory, \
+             patch("percussion_generation_v4ea.inference.verify_dataset",
+                   return_value=(manifest, {})):
+            root = Path(directory)
+            legacy = root / "checkpoints/rhythm/best_adapter"
+            coverage = root / "checkpoints/rhythm_coverage_v1/best_adapter"
+            legacy.mkdir(parents=True)
+            (legacy / "experiment_metadata.json").write_text(json.dumps(metadata))
+            self.assertEqual(_best(root)[0], legacy)
+            coverage.mkdir(parents=True)
+            (coverage / "experiment_metadata.json").write_text(json.dumps(metadata))
+            self.assertEqual(_best(root)[0], coverage)
+            self.assertEqual(_best(root, "legacy")[0], legacy)
+
     def test_training_plan_and_exact_resume(self):
         rows = []
         for index in range(67):
@@ -271,19 +310,23 @@ class V4EATests(unittest.TestCase):
              patch("percussion_generation_v4ea.trainer.fingerprints", return_value={}), \
              patch("percussion_generation_v4ea.trainer._validate_pool"):
             options = {"output_dir": directory, "cpu": True, "save_steps": 1,
+                       "examples_per_epoch": 40, "dataset_passes": 2,
                        "model_loader": loader, "loss_fn": loss, "validation_fn": validation}
             plan = train(dry_run=True, **options)
             self.assertEqual((plan["examples_per_epoch"], plan["optimizer_updates_per_epoch"],
-                              plan["warmup_updates"]), (268, 34, 41))
+                              plan["warmup_updates"]), (40, 5, 7))
+            self.assertEqual(plan["total_example_presentations"], 536)
             self.assertEqual(plan["lora_learning_rate"], 5e-5 if "1.7B" in MODEL_ID else 1e-4)
             self.assertEqual(plan["embedding_learning_rate"], 1e-4 if "135M" in MODEL_ID else 5e-5)
             with self.assertRaisesRegex(InterruptedError, "smoke-test"):
                 train(stop_after_steps=1, **options)
-            root = Path(directory) / "checkpoints/rhythm"
+            root = Path(directory) / "checkpoints/rhythm_coverage_v1"
             first = resolve_checkpoint(root, "latest")
             metadata = json.loads((first / "metadata.json").read_text())
             state = load_checkpoint_state(first, metadata["config"], metadata["fingerprints"])
             self.assertEqual((state["global_step"], state["next_position"]), (1, 8))
+            self.assertEqual(state["total_presentations"], 8)
+            self.assertEqual(state["epoch_original"] + state["epoch_augmented"], 8)
             self.assertEqual(state["scheduler"]["last_epoch"], 1)
             self.assertEqual(len(state["optimizer"]["param_groups"]), 2)
             with self.assertRaisesRegex(InterruptedError, "smoke-test"):
@@ -294,12 +337,13 @@ class V4EATests(unittest.TestCase):
             self.assertEqual((resumed["global_step"], resumed["next_position"]), (2, 16))
             self.assertEqual(resumed["scheduler"]["last_epoch"], 2)
             self.assertEqual(resumed["selected_order"], state["selected_order"])
+            self.assertEqual(resumed["sampler_state"], state["sampler_state"])
             with tempfile.TemporaryDirectory() as second_directory:
                 independent = {**options, "output_dir": second_directory}
                 with self.assertRaisesRegex(InterruptedError, "smoke-test"):
                     train(stop_after_steps=2, **independent)
                 direct_path = resolve_checkpoint(
-                    Path(second_directory) / "checkpoints/rhythm", "latest")
+                    Path(second_directory) / "checkpoints/rhythm_coverage_v1", "latest")
                 direct_meta = json.loads((direct_path / "metadata.json").read_text())
                 direct = load_checkpoint_state(direct_path, direct_meta["config"],
                                                direct_meta["fingerprints"])
@@ -316,6 +360,44 @@ class V4EATests(unittest.TestCase):
                         other = resumed["optimizer"]["state"][parameter_id][key]
                         self.assertTrue(torch.equal(value, other) if torch.is_tensor(value)
                                         else value == other)
+            with tempfile.TemporaryDirectory() as gated_directory:
+                def flat_validation(model, selected, device):
+                    return {"loss": 1.0, "pairs": len(selected),
+                            "target_tokens": 2 * len(selected)}
+                gated = train(**{**options, "output_dir": gated_directory,
+                                 "save_steps": 1000, "patience": 1,
+                                 "validation_fn": flat_validation})
+                self.assertTrue(gated["early_stopped"])
+                self.assertGreaterEqual(gated["epochs"][-1]["example_presentations"], len(rows))
+                self.assertEqual(gated["epochs"][-1]["completed_passes"], 1)
+                self.assertEqual(gated["epochs"][-1]["unique_examples_seen"], len(rows))
+                self.assertEqual(gated["epochs"][-1]["dataset_coverage"], 1.0)
+                for entry in gated["epochs"]:
+                    self.assertEqual(entry["original_examples"] +
+                                     entry["augmented_examples"], entry["training_examples"])
+            with tempfile.TemporaryDirectory() as boundary_directory:
+                boundary_options = {**options, "output_dir": boundary_directory,
+                                    "save_steps": 1000, "patience": 100}
+                with self.assertRaisesRegex(InterruptedError, "smoke-test"):
+                    train(stop_after_steps=35, **boundary_options)
+                boundary_root = Path(boundary_directory) / "checkpoints/rhythm_coverage_v1"
+                before_path = resolve_checkpoint(boundary_root, "latest")
+                before_meta = json.loads((before_path / "metadata.json").read_text())
+                before = load_checkpoint_state(before_path, before_meta["config"],
+                                               before_meta["fingerprints"])
+                self.assertEqual(before["total_presentations"], 280)
+                self.assertEqual(before["sampler_state"]["pass_index"], 1)
+                expected_state = deepcopy(before["sampler_state"])
+                expected_order = draw(expected_state, 40)
+                with self.assertRaisesRegex(InterruptedError, "smoke-test"):
+                    train(resume_checkpoint="latest", stop_after_steps=36,
+                          **boundary_options)
+                after_path = resolve_checkpoint(boundary_root, "latest")
+                after_meta = json.loads((after_path / "metadata.json").read_text())
+                after = load_checkpoint_state(after_path, after_meta["config"],
+                                              after_meta["fingerprints"])
+                self.assertEqual((after["total_presentations"], after["next_position"]), (288, 8))
+                self.assertEqual(after["selected_order"], expected_order)
 
 
 if __name__ == "__main__":

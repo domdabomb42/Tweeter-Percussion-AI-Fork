@@ -45,25 +45,37 @@ Default learning rates are:
 | 1.7B | 5e-5 | 5e-5 |
 
 AdamW uses 0.01 weight decay for LoRA, gradient clipping at 1.0, 10% linear
-warmup, then cosine decay. With 12 epochs, 268 examples per epoch, and 8
-examples per update, the plan is 34 updates per epoch, 408 total, and 41
-warmup updates. All 67 originals and 201 rotating augmented examples appear
-per epoch. The fixed 20-pair validation set determines the best adapter;
-patience is 5. Step checkpoints save every 10 optimizer updates and include
-LoRA, embeddings, optimizer, scheduler, scaler, RNG, and example order.
+warmup, then cosine decay. The default sampler shuffles all 2,688 training
+pairs without replacement. It takes 536 per validation interval, continues
+across interval boundaries, and reshuffles only after a complete pass.
+Two passes mean 5,376 example presentations: ten 536-example intervals
+and a final 16-example interval, about 672 optimizer updates and 68 warmup
+updates. The natural pool ratio is 67 original to 2,621 augmented pairs;
+originals are not forced into each interval. The fixed 20-pair validation
+set determines the best adapter. Patience is 5, but stopping cannot occur
+before one full pass. Checkpoints every 10 optimizer updates include LoRA,
+embeddings, optimizer, scheduler, scaler, RNG, selected order, and sampler
+permutation/cursor. Coverage and original/augmented counts are logged.
+The new run uses `checkpoints/rhythm_coverage_v1`, leaving prior
+`checkpoints/rhythm` results intact.
 
 ```powershell
 python -m percussion_generation_v4ea train-tokenizer --vocab-size 16384
 python -m percussion_generation_v4ea prepare
 python -m percussion_generation_v4ea validate
-python -m percussion_generation_v4ea train --epochs 12 --examples-per-epoch 268 --lora-learning-rate 1e-4 --embedding-learning-rate 5e-5 --save-steps 10 --patience 5
-python -m percussion_generation_v4ea train --resume-checkpoint latest --epochs 12 --examples-per-epoch 268 --lora-learning-rate 1e-4 --embedding-learning-rate 5e-5 --save-steps 10 --patience 5
+python -m percussion_generation_v4ea train --dataset-passes 2 --examples-per-epoch 536 --lora-learning-rate 1e-4 --embedding-learning-rate 5e-5 --save-steps 10 --patience 5
+python -m percussion_generation_v4ea train --resume-checkpoint latest --dataset-passes 2 --examples-per-epoch 536 --lora-learning-rate 1e-4 --embedding-learning-rate 5e-5 --save-steps 10 --patience 5
 python -m percussion_generation_v4ea evaluate --partition validation20
 python -m percussion_generation_v4ea evaluate --partition test
 python -m percussion_generation_v4ea generate --input ..\..\L2Ork-Tweeter\sessions\canada-start-session-coll.txt --output .\generated-percussion.txt --target-note-count 8
 ```
 
-For 360M and 1.7B, change the learning-rate flags to the values in the table.
+The commands use this model's learning rates. If the tokenizer and dataset
+already exist, start at `train`; preparation refuses to overwrite them.
+To resume a historical 67/201 run, use `train --sampler legacy
+--resume-checkpoint latest --epochs 12 --examples-per-epoch 268` with
+the original learning-rate/device flags. Use `--checkpoint-run legacy`
+with `evaluate` or `generate` to select its best adapter explicitly.
 For CPU use, add `--cpu` to train, resume, evaluate, and generate; resume must
 use the same device type as the checkpoint. Run the 1.7B `train --dry-run`
 first to inspect the plan. Preparation refuses to overwrite a tokenizer or

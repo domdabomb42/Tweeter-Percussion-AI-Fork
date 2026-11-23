@@ -20,8 +20,10 @@ def main(argv=None):
     commands.add_parser("validate")
     training = commands.add_parser("train")
     training.add_argument("--resume-checkpoint")
-    training.add_argument("--epochs", type=int, default=12)
-    training.add_argument("--examples-per-epoch", type=int, default=268)
+    training.add_argument("--epochs", type=int, help="legacy sampler only; coverage derives epochs from passes")
+    training.add_argument("--examples-per-epoch", type=int)
+    training.add_argument("--dataset-passes", type=int, default=2)
+    training.add_argument("--sampler", choices=("coverage", "legacy"), default="coverage")
     training.add_argument("--lora-learning-rate", type=float)
     training.add_argument("--embedding-learning-rate", type=float)
     training.add_argument("--warmup-fraction", type=float, default=0.1)
@@ -36,12 +38,16 @@ def main(argv=None):
     evaluation.add_argument("--partition", choices=("validation20", "validation", "test"),
                             default="validation20")
     evaluation.add_argument("--cpu", action="store_true")
+    evaluation.add_argument("--checkpoint-run", choices=("auto", "coverage", "legacy"),
+                            default="auto")
     generation = commands.add_parser("generate")
     generation.add_argument("--input", type=Path, required=True)
     generation.add_argument("--output", type=Path, required=True)
     generation.add_argument("--target-note-count", type=int, required=True)
     generation.add_argument("--max-new-tokens", type=int, default=512)
     generation.add_argument("--cpu", action="store_true")
+    generation.add_argument("--checkpoint-run", choices=("auto", "coverage", "legacy"),
+                            default="auto")
     comparison = commands.add_parser("compare", help="combine three saved evaluation reports")
     comparison.add_argument("--reports", type=Path, nargs=3, required=True)
     comparison.add_argument("--output", type=Path, required=True)
@@ -63,6 +69,7 @@ def main(argv=None):
             from .trainer import train
             result = train(args.output_dir, resume_checkpoint=args.resume_checkpoint,
                            epochs=args.epochs, examples_per_epoch=args.examples_per_epoch,
+                           dataset_passes=args.dataset_passes, sampler=args.sampler,
                            lora_learning_rate=args.lora_learning_rate,
                            embedding_learning_rate=args.embedding_learning_rate,
                            warmup_fraction=args.warmup_fraction,
@@ -72,11 +79,13 @@ def main(argv=None):
                            progress_seconds=args.progress_seconds)
         elif args.command == "evaluate":
             from .inference import evaluate
-            result = evaluate(args.output_dir, args.partition, args.cpu)
+            result = evaluate(args.output_dir, args.partition, args.cpu,
+                              checkpoint_run=args.checkpoint_run)
         elif args.command == "generate":
             from .inference import generate
             result = generate(args.output_dir, args.input, args.output,
-                              args.target_note_count, args.max_new_tokens, args.cpu)
+                              args.target_note_count, args.max_new_tokens, args.cpu,
+                              checkpoint_run=args.checkpoint_run)
         else:
             from .inference import compare_reports
             result = compare_reports(args.reports, args.output)

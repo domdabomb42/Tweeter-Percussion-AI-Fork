@@ -16,10 +16,15 @@ from percussion_generation_v3.lossless_dataset import _source_path
 from percussion_generation_v3.data import AUGMENTED_SESSIONS
 
 
-def _best(output_dir):
+def _best(output_dir, checkpoint_run="auto"):
     root = Path(output_dir)
     manifest, groups = verify_dataset(root)
-    adapter = root / "checkpoints/rhythm/best_adapter"
+    if checkpoint_run not in ("auto", "coverage", "legacy"):
+        raise ValueError("unknown checkpoint run")
+    coverage = root / "checkpoints/rhythm_coverage_v1/best_adapter"
+    legacy = root / "checkpoints/rhythm/best_adapter"
+    adapter = (coverage if checkpoint_run == "coverage" or
+               (checkpoint_run == "auto" and coverage.is_dir()) else legacy)
     metadata = json.loads((adapter / "experiment_metadata.json").read_text(encoding="utf-8"))
     for key, expected in (("version", VERSION), ("model_id", MODEL_ID),
                           ("revision", MODEL_REVISION),
@@ -90,11 +95,12 @@ def _export_checked(composition, musical, catalog, output_path):
 
 
 def generate(output_dir=OUTPUT, input_path=None, output_path=None,
-             target_note_count=None, max_new_tokens=512, cpu=False):
+             target_note_count=None, max_new_tokens=512, cpu=False,
+             checkpoint_run="auto"):
     output_path = Path(output_path)
     if output_path.exists():
         raise FileExistsError(output_path)
-    adapter, _ = _best(output_dir)
+    adapter, _ = _best(output_dir, checkpoint_run)
     tokenizer, _ = load_new_tokenizer(output_dir)
     catalog = json.loads((Path(output_dir) / "preset_catalog.json").read_text(encoding="utf-8"))
     composition = extract_tweeter(input_path)
@@ -109,8 +115,8 @@ def generate(output_dir=OUTPUT, input_path=None, output_path=None,
 
 
 def evaluate(output_dir=OUTPUT, partition="validation20", cpu=False,
-             max_new_tokens=512):
-    adapter, groups = _best(output_dir)
+             max_new_tokens=512, checkpoint_run="auto"):
+    adapter, groups = _best(output_dir, checkpoint_run)
     if partition not in ("validation20", "validation", "test"):
         raise ValueError("evaluation partition must be validation20, validation, or test")
     tokenizer, _ = load_new_tokenizer(output_dir)
@@ -151,10 +157,11 @@ def evaluate(output_dir=OUTPUT, partition="validation20", cpu=False,
                 if not duration_recorded:
                     durations.append(time.perf_counter() - attempt_started)
                 errors.append({"index": index, "source": row["source"], "error": str(exc)})
-    history_path = Path(output_dir) / "checkpoints/rhythm/history.json"
+    history_path = adapter.parent / "history.json"
     history = json.loads(history_path.read_text(encoding="utf-8")) if history_path.exists() else {}
     epochs = history.get("epochs", [])
     result = {"model_id": MODEL_ID, "partition": partition, "examples": len(rows),
+              "checkpoint_run": adapter.parent.name,
               "token_cross_entropy": teacher["loss"],
               "token_cross_entropy_note": "Tokenizer-specific; do not compare directly across models",
               "training_loss": epochs[-1]["training_loss"] if epochs else None,
