@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "model": "360mea",
+  "decoding": "greedy",
+  "target_format": "positions-v1",
+  "report": {
+    "model_id": "HuggingFaceTB/SmolLM2-360M",
+    "partition": "test",
+    "examples": 5,
+    "checkpoint_run": "rhythm_coverage_v1",
+    "token_cross_entropy": 0.6890664994716644,
+    "token_cross_entropy_note": "Tokenizer-specific; do not compare directly across models",
+    "training_loss": 0.3717183399729521,
+    "validation_loss": 0.848269436807528,
+    "test_loss": 0.6890664994716644,
+    "structurally_valid_rate": 1.0,
+    "exact_note_count_rate": 0.6,
+    "instrument_correct_rate": 0.2,
+    "native_export_success_rate": 0.8,
+    "rhythmic_jaccard": 0.06086956521739131,
+    "rhythmic_diversity": 1.0,
+    "mean_generation_seconds": 5.481254120008089,
+    "training_duration_seconds": 4777.260885099997,
+    "peak_gpu_memory_bytes": 1601860096,
+    "trainable_parameters": 9486080,
+    "errors": [
+      {
+        "index": 0,
+        "source": "jamminlicious-002-session-coll.txt",
+        "error": "track 4.effects.overdrive.level (overdrive): 11: native editing range is 0.1..10"
+      }
+    ]
+  },
+  "report_content_sha256": "544af41a9186521a6839d98e5952f3536a45d7ab40f68fe7a8c84d778a0f07eb",
+  "test_targets": [
+    {
+      "source": "jamminlicious-002-session-coll.txt",
+      "target_track_id": 5,
+      "positions": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        7,
+        15,
+        31,
+        47,
+        51,
+        63
+      ]
+    },
+    {
+      "source": "jamminlicious-002-session-coll.txt",
+      "target_track_id": 4,
+      "positions": [
+        2,
+        18,
+        31,
+        43,
+        51,
+        63
+      ]
+    },
+    {
+      "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+      "target_track_id": 6,
+      "positions": [
+        12,
+        26,
+        39,
+        51,
+        62
+      ]
+    },
+    {
+      "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+      "target_track_id": 4,
+      "positions": [
+        8,
+        9,
+        23,
+        24,
+        40,
+        57,
+        58
+      ]
+    },
+    {
+      "source": "spring-2025-1st-take-session-coll.txt",
+      "target_track_id": 6,
+      "positions": [
+        0,
+        16,
+        24,
+        32,
+        40,
+        48,
+        56
+      ]
+    }
+  ],
+  "dataset_sha256": "a687774de4e519d0aba9cf7a823c7224f97c912aad4623c7d736daf5d34d8ee1",
+  "tokenizer_sha256": "053de20ecdb68570122c137e8e1c3c987c5c7820acc3b16623637e04d0d08a2f",
+  "manifest_sha256": "0572255ef58b8f2b1ecb137146e616c28fdb5f08812cdb22a24ca5a0d0fc8abd",
+  "adapter_sha256": "2afb95b0fa59b08c48564dd80fe46cffcd994e6ccdd7fcd5e9eab831ff51bf30",
+  "adapter_metadata_sha256": "209250860c84e6863fc022551e047e80dd4e750242bbb6947badf34472aee6b0",
+  "report_sha256": "5e6b2026661ec7ad2b2b3d051bd697672633d5e4768d400a08f51951bc55dcfd"
+}

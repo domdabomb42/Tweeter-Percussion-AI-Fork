@@ -15,12 +15,19 @@ class FiveModelTests(unittest.TestCase):
         result = five_model.build_comparison()
         self.assertEqual(len(result["test_targets"]), 5)
         self.assertEqual(tuple(result["models"]), five_model.MODEL_ORDER)
-        self.assertEqual(len(result["pending"]), 6)
         for slug in ("135m", "360m"):
             for decoding in five_model.DECODINGS:
                 self.assertEqual(result["models"][slug][decoding]["pairs"], 5)
                 self.assertIn("rhythmic_jaccard_valid", result["models"][slug][decoding])
-        self.assertIn("Pending", five_model.render(result))
+        for slug in five_model.EA_MODELS:
+            for decoding in five_model.DECODINGS:
+                key = f"{slug}_{decoding}"
+                item = result["models"][slug][decoding]
+                if item is None:
+                    self.assertIn(key, result["pending"])
+                else:
+                    self.assertEqual(item["pairs"], 5)
+                    self.assertNotIn(key, result["pending"])
 
     def test_ea_summary_rejects_wrong_identity_and_rates(self):
         report = {"model_id": five_model.EA_MODELS["135mea"][1],

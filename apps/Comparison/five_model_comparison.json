@@ -118,26 +118,79 @@
       }
     },
     "135mea": {
-      "greedy": null,
-      "constrained": null
+      "greedy": {
+        "pairs": 5,
+        "structurally_valid_rate": 0.8,
+        "exact_note_count_rate": 0.0,
+        "native_export_success_rate": 0.8,
+        "rhythmic_jaccard_valid": 0.2805735930735931,
+        "valid_jaccard_denominator": 4,
+        "target_loss": 0.7621198677354388,
+        "target_loss_comparable_across_models": false,
+        "generation_token_budget": 512
+      },
+      "constrained": {
+        "pairs": 5,
+        "structurally_valid_rate": 1.0,
+        "exact_note_count_rate": 1.0,
+        "native_export_success_rate": 0.8,
+        "rhythmic_jaccard_valid": 0.2015151515151515,
+        "valid_jaccard_denominator": 5,
+        "target_loss": 0.7621198677354388,
+        "target_loss_comparable_across_models": false,
+        "generation_token_budget": 512
+      }
     },
     "360mea": {
-      "greedy": null,
-      "constrained": null
+      "greedy": {
+        "pairs": 5,
+        "structurally_valid_rate": 1.0,
+        "exact_note_count_rate": 0.6,
+        "native_export_success_rate": 0.8,
+        "rhythmic_jaccard_valid": 0.06086956521739131,
+        "valid_jaccard_denominator": 5,
+        "target_loss": 0.6890664994716644,
+        "target_loss_comparable_across_models": false,
+        "generation_token_budget": 512
+      },
+      "constrained": {
+        "pairs": 5,
+        "structurally_valid_rate": 1.0,
+        "exact_note_count_rate": 1.0,
+        "native_export_success_rate": 0.8,
+        "rhythmic_jaccard_valid": 0.075,
+        "valid_jaccard_denominator": 5,
+        "target_loss": 0.6890664994716644,
+        "target_loss_comparable_across_models": false,
+        "generation_token_budget": 512
+      }
     },
     "17bea": {
-      "greedy": null,
-      "constrained": null
+      "greedy": {
+        "pairs": 5,
+        "structurally_valid_rate": 0.8,
+        "exact_note_count_rate": 0.6,
+        "native_export_success_rate": 0.6,
+        "rhythmic_jaccard_valid": 0.259375,
+        "valid_jaccard_denominator": 4,
+        "target_loss": 0.6819909126670273,
+        "target_loss_comparable_across_models": false,
+        "generation_token_budget": 512
+      },
+      "constrained": {
+        "pairs": 5,
+        "structurally_valid_rate": 1.0,
+        "exact_note_count_rate": 1.0,
+        "native_export_success_rate": 0.8,
+        "rhythmic_jaccard_valid": 0.195,
+        "valid_jaccard_denominator": 5,
+        "target_loss": 0.6819909126670273,
+        "target_loss_comparable_across_models": false,
+        "generation_token_budget": 512
+      }
     }
   },
-  "pending": {
-    "135mea_greedy": "evaluation snapshot is missing",
-    "135mea_constrained": "evaluation snapshot is missing",
-    "360mea_greedy": "evaluation snapshot is missing",
-    "360mea_constrained": "evaluation snapshot is missing",
-    "17bea_greedy": "evaluation snapshot is missing",
-    "17bea_constrained": "evaluation snapshot is missing"
-  },
+  "pending": {},
   "sources": {
     "v3_test_rows_sha256": "ed3f906405022fed0cc0f440a1ac528a16305c56ebad3e94f8c54ae020af90e5",
     "135m_greedy": {
@@ -155,6 +208,30 @@
     "360m_constrained": {
       "path": "Comparison\\smollm360_constrained_512_backup.json",
       "sha256": "4f2f6866a1de53503adf9c9fbeb8eb69ba3e6cd718ed30192b62a2be65104d81"
+    },
+    "135mea_greedy": {
+      "path": "Comparison\\reports\\135mea_greedy.json",
+      "sha256": "451c3867b753a84543f164f2cd4009251ce1dd8bed1ff289d7bf0b40e5a4aaa2"
+    },
+    "135mea_constrained": {
+      "path": "Comparison\\reports\\135mea_constrained.json",
+      "sha256": "ccb9303684ad08bb93a82a766565e4525e428d5acfff7671626794eb1e9d0e92"
+    },
+    "360mea_greedy": {
+      "path": "Comparison\\reports\\360mea_greedy.json",
+      "sha256": "490516e97f32ed25ab37a659c12ce0824e3243c03f764bc662ec058a74c3e977"
+    },
+    "360mea_constrained": {
+      "path": "Comparison\\reports\\360mea_constrained.json",
+      "sha256": "a19a8c8149d4ae05f9ba6cf7551dfeed5e1789ef33cb325d705b0095418bd15d"
+    },
+    "17bea_greedy": {
+      "path": "Comparison\\reports\\17bea_greedy.json",
+      "sha256": "e6cea1e4ca1b62fe7352bd1b5e47308958ea9b83333091f9ba55add0174cee79"
+    },
+    "17bea_constrained": {
+      "path": "Comparison\\reports\\17bea_constrained.json",
+      "sha256": "b387855efd4e5481e35510379f7265f9fad54953508d42611a373e9cd080ad31"
     }
   },
   "metric_scope": "five original-count held-out test requests per model and decoder"

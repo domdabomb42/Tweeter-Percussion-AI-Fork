@@ -11,12 +11,12 @@ are shown as Pending; no scores are estimated.
 | 135m | constrained | 100% | 100% | 100% | 0.087 (5/5) |
 | 360m | greedy | 100% | 0% | 100% | 0.129 (5/5) |
 | 360m | constrained | 100% | 100% | 100% | 0.131 (5/5) |
-| 135mea | greedy | Pending | Pending | Pending | Pending |
-| 135mea | constrained | Pending | Pending | Pending | Pending |
-| 360mea | greedy | Pending | Pending | Pending | Pending |
-| 360mea | constrained | Pending | Pending | Pending | Pending |
-| 17bea | greedy | Pending | Pending | Pending | Pending |
-| 17bea | constrained | Pending | Pending | Pending | Pending |
+| 135mea | greedy | 80% | 0% | 80% | 0.281 (4/5) |
+| 135mea | constrained | 100% | 100% | 80% | 0.202 (5/5) |
+| 360mea | greedy | 100% | 60% | 80% | 0.061 (5/5) |
+| 360mea | constrained | 100% | 100% | 80% | 0.075 (5/5) |
+| 17bea | greedy | 80% | 60% | 60% | 0.259 (4/5) |
+| 17bea | constrained | 100% | 100% | 80% | 0.195 (5/5) |
 
 Rhythmic Jaccard is averaged over structurally valid outputs only; its
 denominator appears in each cell. Invalid outputs lower the validity rate
@@ -29,15 +29,6 @@ latencies include parsing and export while V4EA records generation time.
 V3-135M used a 128-token generation cap; the historical V3-360M report
 used 512. V4EA evaluation defaults to 512. These are separate training
 runs and do not establish a controlled speed comparison.
-
-## Pending evaluations
-
-- 135mea_greedy: evaluation snapshot is missing
-- 135mea_constrained: evaluation snapshot is missing
-- 360mea_greedy: evaluation snapshot is missing
-- 360mea_constrained: evaluation snapshot is missing
-- 17bea_greedy: evaluation snapshot is missing
-- 17bea_constrained: evaluation snapshot is missing
 
 ## Reproduce
 
