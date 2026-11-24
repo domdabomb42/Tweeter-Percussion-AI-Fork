@@ -28,6 +28,7 @@ class SampleSelectionTests(unittest.TestCase):
 
         root = HERE / "SampleOutputs"
         manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
+        self.assertEqual(manifest["generated_username"], "AI")
         samples = [sample for model in manifest["models"] for sample in model["samples"]]
         self.assertEqual(len(samples), 25)
         self.assertEqual({model["model"] for model in manifest["models"]}, set(MODELS))
@@ -44,6 +45,8 @@ class SampleSelectionTests(unittest.TestCase):
                 self.assertEqual(restored.tracks[:-1], condition.tracks)
                 self.assertEqual([note["step"] for note in restored.tracks[-1]["notes"]],
                                  sample["positions"])
+                self.assertEqual(restored.tracks[-1]["instrument"]["username"], "AI")
+                self.assertEqual(sample["generated_username"], "AI")
                 candidate = deepcopy(condition)
                 candidate.tracks.append(restored.tracks[-1])
                 validate(candidate)  # The appended track has no historical range exemption.

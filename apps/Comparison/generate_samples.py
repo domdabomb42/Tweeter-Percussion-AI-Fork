@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+from copy import deepcopy
 import hashlib
 import json
 from pathlib import Path
@@ -114,6 +115,7 @@ def worker(model_name, plan_path, staging):
         if target_format != "positions-v1":
             raise ValueError("sample generation requires the trained positions-v1 format")
         catalog = json.loads((output_dir / "fixed_preset.json").read_text(encoding="utf-8"))
+        catalog["track"]["instrument"]["username"] = "AI"
         tokenizer, _ = load_new_tokenizer(output_dir)
         model, device = load_model(output_dir, adapter=adapter, cpu=model_name in CPU_MODELS,
                                    trainable=False)
@@ -128,6 +130,7 @@ def worker(model_name, plan_path, staging):
         verify_adapter_codec(output_dir, adapter)
         manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
         catalog = json.loads((output_dir / "fixed_preset.json").read_text(encoding="utf-8"))
+        catalog["track"]["instrument"]["username"] = "AI"
         tokenizer = load_tokenizer(output_dir)
         model, device = load_feature_model(adapter, cpu=model_name in CPU_MODELS,
                                            trainable=False)
@@ -169,6 +172,7 @@ def worker(model_name, plan_path, staging):
                        "model": model_name, "file": name, "sha256": sha256(destination),
                        "positions": positions, "expected_note_count": len(target["notes"]),
                        "generated_instrument": track["instrument"]["name"],
+                       "generated_username": track["instrument"]["username"],
                        "preexisting_native_violations": legacy,
                        "native_warnings": native_warnings,
                        "generation_seconds": seconds})
@@ -179,12 +183,81 @@ def worker(model_name, plan_path, staging):
                     "samples": result}, indent=2) + "\n", encoding="utf-8")
 
 
+def mark_existing_usernames_ai():
+    """Retag saved generated tracks, retaining every other native byte."""
+    setup_model("135m")
+    from custom_extractor import extract_tweeter
+    from custom_extractor.exporter import atomic_write, render_tweeter
+    from custom_extractor.validator import validate
+    from percussion_generation_v3.evaluation import remove_target
+
+    root = HERE / "SampleOutputs"
+    manifest_path = root / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    samples = [sample for model in manifest["models"] for sample in model["samples"]]
+    if len(samples) != 25 or {path.name for path in root.glob("*.txt")} != \
+            {sample["file"] for sample in samples}:
+        raise ValueError("expected exactly 25 saved sample files")
+    if (manifest.get("generated_username") == "AI" and
+            all(sample.get("generated_username") == "AI" and
+                sha256(root / sample["file"]) == sample["sha256"] for sample in samples)):
+        print("All 25 generated tracks already have username AI")
+        return
+    source_hashes = {(row["source"], row["target_track_id"]): row["source_sha256"]
+                     for row in manifest["pairs"]}
+    pending = []
+    for sample in samples:
+        path = (root / sample["file"]).resolve()
+        if not path.is_relative_to(root.resolve()) or sha256(path) != sample["sha256"]:
+            raise ValueError(f"saved sample changed: {path}")
+        source = APPS / "L2Ork-Tweeter/sessions" / sample["source"]
+        if sha256(source) != source_hashes[(sample["source"], sample["target_track_id"])]:
+            raise ValueError(f"held-out source changed: {source}")
+        condition = remove_target(extract_tweeter(source), sample["target_track_id"])
+        saved = extract_tweeter(path)
+        if (saved.global_settings != condition.global_settings or
+                saved.tracks[:-1] != condition.tracks or
+                [note["step"] for note in saved.tracks[-1]["notes"]] != sample["positions"]):
+            raise ValueError(f"saved native composition differs from held-out source: {path}")
+        track = deepcopy(saved.tracks[-1])
+        track["instrument"]["username"] = "AI"
+        strict = deepcopy(condition)
+        strict.tracks.append(track)
+        validate(strict)
+        saved.tracks[-1] = track
+        original_text = path.read_bytes().decode("utf-8", errors="surrogateescape")
+        updated_text = render_tweeter(saved)
+        before, after = original_text.splitlines(keepends=True), updated_text.splitlines(keepends=True)
+        changes = [(old, new) for old, new in zip(before, after) if old != new]
+        if len(before) != len(after) or len(changes) != 1 or \
+                f", {track['id']} username " not in changes[0][0] or \
+                f", {track['id']} username AI;" not in changes[0][1]:
+            raise ValueError(f"username update would change another native record: {path}")
+        pending.append((path, updated_text, condition, track, sample))
+    for path, text, condition, track, sample in pending:
+        atomic_write(path, text.encode("utf-8", errors="surrogateescape"))
+        restored = extract_tweeter(path)
+        if (restored.global_settings != condition.global_settings or
+                restored.tracks[:-1] != condition.tracks or restored.tracks[-1] != track):
+            raise ValueError(f"retagged native file did not reimport exactly: {path}")
+        sample["sha256"] = sha256(path)
+        sample["generated_username"] = "AI"
+    manifest["generated_username"] = "AI"
+    atomic_write(manifest_path, (json.dumps(manifest, indent=2) + "\n").encode("utf-8"))
+    print(f"Marked all {len(samples)} generated tracks with username AI")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--worker-model", choices=MODELS)
     parser.add_argument("--plan", type=Path)
     parser.add_argument("--staging", type=Path)
+    parser.add_argument("--mark-ai-username", action="store_true",
+                        help="set AI on generated tracks in the existing sample set")
     args = parser.parse_args()
+    if args.mark_ai_username:
+        mark_existing_usernames_ai()
+        return
     if args.worker_model:
         if args.plan is None or args.staging is None:
             parser.error("workers require --plan and --staging")
@@ -234,6 +307,7 @@ def main():
         raise ValueError("expected 25 verified native outputs")
     manifest = {"seed": SEED, "selection": "seeded shuffle of all five held-out target pairs",
                 "decoder": "ordered constrained positions",
+                "generated_username": "AI",
                 "v3_prefill": "256-token KV-cache chunks; outputs can differ from full prefill",
                 "pairs": rows, "models": models}
     (staging / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n",

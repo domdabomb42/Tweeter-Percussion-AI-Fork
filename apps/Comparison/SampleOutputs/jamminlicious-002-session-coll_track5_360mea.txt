@@ -1930,7 +1930,7 @@
 1924, 5 delete 2;
 1925, 5 hover 1;
 1926, 5 tracker-time 3 25.2515 1;
-1927, 5 username Justy;
+1927, 5 username AI;
 1928, 5 tracker-data 0 55;
 1929, 5 tracker-char 0 b;
 1930, 5 tracker-data 1 55;

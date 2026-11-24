@@ -86,7 +86,7 @@
           "target_track_id": 6,
           "model": "135m",
           "file": "spring-2025-1st-take-session-coll_track6_135m.txt",
-          "sha256": "34aa867666958a2f25563fd5f68d52b0a7880b08c03a156fb5b554580714a0e4",
+          "sha256": "e90e26d526b11a41ed211b60e7f76e5a6a65f58a176ae1ae6735e6b6ccceb36a",
           "positions": [
             0,
             24,
@@ -106,14 +106,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 16.88413840002613
+          "generation_seconds": 16.88413840002613,
+          "generated_username": "AI"
         },
         {
           "source": "jamminlicious-002-session-coll.txt",
           "target_track_id": 5,
           "model": "135m",
           "file": "jamminlicious-002-session-coll_track5_135m.txt",
-          "sha256": "e2b987901ce62cc794bd128df3e1985da81bfac592f931782df2a372cd46ed9e",
+          "sha256": "b04ca2b89b427b5cab072a8adb0033928cc6bfdb407511d01b2c8e01e8ac7dbd",
           "positions": [
             0,
             24,
@@ -152,14 +153,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 15.52113140001893
+          "generation_seconds": 15.52113140001893,
+          "generated_username": "AI"
         },
         {
           "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
           "target_track_id": 4,
           "model": "135m",
           "file": "mus3314-spring-2025-2nd-take-session-coll_track4_135m.txt",
-          "sha256": "d0cd87357050344dfbb02dc6d0a1bc1e3a06622e3f9f60f1868bb47d4727ae26",
+          "sha256": "0a0b79a6c786eb59c9c938e8fc2573351ce7ed3e91acbe3be7bcdbd7b509b7b1",
           "positions": [
             0,
             16,
@@ -179,14 +181,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 13.749913300038315
+          "generation_seconds": 13.749913300038315,
+          "generated_username": "AI"
         },
         {
           "source": "jamminlicious-002-session-coll.txt",
           "target_track_id": 4,
           "model": "135m",
           "file": "jamminlicious-002-session-coll_track4_135m.txt",
-          "sha256": "c763df3b0170731aa970882c9d3bc2b90d43901a0ffbb6f90a32ca7b022ad367",
+          "sha256": "dc63d8fddc9cf14f3d2b7ec1f00151b93d05ed724dbc05e36ea89d9470ffc0bd",
           "positions": [
             0,
             24,
@@ -205,14 +208,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 10.763988999999128
+          "generation_seconds": 10.763988999999128,
+          "generated_username": "AI"
         },
         {
           "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
           "target_track_id": 6,
           "model": "135m",
           "file": "mus3314-spring-2025-2nd-take-session-coll_track6_135m.txt",
-          "sha256": "64c6e204540f67c630fe5db6e1a70bb7acfeb8db2ef592d192220b59e1cf8d80",
+          "sha256": "9950a7fabf42b12c6d0c29695df7b221206c1b98cf3568657d00471c47269a5b",
           "positions": [
             0,
             16,
@@ -230,7 +234,8 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 12.289232400013134
+          "generation_seconds": 12.289232400013134,
+          "generated_username": "AI"
         }
       ]
     },
@@ -244,7 +249,7 @@
           "target_track_id": 6,
           "model": "360m",
           "file": "spring-2025-1st-take-session-coll_track6_360m.txt",
-          "sha256": "efe1aa94059c626d3e1812d10ecd3360596a108544d2d006e94a33f3b14a0453",
+          "sha256": "74533bbefb9c3b4e43cb2ef9e77bb04f4e7698f0c956208c5b8592e66db35d45",
           "positions": [
             0,
             16,
@@ -264,14 +269,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 15.116864699986763
+          "generation_seconds": 15.116864699986763,
+          "generated_username": "AI"
         },
         {
           "source": "jamminlicious-002-session-coll.txt",
           "target_track_id": 5,
           "model": "360m",
           "file": "jamminlicious-002-session-coll_track5_360m.txt",
-          "sha256": "31473a57de95bb002faeaf01d325f46932ec9f3906de3028ce1d2fa808fa160a",
+          "sha256": "79bb656a7bcb2fe0e1ede827694b53bc7341b3cc1b9d179858f2db1ca7c27c76",
           "positions": [
             0,
             16,
@@ -310,14 +316,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 14.913397500000428
+          "generation_seconds": 14.913397500000428,
+          "generated_username": "AI"
         },
         {
           "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
           "target_track_id": 4,
           "model": "360m",
           "file": "mus3314-spring-2025-2nd-take-session-coll_track4_360m.txt",
-          "sha256": "da7e99f91905b41358e52b0e0d229bf880c2a68e20dcb64dc314ee0e9ac8e19e",
+          "sha256": "63c290f1e7f58992d6aea77cbfb294041bd7eadafdc8d10312fb9f496402c162",
           "positions": [
             0,
             16,
@@ -337,14 +344,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 14.099050399963744
+          "generation_seconds": 14.099050399963744,
+          "generated_username": "AI"
         },
         {
           "source": "jamminlicious-002-session-coll.txt",
           "target_track_id": 4,
           "model": "360m",
           "file": "jamminlicious-002-session-coll_track4_360m.txt",
-          "sha256": "c49c9b1c3f47e1cf098ac1342aadd9d6a0676808f0e4e3518a6fb1361cb46b4c",
+          "sha256": "ed1d7e8d01fdc309830bdf0f00eca880c34baaf8dd676cd9a1d429f9ca9d6938",
           "positions": [
             0,
             16,
@@ -363,14 +371,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 11.421806600003038
+          "generation_seconds": 11.421806600003038,
+          "generated_username": "AI"
         },
         {
           "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
           "target_track_id": 6,
           "model": "360m",
           "file": "mus3314-spring-2025-2nd-take-session-coll_track6_360m.txt",
-          "sha256": "f326529faa1b7936820ad18981f19a4e570d1d0654f3c30d20dbac92d2fc332c",
+          "sha256": "fafc69f990414214ab543016021005a4feb0a07c5b0e3adef161acc9c0f33d35",
           "positions": [
             0,
             16,
@@ -388,7 +397,8 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 12.886711700004525
+          "generation_seconds": 12.886711700004525,
+          "generated_username": "AI"
         }
       ]
     },
@@ -402,7 +412,7 @@
           "target_track_id": 6,
           "model": "135mea",
           "file": "spring-2025-1st-take-session-coll_track6_135mea.txt",
-          "sha256": "5c5c760e8b9f1f0f3c88c40dbc52dd74c277677d45b18a7791867c59d9cc874c",
+          "sha256": "77c0d910c3e8d025e7320d2200baccab07b822de8b3f55d81bc06a0a1a64b4d7",
           "positions": [
             16,
             24,
@@ -422,14 +432,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 6.24124900001334
+          "generation_seconds": 6.24124900001334,
+          "generated_username": "AI"
         },
         {
           "source": "jamminlicious-002-session-coll.txt",
           "target_track_id": 5,
           "model": "135mea",
           "file": "jamminlicious-002-session-coll_track5_135mea.txt",
-          "sha256": "1c86b38de13eab5fa93d99d86334c0d43018bbbb70e00e0c7eac46ff3ed4ca66",
+          "sha256": "f4268b23c56e443bbc5065c770163b511972b41470acdb29a356634c3f5586fa",
           "positions": [
             27,
             53,
@@ -468,14 +479,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 8.911328899965156
+          "generation_seconds": 8.911328899965156,
+          "generated_username": "AI"
         },
         {
           "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
           "target_track_id": 4,
           "model": "135mea",
           "file": "mus3314-spring-2025-2nd-take-session-coll_track4_135mea.txt",
-          "sha256": "48e039b1a42f3e56eb37700f2cbcba2107c03e442745a6d2d4a28e887e7f2af4",
+          "sha256": "97eab382fc7e1a87c5e6413cca6b69391b1a42d1ec9d508d66d3850e8f40de31",
           "positions": [
             12,
             26,
@@ -495,14 +507,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 4.259783999994397
+          "generation_seconds": 4.259783999994397,
+          "generated_username": "AI"
         },
         {
           "source": "jamminlicious-002-session-coll.txt",
           "target_track_id": 4,
           "model": "135mea",
           "file": "jamminlicious-002-session-coll_track4_135mea.txt",
-          "sha256": "971ed739386da4df433cced68cb57078e5a1a2e6602a0928e206f5aee9ee2e01",
+          "sha256": "7f28b6db2335c04dc150f0365665353929c73045294bceda6c384a3deb745923",
           "positions": [
             0,
             1,
@@ -521,14 +534,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 3.950566500017885
+          "generation_seconds": 3.950566500017885,
+          "generated_username": "AI"
         },
         {
           "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
           "target_track_id": 6,
           "model": "135mea",
           "file": "mus3314-spring-2025-2nd-take-session-coll_track6_135mea.txt",
-          "sha256": "7e567455b2450500ee2706112221b398d6892cd3d56919e82ace43b058ce422e",
+          "sha256": "097aa863a8914111ed6c488d5b74243f471e2171ac162ca1e509ebce262b13a3",
           "positions": [
             8,
             9,
@@ -546,7 +560,8 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 2.0958636000286788
+          "generation_seconds": 2.0958636000286788,
+          "generated_username": "AI"
         }
       ]
     },
@@ -560,7 +575,7 @@
           "target_track_id": 6,
           "model": "360mea",
           "file": "spring-2025-1st-take-session-coll_track6_360mea.txt",
-          "sha256": "204c2c6c9a828c224c33038ceb35236d4733f3d1e7171377025161981a3d8203",
+          "sha256": "e163addbd3b594e721177cf3d49a46d4601ff630d95e87c9104d6643446c803c",
           "positions": [
             1,
             2,
@@ -580,14 +595,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 8.845320600026753
+          "generation_seconds": 8.845320600026753,
+          "generated_username": "AI"
         },
         {
           "source": "jamminlicious-002-session-coll.txt",
           "target_track_id": 5,
           "model": "360mea",
           "file": "jamminlicious-002-session-coll_track5_360mea.txt",
-          "sha256": "53693b32b5bc4fc8499ba2859f4970616273f0126de6a1987f9b355ff41d3620",
+          "sha256": "47107865317eb819564d6277f7ac1040a962875b40198c5c94940f884b397c49",
           "positions": [
             0,
             1,
@@ -626,14 +642,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 8.595986099971924
+          "generation_seconds": 8.595986099971924,
+          "generated_username": "AI"
         },
         {
           "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
           "target_track_id": 4,
           "model": "360mea",
           "file": "mus3314-spring-2025-2nd-take-session-coll_track4_360mea.txt",
-          "sha256": "18721a9409c83f8096607b9cd63fd803b2f35bdf948aeffdf4621e6bdd0e8677",
+          "sha256": "12fa80144df70ce0d5562a29f5bc5be09b419be631d469324765536bee00350a",
           "positions": [
             0,
             1,
@@ -653,14 +670,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 5.83036359999096
+          "generation_seconds": 5.83036359999096,
+          "generated_username": "AI"
         },
         {
           "source": "jamminlicious-002-session-coll.txt",
           "target_track_id": 4,
           "model": "360mea",
           "file": "jamminlicious-002-session-coll_track4_360mea.txt",
-          "sha256": "a9eb8626a587440ec6a802e60c9878dc523a0a0d03b69fd0558b552d1ed3fe05",
+          "sha256": "cbeccc1f133cf176a3b7f2789e575d5d50426cd4251d863806a2e41106dbd725",
           "positions": [
             0,
             14,
@@ -679,14 +697,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 7.4232613000203855
+          "generation_seconds": 7.4232613000203855,
+          "generated_username": "AI"
         },
         {
           "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
           "target_track_id": 6,
           "model": "360mea",
           "file": "mus3314-spring-2025-2nd-take-session-coll_track6_360mea.txt",
-          "sha256": "a9ee613d4b4b082af544d3d4a912f75ace04d569124618d126a0cf2808d394fa",
+          "sha256": "c99a53fd87596d6041cf1c6132435aee9de2c25473fd07f04d552afb86d42224",
           "positions": [
             0,
             16,
@@ -704,7 +723,8 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 6.444534699956421
+          "generation_seconds": 6.444534699956421,
+          "generated_username": "AI"
         }
       ]
     },
@@ -718,7 +738,7 @@
           "target_track_id": 6,
           "model": "17bea",
           "file": "spring-2025-1st-take-session-coll_track6_17bea.txt",
-          "sha256": "05d71eaf4a77bb4a006f09f26ae5bd18371e419ca716515301ac0775f9936742",
+          "sha256": "6dbbecd835dc818219b3bddb75637ba40659990d8e70cc1772ffddff748e4570",
           "positions": [
             0,
             1,
@@ -738,14 +758,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 32.5977419000119
+          "generation_seconds": 32.5977419000119,
+          "generated_username": "AI"
         },
         {
           "source": "jamminlicious-002-session-coll.txt",
           "target_track_id": 5,
           "model": "17bea",
           "file": "jamminlicious-002-session-coll_track5_17bea.txt",
-          "sha256": "32b4f79e20d08355d4f8e4259fd182062cb0106a716d463ab0aa9d894737410e",
+          "sha256": "db4689b449da4015e16c5a5f89668f4ab12f3c8881847fa2cd8c49968e531e21",
           "positions": [
             1,
             2,
@@ -784,14 +805,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 27.465563900012057
+          "generation_seconds": 27.465563900012057,
+          "generated_username": "AI"
         },
         {
           "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
           "target_track_id": 4,
           "model": "17bea",
           "file": "mus3314-spring-2025-2nd-take-session-coll_track4_17bea.txt",
-          "sha256": "1205310a7ad441999ef7b6525adc8dd59175248fa6a065193838c8a9ccf143ca",
+          "sha256": "64c057e74a59d53df011d9c53bf978a6e30ce7ebb4caa8fd66be718adfec81be",
           "positions": [
             12,
             26,
@@ -811,14 +833,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 22.85580259998096
+          "generation_seconds": 22.85580259998096,
+          "generated_username": "AI"
         },
         {
           "source": "jamminlicious-002-session-coll.txt",
           "target_track_id": 4,
           "model": "17bea",
           "file": "jamminlicious-002-session-coll_track4_17bea.txt",
-          "sha256": "8763a01f7de6579670ae6fa6f1c1f060b77f58509000acab3f0909fb2b4544f9",
+          "sha256": "1d89fcb3ae66cda24c808260a5573c72bfd0e815e81412c5dd0894644f7a98d5",
           "positions": [
             0,
             1,
@@ -837,14 +860,15 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 21.550404999987222
+          "generation_seconds": 21.550404999987222,
+          "generated_username": "AI"
         },
         {
           "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
           "target_track_id": 6,
           "model": "17bea",
           "file": "mus3314-spring-2025-2nd-take-session-coll_track6_17bea.txt",
-          "sha256": "bb879240953970835b1206093d8ef79184b781a5024ea39fc66d22f680313fd4",
+          "sha256": "c714cf2e752bca9318d9512eaac2c161e6db6874310dadf84801a1d605b9e3ec",
           "positions": [
             0,
             23,
@@ -862,10 +886,12 @@
               "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
             }
           ],
-          "generation_seconds": 21.26059170003282
+          "generation_seconds": 21.26059170003282,
+          "generated_username": "AI"
         }
       ]
     }
   ],
-  "v3_prefill": "256-token KV-cache chunks; outputs can differ from full prefill"
+  "v3_prefill": "256-token KV-cache chunks; outputs can differ from full prefill",
+  "generated_username": "AI"
 }

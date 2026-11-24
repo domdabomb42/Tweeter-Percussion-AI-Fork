@@ -1961,7 +1961,7 @@
 1938, 4 delete 2;
 1939, 4 hover 1;
 1940, 4 tracker-time 3 25.2515 1;
-1941, 4 username Justy;
+1941, 4 username AI;
 1942, 4 tracker-data 12 55;
 1943, 4 tracker-char 12 b;
 1944, 4 tracker-data 26 55;

@@ -52,6 +52,8 @@ tracks and historical out-of-range values are preserved. It refuses to overwrite
 an existing sample set. The V3 workers prefill their long prompts in 256-token
 KV-cache chunks to fit the 360M model in 6 GB VRAM. Chunking can change greedy
 beat choices compared with the historical full-prefill V3 evaluations.
+Only the generated track has `instrument.username` set to `AI`; source
+accompaniment usernames are preserved.
 
 The table compares structural validity, exact note count, native export rate,
 and rhythmic Jaccard on structurally valid outputs. Invalid outputs affect
