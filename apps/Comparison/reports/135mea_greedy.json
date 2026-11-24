@@ -19,10 +19,25 @@
     "native_export_success_rate": 0.8,
     "rhythmic_jaccard": 0.2805735930735931,
     "rhythmic_diversity": 1.0,
-    "mean_generation_seconds": 22.50882360000396,
+    "mean_generation_seconds": 28.896971140010283,
     "training_duration_seconds": 4023.0161631999654,
     "peak_gpu_memory_bytes": 787273728,
     "trainable_parameters": 5366016,
+    "preexisting_native_violations": [
+      {
+        "index": 0,
+        "source": "jamminlicious-002-session-coll.txt",
+        "warnings": [
+          {
+            "code": "legacy_range",
+            "track": 4,
+            "parameter": "overdrive",
+            "value": 11,
+            "message": "unchanged source value outside current UI range retained exactly"
+          }
+        ]
+      }
+    ],
     "errors": [
       {
         "index": 0,
@@ -31,7 +46,7 @@
       }
     ]
   },
-  "report_content_sha256": "28864eb850cbf340cb3a9c15c96b4df1e1177df2ba78eed2682138e593fe7b27",
+  "report_content_sha256": "965aee47f4d06f2bd0f5ef614e1746b2bf5d83e497cc5067d2cf0cd5a8c15f69",
   "test_targets": [
     {
       "source": "jamminlicious-002-session-coll.txt",
@@ -105,5 +120,5 @@
   "manifest_sha256": "b0fba91e9ad8108c899f049d9b0ad2d1d4592c9cb95a67dbfa1faea8e6972713",
   "adapter_sha256": "06f8f11a8cebb2f38c014cf5ea68905c3fb55dfb9309898d1315e4048f55046e",
   "adapter_metadata_sha256": "0eae81096ee5c2074672ea400a52d46308853e8815979e7609f57aff177e1ded",
-  "report_sha256": "e1c752fbcce859f09c5d6ca7c446510e8a399aaf4720023255c03f77ddd35801"
+  "report_sha256": "78622fa1f7e4ba5b97507c7cd751bf6b1566a9ba629460312ce6e8b96d5867b8"
 }

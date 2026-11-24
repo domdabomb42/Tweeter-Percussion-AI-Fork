@@ -11,9 +11,10 @@ from .music import TARGET_TAG, compact, reconstruct
 from .pipeline import load_new_tokenizer, prompt_for_composition, verify_dataset
 from .target_format import decode, end_marker_for, format_for_version
 from percussion_generation_v3.inference import PositionConstraint, choose_loop_ms, build_track
+from percussion_generation_v3.evaluation import remove_target
 from .trainer import validation_loss
 from custom_extractor import extract_tweeter, export_tweeter
-from custom_extractor.models import Composition
+from custom_extractor.validator import ValidationError, validate
 from percussion_generation_v3.lossless_dataset import _source_path
 from percussion_generation_v3.data import AUGMENTED_SESSIONS
 
@@ -98,20 +99,31 @@ def _decode_generated(model, tokenizer, device, composition, count, catalog,
                   catalog if target_format == "musical-v2" else None), duration
 
 
-def _export_checked(composition, musical, catalog, output_path):
-    if isinstance(musical, list):
-        track = build_track(composition, musical, catalog, choose_loop_ms(composition))
-        candidate = deepcopy(composition)
-        candidate.tracks.append(track)
-        from custom_extractor.validator import validate
+def _export_checked(composition, musical, catalog, output_path, preexisting_warnings=None):
+    # The native baseline identifies unchanged source values that predate
+    # generation. The new track has no baseline entry and remains strict.
+    try:
+        source_warnings = validate(composition)
+    except ValidationError as exc:
+        raise ValueError(f"pre-existing accompaniment validation failed: {exc}") from exc
+    if preexisting_warnings is not None:
+        preexisting_warnings.extend(w for w in source_warnings if w["code"] == "legacy_range")
+    try:
+        if isinstance(musical, list):
+            track = build_track(composition, musical, catalog, choose_loop_ms(composition))
+            candidate = deepcopy(composition)
+            candidate.tracks.append(track)
+        else:
+            candidate, track = reconstruct(composition, musical, catalog)
         validate(candidate)
-    else:
-        candidate, track = reconstruct(composition, musical, catalog)
+    except ValidationError as exc:
+        raise ValueError(f"generated percussion validation failed: {exc}") from exc
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     export_tweeter(candidate, output_path)
     restored = extract_tweeter(output_path)
-    if restored.tracks[:-1] != composition.tracks or restored.tracks[-1] != track:
+    if (restored.global_settings != composition.global_settings or
+            restored.tracks[:-1] != composition.tracks or restored.tracks[-1] != track):
         output_path.unlink(missing_ok=True)
         raise ValueError("native export/reimport changed source or generated track")
     return track
@@ -137,10 +149,12 @@ def generate(output_dir=OUTPUT, input_path=None, output_path=None,
     musical, duration = _decode_generated(model, tokenizer, device, composition,
                                           target_note_count, catalog, max_new_tokens,
                                           target_format=target_format, constrained=constrained)
-    track = _export_checked(composition, musical, catalog, output_path)
+    native_warnings = []
+    track = _export_checked(composition, musical, catalog, output_path, native_warnings)
     return {"output": str(output_path), "track_id": track["id"],
             "instrument": track["instrument"]["name"], "notes": len(track["notes"]),
-            "generation_seconds": duration, "target_format": target_format}
+            "generation_seconds": duration, "target_format": target_format,
+            "preexisting_native_warnings": native_warnings}
 
 
 def evaluate(output_dir=OUTPUT, partition="validation20", cpu=False,
@@ -163,13 +177,25 @@ def evaluate(output_dir=OUTPUT, partition="validation20", cpu=False,
     teacher = validation_loss(model, rows, device)
     counts = {"structurally_valid": 0, "exact_note_count": 0,
               "instrument_correct": 0, "native_export_success": 0}
-    overlaps, patterns, durations, errors = [], set(), [], []
+    overlaps, patterns, durations, errors, source_violations = [], set(), [], [], []
     with tempfile.TemporaryDirectory() as temporary:
         for index, row in enumerate(rows):
             original = extract_tweeter(_source_path(row, generated_lookup))
             expected = original.track(row["target_track_id"])
-            conditioning = Composition(deepcopy(original.global_settings),
-                [deepcopy(track) for track in original.tracks if track["id"] != row["target_track_id"]])
+            conditioning = remove_target(original, row["target_track_id"])
+            try:
+                legacy_warnings = [warning for warning in validate(conditioning)
+                                   if warning["code"] == "legacy_range"]
+            except ValidationError as exc:
+                message = f"pre-existing accompaniment validation failed: {exc}"
+                source_violations.append({"index": index, "source": row["source"],
+                                          "error": str(exc)})
+                errors.append({"index": index, "source": row["source"], "error": message})
+                durations.append(0.0)
+                continue
+            if legacy_warnings:
+                source_violations.append({"index": index, "source": row["source"],
+                                          "warnings": legacy_warnings})
             attempt_started = time.perf_counter()
             duration_recorded = False
             try:
@@ -213,6 +239,7 @@ def evaluate(output_dir=OUTPUT, partition="validation20", cpu=False,
               "training_duration_seconds": epochs[-1]["cumulative_seconds"] if epochs else None,
               "peak_gpu_memory_bytes": max((entry.get("peak_gpu_memory_bytes") or 0 for entry in epochs), default=0),
               "trainable_parameters": history.get("plan", {}).get("trainable_parameters"),
+              "preexisting_native_violations": source_violations,
               "errors": errors}
     report = Path(output_dir) / f"evaluation_{partition}.json"
     report.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")

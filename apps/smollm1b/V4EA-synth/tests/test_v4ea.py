@@ -25,7 +25,9 @@ from percussion_generation_v4ea import POSITIONS_END_MARKER, POSITIONS_VERSION
 from percussion_generation_v3.checkpoints import load_checkpoint_state, resolve_checkpoint
 from percussion_generation_v3.rotation import select_epoch_indices
 from percussion_generation_v3.lossless_dataset import _source_path
+from percussion_generation_v3.evaluation import remove_target
 from custom_extractor import extract_tweeter, export_tweeter
+from custom_extractor.validator import validate
 from custom_extractor.models import Composition
 
 
@@ -316,6 +318,47 @@ class V4EATests(unittest.TestCase):
             restored = extract_tweeter(path)
             self.assertEqual(restored.tracks[:-1], remaining.tracks)
             self.assertEqual(restored.tracks[-1], predicted)
+
+    def test_legacy_accompaniment_range_is_preserved_and_new_track_is_strict(self):
+        _, groups, _, generated, _ = source_groups()
+        row = next(item for item in groups["test"] if item["source"] ==
+                   "jamminlicious-002-session-coll.txt" and item["target_track_id"] == 5)
+        original = extract_tweeter(_source_path(row, generated))
+        original_tracks = deepcopy(original.tracks)
+        conditioning = remove_target(original, row["target_track_id"])
+        self.assertEqual(conditioning.tracks, [track for track in original.tracks
+                                               if track["id"] != row["target_track_id"]])
+        prepared_prefix, _, _ = texts_for_pair(row, generated, original,
+                                               target_format="positions-v1")
+        self.assertEqual(prompt_for_composition(conditioning, len(row["target_positions"]),
+                                                "positions-v1"), prepared_prefix)
+        self.assertEqual(conditioning.track(4)["effects"]["overdrive"]["level"], 11)
+        self.assertTrue(any(item["code"] == "legacy_range" and item["track"] == 4
+                            for item in validate(conditioning)))
+        preset = json.loads((MODEL_ROOT / "V3/output/fixed_preset.json").read_text())
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "preserved.txt"
+            warnings = []
+            generated = _export_checked(conditioning, row["target_positions"],
+                                        preset, output, warnings)
+            restored = extract_tweeter(output)
+            self.assertEqual(restored.global_settings, conditioning.global_settings)
+            self.assertEqual(restored.tracks[:-1], conditioning.tracks)
+            self.assertEqual(restored.tracks[-1], generated)
+            self.assertEqual(restored.track(4)["effects"]["overdrive"]["level"], 11)
+            self.assertTrue(any(item["code"] == "legacy_range" and item["track"] == 4
+                                for item in warnings))
+            self.assertEqual(original.tracks, original_tracks)
+            bad_preset = deepcopy(preset)
+            bad_preset["track"]["effects"]["overdrive"]["level"] = 11
+            with self.assertRaisesRegex(ValueError, "generated percussion validation failed"):
+                _export_checked(conditioning, row["target_positions"], bad_preset,
+                                Path(directory) / "invalid.txt")
+            changed_source = deepcopy(conditioning)
+            changed_source.track(4)["effects"]["overdrive"]["level"] = 12
+            with self.assertRaisesRegex(ValueError, "pre-existing accompaniment validation failed"):
+                _export_checked(changed_source, row["target_positions"], preset,
+                                Path(directory) / "changed_source.txt")
 
     def test_full_pool_shuffle_coverage_and_seed(self):
         _, groups, _, _, _ = source_groups()

@@ -1,0 +1,871 @@
+{
+  "seed": 415,
+  "selection": "seeded shuffle of all five held-out target pairs",
+  "decoder": "ordered constrained positions",
+  "pairs": [
+    {
+      "source": "spring-2025-1st-take-session-coll.txt",
+      "source_sha256": "4f480520547e576e1d785251e5773fe289b946aa648368da77631fffdc993853",
+      "target_track_id": 6,
+      "target_positions": [
+        0,
+        16,
+        24,
+        32,
+        40,
+        48,
+        56
+      ]
+    },
+    {
+      "source": "jamminlicious-002-session-coll.txt",
+      "source_sha256": "2af0eefd82c39977b5c112780339da45d943d0350a1c90514ab757cd0d64e8ea",
+      "target_track_id": 5,
+      "target_positions": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        7,
+        15,
+        31,
+        47,
+        51,
+        63
+      ]
+    },
+    {
+      "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+      "source_sha256": "0aee6a143f2f8c4f5fd770a731c953a85655ec4056ac639f56477cf2e136d964",
+      "target_track_id": 4,
+      "target_positions": [
+        8,
+        9,
+        23,
+        24,
+        40,
+        57,
+        58
+      ]
+    },
+    {
+      "source": "jamminlicious-002-session-coll.txt",
+      "source_sha256": "2af0eefd82c39977b5c112780339da45d943d0350a1c90514ab757cd0d64e8ea",
+      "target_track_id": 4,
+      "target_positions": [
+        2,
+        18,
+        31,
+        43,
+        51,
+        63
+      ]
+    },
+    {
+      "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+      "source_sha256": "0aee6a143f2f8c4f5fd770a731c953a85655ec4056ac639f56477cf2e136d964",
+      "target_track_id": 6,
+      "target_positions": [
+        12,
+        26,
+        39,
+        51,
+        62
+      ]
+    }
+  ],
+  "models": [
+    {
+      "model": "135m",
+      "adapter": "apps/smollm135/V3/output/checkpoints/constrained/best_adapter",
+      "adapter_sha256": "4fb56263372ed8f74e5ad6b516edb60ecfc7b1ae33086d30a3d5fad6a1306a32",
+      "samples": [
+        {
+          "source": "spring-2025-1st-take-session-coll.txt",
+          "target_track_id": 6,
+          "model": "135m",
+          "file": "spring-2025-1st-take-session-coll_track6_135m.txt",
+          "sha256": "34aa867666958a2f25563fd5f68d52b0a7880b08c03a156fb5b554580714a0e4",
+          "positions": [
+            0,
+            24,
+            32,
+            48,
+            60,
+            61,
+            62
+          ],
+          "expected_note_count": 7,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 1249,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 16.88413840002613
+        },
+        {
+          "source": "jamminlicious-002-session-coll.txt",
+          "target_track_id": 5,
+          "model": "135m",
+          "file": "jamminlicious-002-session-coll_track5_135m.txt",
+          "sha256": "e2b987901ce62cc794bd128df3e1985da81bfac592f931782df2a372cd46ed9e",
+          "positions": [
+            0,
+            24,
+            32,
+            44,
+            56,
+            57,
+            58,
+            60,
+            61,
+            62,
+            63
+          ],
+          "expected_note_count": 11,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [
+            {
+              "code": "legacy_range",
+              "track": 4,
+              "parameter": "overdrive",
+              "value": 11,
+              "message": "unchanged source value outside current UI range retained exactly"
+            }
+          ],
+          "native_warnings": [
+            {
+              "code": "legacy_range",
+              "track": 4,
+              "parameter": "overdrive",
+              "value": 11,
+              "message": "unchanged source value outside current UI range retained exactly"
+            },
+            {
+              "code": "native_float32_precision",
+              "count": 210,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 15.52113140001893
+        },
+        {
+          "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+          "target_track_id": 4,
+          "model": "135m",
+          "file": "mus3314-spring-2025-2nd-take-session-coll_track4_135m.txt",
+          "sha256": "d0cd87357050344dfbb02dc6d0a1bc1e3a06622e3f9f60f1868bb47d4727ae26",
+          "positions": [
+            0,
+            16,
+            32,
+            56,
+            60,
+            62,
+            63
+          ],
+          "expected_note_count": 7,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 1213,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 13.749913300038315
+        },
+        {
+          "source": "jamminlicious-002-session-coll.txt",
+          "target_track_id": 4,
+          "model": "135m",
+          "file": "jamminlicious-002-session-coll_track4_135m.txt",
+          "sha256": "c763df3b0170731aa970882c9d3bc2b90d43901a0ffbb6f90a32ca7b022ad367",
+          "positions": [
+            0,
+            24,
+            32,
+            48,
+            60,
+            62
+          ],
+          "expected_note_count": 6,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 213,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 10.763988999999128
+        },
+        {
+          "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+          "target_track_id": 6,
+          "model": "135m",
+          "file": "mus3314-spring-2025-2nd-take-session-coll_track6_135m.txt",
+          "sha256": "64c6e204540f67c630fe5db6e1a70bb7acfeb8db2ef592d192220b59e1cf8d80",
+          "positions": [
+            0,
+            16,
+            32,
+            56,
+            62
+          ],
+          "expected_note_count": 5,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 1302,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 12.289232400013134
+        }
+      ]
+    },
+    {
+      "model": "360m",
+      "adapter": "apps/smollm360/V3/output/checkpoints/constrained/best_adapter",
+      "adapter_sha256": "07f2c77683b9a6ebd25d7b140d5d4dd4216c5fc3923cca2e2dd9c326b80ddfd7",
+      "samples": [
+        {
+          "source": "spring-2025-1st-take-session-coll.txt",
+          "target_track_id": 6,
+          "model": "360m",
+          "file": "spring-2025-1st-take-session-coll_track6_360m.txt",
+          "sha256": "efe1aa94059c626d3e1812d10ecd3360596a108544d2d006e94a33f3b14a0453",
+          "positions": [
+            0,
+            16,
+            32,
+            56,
+            60,
+            62,
+            63
+          ],
+          "expected_note_count": 7,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 1249,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 15.116864699986763
+        },
+        {
+          "source": "jamminlicious-002-session-coll.txt",
+          "target_track_id": 5,
+          "model": "360m",
+          "file": "jamminlicious-002-session-coll_track5_360m.txt",
+          "sha256": "31473a57de95bb002faeaf01d325f46932ec9f3906de3028ce1d2fa808fa160a",
+          "positions": [
+            0,
+            16,
+            32,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63
+          ],
+          "expected_note_count": 11,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [
+            {
+              "code": "legacy_range",
+              "track": 4,
+              "parameter": "overdrive",
+              "value": 11,
+              "message": "unchanged source value outside current UI range retained exactly"
+            }
+          ],
+          "native_warnings": [
+            {
+              "code": "legacy_range",
+              "track": 4,
+              "parameter": "overdrive",
+              "value": 11,
+              "message": "unchanged source value outside current UI range retained exactly"
+            },
+            {
+              "code": "native_float32_precision",
+              "count": 210,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 14.913397500000428
+        },
+        {
+          "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+          "target_track_id": 4,
+          "model": "360m",
+          "file": "mus3314-spring-2025-2nd-take-session-coll_track4_360m.txt",
+          "sha256": "da7e99f91905b41358e52b0e0d229bf880c2a68e20dcb64dc314ee0e9ac8e19e",
+          "positions": [
+            0,
+            16,
+            32,
+            53,
+            54,
+            55,
+            56
+          ],
+          "expected_note_count": 7,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 1213,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 14.099050399963744
+        },
+        {
+          "source": "jamminlicious-002-session-coll.txt",
+          "target_track_id": 4,
+          "model": "360m",
+          "file": "jamminlicious-002-session-coll_track4_360m.txt",
+          "sha256": "c49c9b1c3f47e1cf098ac1342aadd9d6a0676808f0e4e3518a6fb1361cb46b4c",
+          "positions": [
+            0,
+            16,
+            32,
+            48,
+            56,
+            57
+          ],
+          "expected_note_count": 6,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 213,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 11.421806600003038
+        },
+        {
+          "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+          "target_track_id": 6,
+          "model": "360m",
+          "file": "mus3314-spring-2025-2nd-take-session-coll_track6_360m.txt",
+          "sha256": "f326529faa1b7936820ad18981f19a4e570d1d0654f3c30d20dbac92d2fc332c",
+          "positions": [
+            0,
+            16,
+            32,
+            48,
+            56
+          ],
+          "expected_note_count": 5,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 1302,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 12.886711700004525
+        }
+      ]
+    },
+    {
+      "model": "135mea",
+      "adapter": "apps/smollm135/MostRecentOutput/V4EA-positions-v1/checkpoints/rhythm_coverage_v1/best_adapter",
+      "adapter_sha256": "06f8f11a8cebb2f38c014cf5ea68905c3fb55dfb9309898d1315e4048f55046e",
+      "samples": [
+        {
+          "source": "spring-2025-1st-take-session-coll.txt",
+          "target_track_id": 6,
+          "model": "135mea",
+          "file": "spring-2025-1st-take-session-coll_track6_135mea.txt",
+          "sha256": "5c5c760e8b9f1f0f3c88c40dbc52dd74c277677d45b18a7791867c59d9cc874c",
+          "positions": [
+            16,
+            24,
+            32,
+            40,
+            48,
+            56,
+            60
+          ],
+          "expected_note_count": 7,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 1249,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 6.24124900001334
+        },
+        {
+          "source": "jamminlicious-002-session-coll.txt",
+          "target_track_id": 5,
+          "model": "135mea",
+          "file": "jamminlicious-002-session-coll_track5_135mea.txt",
+          "sha256": "1c86b38de13eab5fa93d99d86334c0d43018bbbb70e00e0c7eac46ff3ed4ca66",
+          "positions": [
+            27,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62
+          ],
+          "expected_note_count": 11,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [
+            {
+              "code": "legacy_range",
+              "track": 4,
+              "parameter": "overdrive",
+              "value": 11,
+              "message": "unchanged source value outside current UI range retained exactly"
+            }
+          ],
+          "native_warnings": [
+            {
+              "code": "legacy_range",
+              "track": 4,
+              "parameter": "overdrive",
+              "value": 11,
+              "message": "unchanged source value outside current UI range retained exactly"
+            },
+            {
+              "code": "native_float32_precision",
+              "count": 210,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 8.911328899965156
+        },
+        {
+          "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+          "target_track_id": 4,
+          "model": "135mea",
+          "file": "mus3314-spring-2025-2nd-take-session-coll_track4_135mea.txt",
+          "sha256": "48e039b1a42f3e56eb37700f2cbcba2107c03e442745a6d2d4a28e887e7f2af4",
+          "positions": [
+            12,
+            26,
+            39,
+            51,
+            57,
+            58,
+            62
+          ],
+          "expected_note_count": 7,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 1213,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 4.259783999994397
+        },
+        {
+          "source": "jamminlicious-002-session-coll.txt",
+          "target_track_id": 4,
+          "model": "135mea",
+          "file": "jamminlicious-002-session-coll_track4_135mea.txt",
+          "sha256": "971ed739386da4df433cced68cb57078e5a1a2e6602a0928e206f5aee9ee2e01",
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "expected_note_count": 6,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 213,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 3.950566500017885
+        },
+        {
+          "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+          "target_track_id": 6,
+          "model": "135mea",
+          "file": "mus3314-spring-2025-2nd-take-session-coll_track6_135mea.txt",
+          "sha256": "7e567455b2450500ee2706112221b398d6892cd3d56919e82ace43b058ce422e",
+          "positions": [
+            8,
+            9,
+            23,
+            24,
+            40
+          ],
+          "expected_note_count": 5,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 1302,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 2.0958636000286788
+        }
+      ]
+    },
+    {
+      "model": "360mea",
+      "adapter": "apps/smollm360/MostRecentOutput/V4EA-positions-v1/checkpoints/rhythm_coverage_v1/best_adapter",
+      "adapter_sha256": "2afb95b0fa59b08c48564dd80fe46cffcd994e6ccdd7fcd5e9eab831ff51bf30",
+      "samples": [
+        {
+          "source": "spring-2025-1st-take-session-coll.txt",
+          "target_track_id": 6,
+          "model": "360mea",
+          "file": "spring-2025-1st-take-session-coll_track6_360mea.txt",
+          "sha256": "204c2c6c9a828c224c33038ceb35236d4733f3d1e7171377025161981a3d8203",
+          "positions": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "expected_note_count": 7,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 1249,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 8.845320600026753
+        },
+        {
+          "source": "jamminlicious-002-session-coll.txt",
+          "target_track_id": 5,
+          "model": "360mea",
+          "file": "jamminlicious-002-session-coll_track5_360mea.txt",
+          "sha256": "53693b32b5bc4fc8499ba2859f4970616273f0126de6a1987f9b355ff41d3620",
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            27,
+            28
+          ],
+          "expected_note_count": 11,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [
+            {
+              "code": "legacy_range",
+              "track": 4,
+              "parameter": "overdrive",
+              "value": 11,
+              "message": "unchanged source value outside current UI range retained exactly"
+            }
+          ],
+          "native_warnings": [
+            {
+              "code": "legacy_range",
+              "track": 4,
+              "parameter": "overdrive",
+              "value": 11,
+              "message": "unchanged source value outside current UI range retained exactly"
+            },
+            {
+              "code": "native_float32_precision",
+              "count": 210,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 8.595986099971924
+        },
+        {
+          "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+          "target_track_id": 4,
+          "model": "360mea",
+          "file": "mus3314-spring-2025-2nd-take-session-coll_track4_360mea.txt",
+          "sha256": "18721a9409c83f8096607b9cd63fd803b2f35bdf948aeffdf4621e6bdd0e8677",
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "expected_note_count": 7,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 1213,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 5.83036359999096
+        },
+        {
+          "source": "jamminlicious-002-session-coll.txt",
+          "target_track_id": 4,
+          "model": "360mea",
+          "file": "jamminlicious-002-session-coll_track4_360mea.txt",
+          "sha256": "a9eb8626a587440ec6a802e60c9878dc523a0a0d03b69fd0558b552d1ed3fe05",
+          "positions": [
+            0,
+            14,
+            32,
+            33,
+            34,
+            35
+          ],
+          "expected_note_count": 6,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 213,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 7.4232613000203855
+        },
+        {
+          "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+          "target_track_id": 6,
+          "model": "360mea",
+          "file": "mus3314-spring-2025-2nd-take-session-coll_track6_360mea.txt",
+          "sha256": "a9ee613d4b4b082af544d3d4a912f75ace04d569124618d126a0cf2808d394fa",
+          "positions": [
+            0,
+            16,
+            32,
+            40,
+            56
+          ],
+          "expected_note_count": 5,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 1302,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 6.444534699956421
+        }
+      ]
+    },
+    {
+      "model": "17bea",
+      "adapter": "apps/smollm1b/MostRecentOutput/V4EA-positions-v1/checkpoints/rhythm_coverage_v1/best_adapter",
+      "adapter_sha256": "76aca023d2f355ca8763514a40c93adc9c7dfc93b7035ecc037e9e7ddea4bc76",
+      "samples": [
+        {
+          "source": "spring-2025-1st-take-session-coll.txt",
+          "target_track_id": 6,
+          "model": "17bea",
+          "file": "spring-2025-1st-take-session-coll_track6_17bea.txt",
+          "sha256": "05d71eaf4a77bb4a006f09f26ae5bd18371e419ca716515301ac0775f9936742",
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            16,
+            32,
+            48
+          ],
+          "expected_note_count": 7,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 1249,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 32.5977419000119
+        },
+        {
+          "source": "jamminlicious-002-session-coll.txt",
+          "target_track_id": 5,
+          "model": "17bea",
+          "file": "jamminlicious-002-session-coll_track5_17bea.txt",
+          "sha256": "32b4f79e20d08355d4f8e4259fd182062cb0106a716d463ab0aa9d894737410e",
+          "positions": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "expected_note_count": 11,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [
+            {
+              "code": "legacy_range",
+              "track": 4,
+              "parameter": "overdrive",
+              "value": 11,
+              "message": "unchanged source value outside current UI range retained exactly"
+            }
+          ],
+          "native_warnings": [
+            {
+              "code": "legacy_range",
+              "track": 4,
+              "parameter": "overdrive",
+              "value": 11,
+              "message": "unchanged source value outside current UI range retained exactly"
+            },
+            {
+              "code": "native_float32_precision",
+              "count": 210,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 27.465563900012057
+        },
+        {
+          "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+          "target_track_id": 4,
+          "model": "17bea",
+          "file": "mus3314-spring-2025-2nd-take-session-coll_track4_17bea.txt",
+          "sha256": "1205310a7ad441999ef7b6525adc8dd59175248fa6a065193838c8a9ccf143ca",
+          "positions": [
+            12,
+            26,
+            39,
+            51,
+            60,
+            61,
+            62
+          ],
+          "expected_note_count": 7,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 1213,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 22.85580259998096
+        },
+        {
+          "source": "jamminlicious-002-session-coll.txt",
+          "target_track_id": 4,
+          "model": "17bea",
+          "file": "jamminlicious-002-session-coll_track4_17bea.txt",
+          "sha256": "8763a01f7de6579670ae6fa6f1c1f060b77f58509000acab3f0909fb2b4544f9",
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            20
+          ],
+          "expected_note_count": 6,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 213,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 21.550404999987222
+        },
+        {
+          "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
+          "target_track_id": 6,
+          "model": "17bea",
+          "file": "mus3314-spring-2025-2nd-take-session-coll_track6_17bea.txt",
+          "sha256": "bb879240953970835b1206093d8ef79184b781a5024ea39fc66d22f680313fd4",
+          "positions": [
+            0,
+            23,
+            40,
+            55,
+            61
+          ],
+          "expected_note_count": 5,
+          "generated_instrument": "electrikick",
+          "preexisting_native_violations": [],
+          "native_warnings": [
+            {
+              "code": "native_float32_precision",
+              "count": 1302,
+              "message": "JSON/TXT values are retained; Pd's 32-bit float engine approximates these decimal values"
+            }
+          ],
+          "generation_seconds": 21.26059170003282
+        }
+      ]
+    }
+  ],
+  "v3_prefill": "256-token KV-cache chunks; outputs can differ from full prefill"
+}

@@ -12,11 +12,11 @@ are shown as Pending; no scores are estimated.
 | 360m | greedy | 100% | 0% | 100% | 0.129 (5/5) |
 | 360m | constrained | 100% | 100% | 100% | 0.131 (5/5) |
 | 135mea | greedy | 80% | 0% | 80% | 0.281 (4/5) |
-| 135mea | constrained | 100% | 100% | 80% | 0.202 (5/5) |
-| 360mea | greedy | 100% | 60% | 80% | 0.061 (5/5) |
-| 360mea | constrained | 100% | 100% | 80% | 0.075 (5/5) |
-| 17bea | greedy | 80% | 60% | 60% | 0.259 (4/5) |
-| 17bea | constrained | 100% | 100% | 80% | 0.195 (5/5) |
+| 135mea | constrained | 100% | 100% | 100% | 0.202 (5/5) |
+| 360mea | greedy | 100% | 60% | 100% | 0.061 (5/5) |
+| 360mea | constrained | 100% | 100% | 100% | 0.075 (5/5) |
+| 17bea | greedy | 80% | 80% | 80% | 0.196 (4/5) |
+| 17bea | constrained | 100% | 100% | 100% | 0.157 (5/5) |
 
 Rhythmic Jaccard is averaged over structurally valid outputs only; its
 denominator appears in each cell. Invalid outputs lower the validity rate

@@ -111,8 +111,9 @@ def best_adapter(output: Path) -> Path:
     return coverage if coverage.is_dir() else output / "checkpoints/rhythm/best_adapter"
 
 
-def evaluate_ea(slug: str, cpu: bool = False) -> list[str]:
-    """Run both test decoders and save distinct, fingerprinted report snapshots."""
+def evaluate_ea(slug: str, cpu: bool = False,
+                decodings: tuple[str, ...] = DECODINGS) -> list[str]:
+    """Run selected test decoders and save distinct, fingerprinted snapshots."""
     output = ea_output(slug)
     manifest_path = output / "manifest.json"
     if not manifest_path.is_file():
@@ -129,7 +130,9 @@ def evaluate_ea(slug: str, cpu: bool = False) -> list[str]:
     snapshot_dir = HERE / "reports"
     snapshot_dir.mkdir(exist_ok=True)
     messages = []
-    for decoding in DECODINGS:
+    if not decodings or any(decoding not in DECODINGS for decoding in decodings):
+        raise ValueError("unknown or empty decoder selection")
+    for decoding in decodings:
         command = [sys.executable, "-m", "percussion_generation_v4ea",
                    "--output-dir", str(output), "evaluate", "--partition", "test"]
         if decoding == "constrained":
@@ -282,12 +285,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--evaluate-ea", nargs="*", choices=tuple(EA_MODELS),
                         help="evaluate one or more finished V4EA models, or all if no names follow")
     parser.add_argument("--cpu", action="store_true", help="run requested V4EA evaluations on CPU")
+    parser.add_argument("--decoding", choices=("both", *DECODINGS), default="both",
+                        help="evaluate both decoders or only one (default: both)")
     parser.add_argument("--strict", action="store_true", help="fail if any result is pending")
     args = parser.parse_args(argv)
     if args.evaluate_ea is not None:
         requested = args.evaluate_ea or list(EA_MODELS)
         for slug in requested:
-            for message in evaluate_ea(slug, cpu=args.cpu):
+            selected = DECODINGS if args.decoding == "both" else (args.decoding,)
+            for message in evaluate_ea(slug, cpu=args.cpu, decodings=selected):
                 print(message)
     result = build_comparison()
     if args.strict and result["pending"]:

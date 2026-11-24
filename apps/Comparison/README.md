@@ -26,11 +26,32 @@ python compare.py --evaluate-ea 17bea
 python compare.py --strict
 ```
 
+To refresh only the native-valid constrained results after an export change,
+use `python compare.py --evaluate-ea 135mea 360mea --decoding constrained`, then
+`python compare.py --evaluate-ea 17bea --decoding constrained --cpu`.
+
 `--evaluate-ea` runs test evaluation only; it uses the model's current best
 adapter and writes snapshots under `reports/`. Use `--cpu` if needed. The
 comparison rejects a snapshot when its dataset or best adapter has changed.
 Run `--evaluate-ea` again after further training. Wait until training has
 finished before evaluating on the same GPU.
+
+To generate native PdL2Ork coll text for all five held-out target pairs from
+each model, run:
+
+```powershell
+python generate_samples.py
+```
+
+The 25 verified files and a source/checkpoint manifest are written to
+[`SampleOutputs`](SampleOutputs). Each name includes the target track ID because
+some sessions contribute two held-out targets. The command uses a fixed-seed
+shuffle of the five test pairs, constrained position decoding, strict generated
+track validation, and native export/reimport checks. Existing accompaniment
+tracks and historical out-of-range values are preserved. It refuses to overwrite
+an existing sample set. The V3 workers prefill their long prompts in 256-token
+KV-cache chunks to fit the 360M model in 6 GB VRAM. Chunking can change greedy
+beat choices compared with the historical full-prefill V3 evaluations.
 
 The table compares structural validity, exact note count, native export rate,
 and rhythmic Jaccard on structurally valid outputs. Invalid outputs affect

@@ -8,30 +8,39 @@
     "partition": "test",
     "examples": 5,
     "checkpoint_run": "rhythm_coverage_v1",
-    "token_cross_entropy": 0.6819909126670273,
+    "token_cross_entropy": 0.6757211610674858,
     "token_cross_entropy_note": "Tokenizer-specific; do not compare directly across models",
     "training_loss": 0.3144200703280389,
     "validation_loss": 0.7236712603510296,
-    "test_loss": 0.6819909126670273,
+    "test_loss": 0.6757211610674858,
     "structurally_valid_rate": 1.0,
     "exact_note_count_rate": 1.0,
     "instrument_correct_rate": 0.2,
-    "native_export_success_rate": 0.8,
-    "rhythmic_jaccard": 0.195,
+    "native_export_success_rate": 1.0,
+    "rhythmic_jaccard": 0.1570053475935829,
     "rhythmic_diversity": 1.0,
-    "mean_generation_seconds": 2.9215749000082725,
+    "mean_generation_seconds": 23.157713160011916,
     "training_duration_seconds": 4283.631805199955,
     "peak_gpu_memory_bytes": 4022111232,
     "trainable_parameters": 19800064,
-    "errors": [
+    "preexisting_native_violations": [
       {
         "index": 0,
         "source": "jamminlicious-002-session-coll.txt",
-        "error": "track 4.effects.overdrive.level (overdrive): 11: native editing range is 0.1..10"
+        "warnings": [
+          {
+            "code": "legacy_range",
+            "track": 4,
+            "parameter": "overdrive",
+            "value": 11,
+            "message": "unchanged source value outside current UI range retained exactly"
+          }
+        ]
       }
-    ]
+    ],
+    "errors": []
   },
-  "report_content_sha256": "3a0d23f7a71781a378e42330565619facdde99c8bb4199cfd7526838f5180a9d",
+  "report_content_sha256": "1c66446abdc001ff4cbc83dea4211ab13ab89c79c6f4b2a025219fc86cd7bae4",
   "test_targets": [
     {
       "source": "jamminlicious-002-session-coll.txt",
@@ -105,5 +114,5 @@
   "manifest_sha256": "aca8aab07554254f714ddc75b9276f5cb835e0a2b9637436f4f0049566e22865",
   "adapter_sha256": "76aca023d2f355ca8763514a40c93adc9c7dfc93b7035ecc037e9e7ddea4bc76",
   "adapter_metadata_sha256": "4c9ed9538cc07d78bce6fc69e1f99fdea86c37cbbdfb8b627370ece82962d6e9",
-  "report_sha256": "cbf29cd6f48675cb1cfa00be23bce51f3bc9adc32aec420810edbcce7ef5fd1e"
+  "report_sha256": "357d33d6f344873faf2c458ce40cfbd38949aa3a898e443f8f0cea4b1cecc7dd"
 }

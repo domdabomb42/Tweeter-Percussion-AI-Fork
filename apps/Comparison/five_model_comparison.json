@@ -133,7 +133,7 @@
         "pairs": 5,
         "structurally_valid_rate": 1.0,
         "exact_note_count_rate": 1.0,
-        "native_export_success_rate": 0.8,
+        "native_export_success_rate": 1.0,
         "rhythmic_jaccard_valid": 0.2015151515151515,
         "valid_jaccard_denominator": 5,
         "target_loss": 0.7621198677354388,
@@ -146,7 +146,7 @@
         "pairs": 5,
         "structurally_valid_rate": 1.0,
         "exact_note_count_rate": 0.6,
-        "native_export_success_rate": 0.8,
+        "native_export_success_rate": 1.0,
         "rhythmic_jaccard_valid": 0.06086956521739131,
         "valid_jaccard_denominator": 5,
         "target_loss": 0.6890664994716644,
@@ -157,7 +157,7 @@
         "pairs": 5,
         "structurally_valid_rate": 1.0,
         "exact_note_count_rate": 1.0,
-        "native_export_success_rate": 0.8,
+        "native_export_success_rate": 1.0,
         "rhythmic_jaccard_valid": 0.075,
         "valid_jaccard_denominator": 5,
         "target_loss": 0.6890664994716644,
@@ -169,11 +169,11 @@
       "greedy": {
         "pairs": 5,
         "structurally_valid_rate": 0.8,
-        "exact_note_count_rate": 0.6,
-        "native_export_success_rate": 0.6,
-        "rhythmic_jaccard_valid": 0.259375,
+        "exact_note_count_rate": 0.8,
+        "native_export_success_rate": 0.8,
+        "rhythmic_jaccard_valid": 0.1962566844919786,
         "valid_jaccard_denominator": 4,
-        "target_loss": 0.6819909126670273,
+        "target_loss": 0.6757211610674858,
         "target_loss_comparable_across_models": false,
         "generation_token_budget": 512
       },
@@ -181,10 +181,10 @@
         "pairs": 5,
         "structurally_valid_rate": 1.0,
         "exact_note_count_rate": 1.0,
-        "native_export_success_rate": 0.8,
-        "rhythmic_jaccard_valid": 0.195,
+        "native_export_success_rate": 1.0,
+        "rhythmic_jaccard_valid": 0.1570053475935829,
         "valid_jaccard_denominator": 5,
-        "target_loss": 0.6819909126670273,
+        "target_loss": 0.6757211610674858,
         "target_loss_comparable_across_models": false,
         "generation_token_budget": 512
       }
@@ -211,27 +211,27 @@
     },
     "135mea_greedy": {
       "path": "Comparison\\reports\\135mea_greedy.json",
-      "sha256": "451c3867b753a84543f164f2cd4009251ce1dd8bed1ff289d7bf0b40e5a4aaa2"
+      "sha256": "5664faca1d7ea0f94e9f52c3fa7d7628e88d3c3493512b24ea7d5f75c7505852"
     },
     "135mea_constrained": {
       "path": "Comparison\\reports\\135mea_constrained.json",
-      "sha256": "ccb9303684ad08bb93a82a766565e4525e428d5acfff7671626794eb1e9d0e92"
+      "sha256": "d99f9daa6aff9d939e01d874c479f0b2dcf2dcc1a414399e3a8404c3441ca73f"
     },
     "360mea_greedy": {
       "path": "Comparison\\reports\\360mea_greedy.json",
-      "sha256": "490516e97f32ed25ab37a659c12ce0824e3243c03f764bc662ec058a74c3e977"
+      "sha256": "5857e19a517a9f6da2fae5dca104d3414521bbfcde1816ae38853622d278128b"
     },
     "360mea_constrained": {
       "path": "Comparison\\reports\\360mea_constrained.json",
-      "sha256": "a19a8c8149d4ae05f9ba6cf7551dfeed5e1789ef33cb325d705b0095418bd15d"
+      "sha256": "915263df32b38ce9e22c43725506987ed3d3cf96253d0051916b853755abe146"
     },
     "17bea_greedy": {
       "path": "Comparison\\reports\\17bea_greedy.json",
-      "sha256": "e6cea1e4ca1b62fe7352bd1b5e47308958ea9b83333091f9ba55add0174cee79"
+      "sha256": "1291f6b619b5254561582bdc4be758784f27ef97d96c4b888ef53689a15efdaa"
     },
     "17bea_constrained": {
       "path": "Comparison\\reports\\17bea_constrained.json",
-      "sha256": "b387855efd4e5481e35510379f7265f9fad54953508d42611a373e9cd080ad31"
+      "sha256": "41cf64be9d99dbe793de9bb0cde18e609dc8c51f2625e5a938221d310cf3699a"
     }
   },
   "metric_scope": "five original-count held-out test requests per model and decoder"

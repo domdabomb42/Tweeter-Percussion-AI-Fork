@@ -8,27 +8,37 @@
     "partition": "test",
     "examples": 5,
     "checkpoint_run": "rhythm_coverage_v1",
-    "token_cross_entropy": 0.6819909126670273,
+    "token_cross_entropy": 0.6757211610674858,
     "token_cross_entropy_note": "Tokenizer-specific; do not compare directly across models",
     "training_loss": 0.3144200703280389,
     "validation_loss": 0.7236712603510296,
-    "test_loss": 0.6819909126670273,
+    "test_loss": 0.6757211610674858,
     "structurally_valid_rate": 0.8,
-    "exact_note_count_rate": 0.6,
+    "exact_note_count_rate": 0.8,
     "instrument_correct_rate": 0.2,
-    "native_export_success_rate": 0.6,
-    "rhythmic_jaccard": 0.259375,
+    "native_export_success_rate": 0.8,
+    "rhythmic_jaccard": 0.1962566844919786,
     "rhythmic_diversity": 1.0,
-    "mean_generation_seconds": 2.970276399992872,
+    "mean_generation_seconds": 27.51619772000704,
     "training_duration_seconds": 4283.631805199955,
     "peak_gpu_memory_bytes": 4022111232,
     "trainable_parameters": 19800064,
-    "errors": [
+    "preexisting_native_violations": [
       {
         "index": 0,
         "source": "jamminlicious-002-session-coll.txt",
-        "error": "track 4.effects.overdrive.level (overdrive): 11: native editing range is 0.1..10"
-      },
+        "warnings": [
+          {
+            "code": "legacy_range",
+            "track": 4,
+            "parameter": "overdrive",
+            "value": 11,
+            "message": "unchanged source value outside current UI range retained exactly"
+          }
+        ]
+      }
+    ],
+    "errors": [
       {
         "index": 3,
         "source": "mus3314-spring-2025-2nd-take-session-coll.txt",
@@ -36,7 +46,7 @@
       }
     ]
   },
-  "report_content_sha256": "0fa3d0ff6ef1ba929fe2b8af9607533d60ad12b53791b65c066715e4e7ce5eaa",
+  "report_content_sha256": "a454eddff2b48e997cb009ce8eaf803e0c28d1ee1598fee8ec71e5aebb9576cb",
   "test_targets": [
     {
       "source": "jamminlicious-002-session-coll.txt",
@@ -110,5 +120,5 @@
   "manifest_sha256": "aca8aab07554254f714ddc75b9276f5cb835e0a2b9637436f4f0049566e22865",
   "adapter_sha256": "76aca023d2f355ca8763514a40c93adc9c7dfc93b7035ecc037e9e7ddea4bc76",
   "adapter_metadata_sha256": "4c9ed9538cc07d78bce6fc69e1f99fdea86c37cbbdfb8b627370ece82962d6e9",
-  "report_sha256": "f04a548348f7fdfda619b4bd5b7a2aadd6b57d07d4103a6c60dcee3e80b00fff"
+  "report_sha256": "08e11e04135ef6611c996ed810035927c90a80730217155ff49673664fbc203a"
 }

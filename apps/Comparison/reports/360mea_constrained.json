@@ -16,22 +16,31 @@
     "structurally_valid_rate": 1.0,
     "exact_note_count_rate": 1.0,
     "instrument_correct_rate": 0.2,
-    "native_export_success_rate": 0.8,
+    "native_export_success_rate": 1.0,
     "rhythmic_jaccard": 0.075,
     "rhythmic_diversity": 1.0,
-    "mean_generation_seconds": 4.029670359997544,
+    "mean_generation_seconds": 5.99285293999128,
     "training_duration_seconds": 4777.260885099997,
     "peak_gpu_memory_bytes": 1601860096,
     "trainable_parameters": 9486080,
-    "errors": [
+    "preexisting_native_violations": [
       {
         "index": 0,
         "source": "jamminlicious-002-session-coll.txt",
-        "error": "track 4.effects.overdrive.level (overdrive): 11: native editing range is 0.1..10"
+        "warnings": [
+          {
+            "code": "legacy_range",
+            "track": 4,
+            "parameter": "overdrive",
+            "value": 11,
+            "message": "unchanged source value outside current UI range retained exactly"
+          }
+        ]
       }
-    ]
+    ],
+    "errors": []
   },
-  "report_content_sha256": "891b65d0a00a1f38787ce3bad01677c10567befd0bed82a843fdc6b084985bc9",
+  "report_content_sha256": "33482917c7b9a117441c6fb5825226ad9fd21207cd69090a3d9988d98a2a3c05",
   "test_targets": [
     {
       "source": "jamminlicious-002-session-coll.txt",
@@ -105,5 +114,5 @@
   "manifest_sha256": "0572255ef58b8f2b1ecb137146e616c28fdb5f08812cdb22a24ca5a0d0fc8abd",
   "adapter_sha256": "2afb95b0fa59b08c48564dd80fe46cffcd994e6ccdd7fcd5e9eab831ff51bf30",
   "adapter_metadata_sha256": "209250860c84e6863fc022551e047e80dd4e750242bbb6947badf34472aee6b0",
-  "report_sha256": "a8e57c6112da88b6e9d239c2eea94eeb12b09983f488b00fc15de8a6aeb05459"
+  "report_sha256": "b4165305aae3d314d6972d838a99114395ecf9f89b0063162f1d485d8e70750a"
 }
