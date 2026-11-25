@@ -81,6 +81,7 @@ class Bridge:
         self.pending_timer = None
         self.draft_rating = None
         self.warned_unsaved = False
+        self.generation_confirmation = None
         self.training = None
         self.training_run = _load_active_run(self.dpo_root)
         self.busy = False
@@ -163,11 +164,18 @@ class Bridge:
         if len(ratings) == 5:
             self.broadcast("ai_complete", self.group["group_id"])
 
-    def _generation_worker(self):
+    def _generation_progress(self, progress):
+        self.broadcast("ai_progress", progress["phase"], progress["attempt"],
+                       progress["accepted"], progress["total"])
+        self.broadcast("ai_progress_label",
+                       f"Sampling | Attempt {progress['attempt']}/{progress['max_attempts']} | "
+                       f"Candidates {progress['accepted']}/{progress['total']}")
+
+    def _generation_worker(self, count, source_row):
         try:
-            group = self.service.generate_group(on_progress=lambda p: self.broadcast(
-                "ai_progress", p["phase"], p["attempt"], p["accepted"], p["total"]),
-                cancel_event=self.cancel_event)
+            group = self.service.generate_group(
+                requested_note_count=count, source_row=source_row,
+                on_progress=self._generation_progress, cancel_event=self.cancel_event)
             with self.lock:
                 self._clear_pending()
                 self.group, self.active_index = group, 0
@@ -179,12 +187,15 @@ class Bridge:
             self.broadcast("ai_group", group["group_id"])
             self._candidate_status()
             self.broadcast("ai_progress", "complete", 0, 5, 5)
+            self.broadcast("ai_progress_label", "Generation complete | Candidates 5/5")
             self.handle(["stats"])
         except Exception as exc:
             self.broadcast("ai_progress", "failed", 0, 0, 5)
-            self.broadcast("ai_error", str(exc))
+            self.broadcast("ai_progress_label", "Generation failed")
+            self.broadcast("ai_error", f"generation failed: {exc}")
         finally:
-            self.busy = False
+            with self.lock:
+                self.busy = False
 
     def _training_worker(self, resume=False):
         try:
@@ -241,7 +252,8 @@ class Bridge:
             self.broadcast("ai_training", "failed")
             self.broadcast("ai_error", str(exc))
         finally:
-            self.busy = False
+            with self.lock:
+                self.busy = False
 
     def handle(self, parts):
         if not parts:
@@ -253,6 +265,9 @@ class Bridge:
             self.broadcast("ai_status", ("model_ready_offline" if ready else "offline_loading")
                            if self.offline else "disabled_online")
         elif command == "init":
+            if self.busy:
+                self.broadcast("ai_status", "generation_or_training_busy")
+                return
             if self._training_active():
                 self.broadcast("ai_status", "training_running")
                 self._training_progress()
@@ -261,15 +276,46 @@ class Bridge:
             self.service.load()
             self.broadcast("ai_progress", "idle", 0, 0, 5)
             self.broadcast("ai_status", "model_ready_offline" if self.offline else "model_ready_online")
-        elif command == "random":
+        elif command in ("random", "model"):
             if not self.offline:
                 raise RuntimeError("AI feedback requires an offline local Tweeter session")
-            if self.busy or self._training_active():
-                raise RuntimeError("model or training process is busy")
-            self.busy = True
+            if len(parts) != 2 or not parts[1].isascii() or not parts[1].isdecimal() or not 1 <= int(parts[1]) <= 63:
+                raise ValueError("NOTES must be an integer from 1 to 63")
+            count = int(parts[1])
+            with self.lock:
+                if self.busy or self._training_active():
+                    raise RuntimeError("generation or training is already in progress")
+                if self.pending_index is not None:
+                    raise ValueError("wait for candidate switch before generating again")
+                if command == "model" and self.group is None:
+                    raise ValueError("RANDOM MODEL needs a loaded AI composition; use RANDOM SESSION first")
+                source_row = None
+                if self.group is not None:
+                    saved = self.store.current_ratings(self.group["group_id"]).get(
+                        self._current()["candidate_id"])
+                    unsaved = saved is None or (self.draft_rating is not None and
+                                               self.draft_rating != saved["rating"])
+                    confirmation = (command, count, self.group["group_id"],
+                                    self.active_index, self.draft_rating)
+                    if unsaved and self.generation_confirmation != confirmation:
+                        self.generation_confirmation = confirmation
+                        warning = "save_rating_or_repeat_" + ("SESSION" if command == "random" else "MODEL")
+                        self.broadcast("ai_warn", warning)
+                        self.broadcast("ai_error", warning)
+                        return
+                    if command == "model":
+                        source_row = next((row for row in self.service.rows
+                                           if row["source"] == self.group["source"] and
+                                           row["target_track_id"] == self.group["target_track_id"] and
+                                           row.get("augmentation") == self.group.get("augmentation")), None)
+                        if source_row is None:
+                            raise ValueError("current composition is not in the eligible generation pool")
+                self.generation_confirmation = None
+                self.busy = True
             self.cancel_event.clear()
-            threading.Thread(target=self._generation_worker, daemon=True).start()
             self.broadcast("ai_progress", "starting", 0, 0, 5)
+            self.broadcast("ai_progress_label", "Preparing generation")
+            threading.Thread(target=self._generation_worker, args=(count, source_row), daemon=True).start()
         elif command == "next":
             if not self.offline:
                 raise RuntimeError("AI feedback is disabled during multiplayer use")
@@ -361,10 +407,11 @@ class Bridge:
             self.broadcast("ai_model", "supervised" if self.service.adapter == supervised else "approved_dpo")
             self._training_progress()
         elif command == "train":
-            if self.busy or self._training_active():
-                raise RuntimeError("generation or training is busy")
+            with self.lock:
+                if self.busy or self._training_active():
+                    raise RuntimeError("generation or training is busy")
+                self.busy = True
             self.service.release_model()
-            self.busy = True
             threading.Thread(target=self._training_worker, daemon=True).start()
         elif command == "pause":
             if not self._training_active() or self.training_run is None:
@@ -372,15 +419,16 @@ class Bridge:
             (self.training_run / "pause.request").write_text(timestamp(), encoding="utf-8")
             self.broadcast("ai_training", "pause_requested")
         elif command == "resume":
-            if self.busy or self._training_active():
-                raise RuntimeError("generation or training is busy")
-            if self.training_run is None or not (self.training_run / "checkpoints/latest.json").is_file():
-                raise ValueError("no resumable DPO checkpoint is available")
-            progress = self.training_run / "progress.json"
-            if progress.is_file() and json.loads(progress.read_text(encoding="utf-8")).get("status") == "complete":
-                raise ValueError("DPO round already completed")
+            with self.lock:
+                if self.busy or self._training_active():
+                    raise RuntimeError("generation or training is busy")
+                if self.training_run is None or not (self.training_run / "checkpoints/latest.json").is_file():
+                    raise ValueError("no resumable DPO checkpoint is available")
+                progress = self.training_run / "progress.json"
+                if progress.is_file() and json.loads(progress.read_text(encoding="utf-8")).get("status") == "complete":
+                    raise ValueError("DPO round already completed")
+                self.busy = True
             self.service.release_model()
-            self.busy = True
             threading.Thread(target=lambda: self._training_worker(resume=True), daemon=True).start()
         elif command == "select":
             if self.busy or self._training_active():

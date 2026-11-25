@@ -35,20 +35,25 @@ def sample_training_row(rows, rng):
     return rng.choice(by_source[source])
 
 
-def prepare_feedback_pair(row, generated, tokenizer):
+def prepare_feedback_pair(row, generated, tokenizer, requested_note_count=None):
     source_path = _source_path(row, generated)
     original = extract_tweeter(source_path)
     removed = original.track(row["target_track_id"])
     condition = remove_target(original, row["target_track_id"])
     if len(condition.tracks) + 1 != len(original.tracks):
         raise ValueError("designated target was not removed")
-    count = len(removed["notes"])
-    prompt = prompt_for_composition(condition, count, "positions-v1")
-    if prompt != row["prefix"]:
+    original_count = len(removed["notes"])
+    original_prompt = prompt_for_composition(condition, original_count, "positions-v1")
+    if original_prompt != row["prefix"]:
         raise ValueError("plugin prompt differs from supervised training prompt")
-    ids = tokenizer.encode(prompt, add_special_tokens=False)
-    if ids != row["prefix_ids"]:
+    original_ids = tokenizer.encode(original_prompt, add_special_tokens=False)
+    if original_ids != row["prefix_ids"]:
         raise ValueError("plugin token IDs differ from supervised training tokens")
+    count = original_count if requested_note_count is None else requested_note_count
+    if type(count) is not int or not 1 <= count <= 63:
+        raise ValueError("requested note count must be an integer from 1 to 63")
+    prompt = prompt_for_composition(condition, count, "positions-v1")
+    ids = tokenizer.encode(prompt, add_special_tokens=False)
     return source_path, original, condition, removed, prompt, ids
 
 
@@ -160,49 +165,68 @@ class GenerationService:
             pass
 
     def generate_group(self, temperature=.8, top_p=.95, max_attempts=30,
-                       seeds=None, on_progress=None, cancel_event=None):
+                       seeds=None, on_progress=None, cancel_event=None,
+                       requested_note_count=None, source_row=None):
         if max_attempts < 5:
             raise ValueError("at least five attempts are required")
-        row = sample_training_row(self.rows, self.rng)
+        if source_row is not None and source_row not in self.rows:
+            raise ValueError("current composition is not an eligible training source")
+        row = source_row if source_row is not None else sample_training_row(self.rows, self.rng)
         source_path, original, condition, removed, prompt, ids = prepare_feedback_pair(
-            row, self.generated, self.tokenizer)
+            row, self.generated, self.tokenizer, requested_note_count)
+        count = len(removed["notes"]) if requested_note_count is None else requested_note_count
         model, device = self.load()
         candidate_rows, sessions, seen, attempted = [], {}, set(), set()
         duplicates = invalid = 0
+        last_failure = None
         seed_iter = iter(seeds) if seeds is not None else None
         for attempt in range(max_attempts):
             if cancel_event and cancel_event.is_set():
                 raise RuntimeError("generation cancelled")
             if len(candidate_rows) == 5:
                 break
-            seed = next(seed_iter) if seed_iter is not None else self.rng.randrange(0, 2**63)
-            if seed in attempted:
-                continue
-            attempted.add(seed)
             if on_progress:
                 on_progress({"phase": "sampling", "attempt": attempt+1,
+                             "max_attempts": max_attempts,
                              "accepted": len(candidate_rows), "total": 5})
             try:
+                try:
+                    seed = next(seed_iter) if seed_iter is not None else self.rng.randrange(0, 2**63)
+                except StopIteration as exc:
+                    raise ValueError("provided generation seeds were exhausted") from exc
+                if seed in attempted:
+                    duplicates += 1
+                    continue
+                attempted.add(seed)
                 positions, completion, seconds = decode_sample(
-                    model, self.tokenizer, device, ids, len(removed["notes"]), seed,
+                    model, self.tokenizer, device, ids, count, seed,
                     temperature, top_p, cancel_event=cancel_event)
                 key = tuple(positions)
                 if key in seen:
                     duplicates += 1
                     continue
                 track, native = render_candidate(condition, original, removed, positions, self.preset)
-            except (ValueError, RuntimeError, KeyError):
+            except (ValueError, RuntimeError, KeyError) as exc:
                 invalid += 1
+                last_failure = str(exc)
                 continue
-            seen.add(key)
-            candidate_id = str(uuid.uuid4())
-            candidate_rows.append({"candidate_id": candidate_id, "seed": seed,
-                                   "positions": positions, "completion_ids": completion,
-                                   "completion_text": self.tokenizer.decode(completion, skip_special_tokens=False),
-                                   "native_track": track, "generation_seconds": seconds})
-            sessions[candidate_id] = native
+            else:
+                seen.add(key)
+                candidate_id = str(uuid.uuid4())
+                candidate_rows.append({"candidate_id": candidate_id, "seed": seed,
+                                       "positions": positions, "completion_ids": completion,
+                                       "completion_text": self.tokenizer.decode(completion, skip_special_tokens=False),
+                                       "native_track": track, "generation_seconds": seconds})
+                sessions[candidate_id] = native
+            finally:
+                if on_progress:
+                    on_progress({"phase": "sampling", "attempt": attempt+1,
+                                 "max_attempts": max_attempts,
+                                 "accepted": len(candidate_rows), "total": 5})
         if len(candidate_rows) != 5:
-            raise RuntimeError(f"only {len(candidate_rows)} distinct valid candidates after {max_attempts} attempts")
+            detail = f"; last error: {last_failure}" if last_failure else ""
+            raise RuntimeError(f"only {len(candidate_rows)}/5 valid candidates after {max_attempts} attempts "
+                               f"({invalid} invalid, {duplicates} duplicate){detail}")
         group = {"group_id": str(uuid.uuid4()), "created_at": timestamp(),
                  "source": row["source"], "source_family": _experiment_family(row["source"]),
                  "augmentation": row["augmentation"], "source_file_sha256": hashlib.sha256(source_path.read_bytes()).hexdigest(),
@@ -210,6 +234,7 @@ class GenerationService:
                  "conditioning_composition": condition.to_dict(),
                  "removed_target_track": deepcopy(removed), "target_track_id": removed["id"],
                  "original_target_note_count": len(removed["notes"]),
+                 "requested_note_count": count,
                  "prompt": prompt, "prompt_ids": ids, "model_id": self.manifest["model_id"],
                  "model_revision": self.manifest["revision"],
                  "dataset_sha256": self.manifest["prepared_dataset_sha256"],

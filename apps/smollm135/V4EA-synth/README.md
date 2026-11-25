@@ -112,12 +112,28 @@ and DPO directories; an unrelated listener on the port is rejected. To stop
 that bridge cleanly, run the same command with `-Stop`. Tweeter retries its
 local bridge connection every five seconds while disconnected.
 
-In Tweeter, disconnect from multiplayer, then click **RANDOM
-SESSION** at the upper right. The bridge picks an eligible augmented training
-pair uniformly by original composition, removes its designated percussion
-target, verifies the exact supervised prompt and token IDs, and generates five
-distinct seeded, constrained alternatives. The first is loaded into the
-target's original numeric track slot with native username `AI_A`.
+In Tweeter, disconnect from multiplayer. Set **NOTES** directly below
+**RANDOM SESSION** to an integer from **1 to 63** (default **8**), then click
+**RANDOM SESSION**. The bridge picks an eligible augmented training pair
+uniformly by original composition, removes its designated percussion target,
+verifies the original supervised prompt and token IDs, and builds a new prompt
+with the requested note count. It generates five distinct seeded, constrained
+alternatives. The first is loaded into the target's original numeric track
+slot with native username `AI_A`. The status line updates during sampling,
+for example `Sampling | Attempt 8/30 | Candidates 3/5`.
+
+Change **NOTES** at any time before another generation. **RANDOM MODEL**
+generates five new candidates from the currently loaded AI composition and
+its original target slot; use RANDOM SESSION first (or recover a group) to
+establish that composition. Both buttons use the current note count. Inputs
+outside 1–63 or with a fractional value show an error. Repeated requests
+while sampling or training are rejected. A regeneration that would leave an
+unsubmitted or changed rating warns first; repeat the same button press with
+the same count to proceed. If regeneration fails, the previous group stays
+active. Each success saves a separate immutable group with its own five
+candidate files, original and requested note counts, and the exact custom
+prompt and token IDs used for later DPO. Earlier groups and ratings remain
+recoverable.
 
 On that track, choose a rating from 1–10 and press **SUBMIT**. A success
 indicator follows the durable storage acknowledgment. **NEXT TRACK** queues
