@@ -279,6 +279,17 @@ def choose_loop_ms(composition, reference_track_id=None, loop_ms=None):
     return winners[0]
 
 
+def factory64_electrikick_preset(preset):
+    """Use Tweeter's factory #64 mix/effect values for generated ElectricKick."""
+    selected = deepcopy(preset)
+    if selected.get("instrument_name") == "electrikick":
+        track = selected["track"]
+        track["mixing"]["output_amplitude"] = 85.9649
+        track["mixing"]["pan"] = 0.765262
+        track["effects"]["echo"]["amplitude"] = 0
+    return selected
+
+
 def build_track(composition, positions, preset, loop_ms, target_track_id=None):
     used = {track["id"] for track in composition.tracks}
     track_id = target_track_id or next((n for n in range(1, 15) if n not in used), None)
@@ -286,7 +297,7 @@ def build_track(composition, positions, preset, loop_ms, target_track_id=None):
         raise ValueError("no available native track slot")
     if len(set(positions)) != len(positions):
         raise ValueError("one native percussion track cannot hold two notes at one step")
-    track = deepcopy(preset["track"])
+    track = factory64_electrikick_preset(preset)["track"]
     track["id"] = track_id
     track["timing"]["loop_ms"] = loop_ms
     track["notes"] = [{"step": p, "pitch": preset["example_pitch"]} for p in positions]

@@ -15,7 +15,7 @@ from .target_format import decode, end_marker_for
 from .plugin_store import FeedbackStore, digest, timestamp
 from percussion_generation_v3.data import AUGMENTED_SESSIONS, _experiment_family
 from percussion_generation_v3.evaluation import remove_target
-from percussion_generation_v3.inference import PositionConstraint, build_track
+from percussion_generation_v3.inference import PositionConstraint, build_track, factory64_electrikick_preset
 from percussion_generation_v3.lossless_dataset import _source_path
 from custom_extractor import extract_tweeter
 from custom_extractor.exporter import render_tweeter
@@ -129,7 +129,8 @@ class GenerationService:
         augmentation = json.loads((AUGMENTED_SESSIONS / "manifest.json").read_text(encoding="utf-8"))
         self.generated = {item["augmented_filename"]: item for item in augmentation["generated"]}
         self.tokenizer, _ = load_new_tokenizer(self.output_dir)
-        self.preset = json.loads((self.output_dir / "fixed_preset.json").read_text(encoding="utf-8"))
+        self.source_preset = json.loads((self.output_dir / "fixed_preset.json").read_text(encoding="utf-8"))
+        self.preset = factory64_electrikick_preset(self.source_preset)
         self.adapter = self.output_dir / "checkpoints/rhythm_coverage_v1/best_adapter"
         self.model = self.device = None
 
@@ -217,7 +218,10 @@ class GenerationService:
                  "adapter_path": str(self.adapter),
                  "adapter_sha256": digest((self.adapter / "adapter_model.safetensors").read_bytes()),
                  "embedding_sha256": digest((self.adapter / "embedding.safetensors").read_bytes()),
-                 "fixed_preset": self.preset, "fixed_preset_sha256": self.manifest["fixed_preset_sha256"],
+                 "fixed_preset": self.source_preset,
+                 "fixed_preset_sha256": self.manifest["fixed_preset_sha256"],
+                 "generation_preset": self.preset,
+                 "generation_preset_sha256": digest(self.preset),
                  "loop_ms": removed["timing"]["loop_ms"], "pitch": self.preset["example_pitch"],
                  "sampling": {"temperature": temperature, "top_p": top_p,
                               "max_attempts": max_attempts, "attempts_used": len(attempted),
