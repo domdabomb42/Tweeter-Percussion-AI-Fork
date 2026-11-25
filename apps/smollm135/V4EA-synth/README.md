@@ -15,6 +15,13 @@ playback settings during native export. The original `V4EA-MUSIC-TARGET-2`
 full musical target, its `[END_MUSIC]` marker, and named preset catalog remain
 available through the historical output directory.
 
+For newly generated ElectricKick tracks, export applies Tweeter factory #64's
+output volume `85.9649`, pan `0.765262`, and echo amplitude `0`. The other
+fixed synth, envelope, effect, and timing fields remain unchanged. This is a
+generation-time selection: stored V3 and V4EA presets, prepared datasets,
+tokenizers, and checkpoints remain historical. New feedback groups record
+both the source preset identity and the effective generation preset.
+
 Preparation uses the same 2,688 training pairs, held-out source splits, and
 augmented sessions. It trains a fresh BPE tokenizer from the chosen target
 format and saves a separate dataset. Training keeps the rank-16 LoRA
@@ -197,6 +204,28 @@ so Tweeter's **RESUME TRAINING** control still finds it after restarting Pd.
 The training panel shows running, pause requested, paused, complete, or failed
 from the persisted progress file. It refreshes every five seconds while a
 round is active. Use **REFRESH STATS** for a one-time update while idle.
+
+## Integration status and limitations
+
+The bridge and Python feedback tests passed 16 plugin-specific cases in the
+last completed run. A headless Pd-L2Ork smoke test passed stopped, playing,
+and stop-while-pending candidate switches, plus AI rating-panel message
+handling. A live Tweeter session generated five distinct candidates, displayed
+the AI track and collection panel, warned on an unrated NEXT request, and
+recovered an incomplete group after restart. That live test exposed a loop
+boundary value of `63.5`; the switch patch now converts it to integer `63`,
+and the headless test covers that value. **The full GUI NEXT TRACK cycle and
+numeric 1–10 rating submission were not reverified after that fix.** Treat
+the native UI as experimental until those manual checks pass. The rating
+window opens separately from the track controls; **OPEN AI RATING** in the
+training panel reopens it.
+
+The selected 135M positions-v1 adapter, trained embeddings, tokenizer, and
+prepared dataset are local artifacts excluded from this branch; see
+[artifact requirements](../MostRecentOutput/README.md). Full local
+training checkpoints and feedback remain excluded. No DPO adapter or
+human preference win rate is claimed. The 360M and 1.7B models are not
+integrated into this plugin.
 
 Native GUI check after launching: load one RANDOM SESSION and confirm the
 `AI_A PERCUSSION` panel appears only on the generated track. Stop playback,

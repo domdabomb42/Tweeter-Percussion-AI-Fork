@@ -1,60 +1,49 @@
 # Tweeter Percussion AI Fork
 
-This repository is a fork of [Pd-L2Ork](https://github.com/pd-l2ork/pd-l2ork), the visual programming environment for sound, music, and multimedia. It keeps the Pd-L2Ork source and the L2Ork Tweeter app while adding tools and experiments for learning percussion patterns from native Tweeter sessions.
+This fork of [Pd-L2Ork](https://github.com/pd-l2ork/pd-l2ork) adds native Tweeter session extraction, augmentation, percussion-model experiments, and an **experimental AI percussion feedback plugin**. The plugin uses the trained SmolLM2-135M V4EA position model. It requests five rhythm candidates for one eligible session and stores 1–10 ratings for later preference training. The 360M and 1.7B models are comparison models; the plugin does not select them.
 
-## Installation
+The Python bridge, feedback storage, and headless Pd switching tests exist. The complete GUI rating and NEXT TRACK workflow has **not** been verified end to end; see [known limitations](apps/smollm135/V4EA-synth/README.md#integration-status-and-limitations). No DPO model has been trained or approved through the plugin workflow.
 
-Clone the fork to get the Tweeter sessions and Python tools:
+## Install and launch on Windows
 
-```sh
-git clone https://github.com/domdabomb42/Tweeter-Percussion-AI-Fork.git
-cd Tweeter-Percussion-AI-Fork
-```
+1. Install [Pd-L2Ork](https://l2ork.bukvic.net/main/make-your-own-l2ork/software/) and Python 3.10 or newer. Clone this branch:
 
-### Pd-L2Ork and Tweeter
+   ```powershell
+   git clone --branch firstpluginattempt https://github.com/domdabomb42/Tweeter-Percussion-AI-Fork.git
+   cd Tweeter-Percussion-AI-Fork
+   ```
 
-For a ready-to-use Pd-L2Ork installation, see the [official downloads](https://l2ork.bukvic.net/main/make-your-own-l2ork/software/) for Linux, macOS, and Windows. Open `apps/L2Ork-Tweeter/L2Ork-Tweeter.pd` from this checkout in Pd-L2Ork to use Tweeter.
+2. Install the Python dependencies from the repository root:
 
-To build Pd-L2Ork from this fork, install the platform dependencies in the upstream [Linux](https://github.com/pd-l2ork/pd-l2ork#linux), [macOS](https://github.com/pd-l2ork/pd-l2ork#osx-64-bit-using-homebrew), or [Windows](https://github.com/pd-l2ork/pd-l2ork#windows-64-bit-using-msys2) guide, then run:
+   ```powershell
+   python -m pip install -r .\apps\smollm135\CustomTraining\requirements.txt
+   python -m pip install -e .\apps\CustomExtractor
+   ```
 
-```sh
-git submodule update --init --recursive
-make
-```
+3. Supply the trained 135M V4EA positions-v1 output locally under `apps\smollm135\MostRecentOutput\V4EA-positions-v1`. It needs its tokenizer, prepared dataset manifest, fixed preset, and `checkpoints\rhythm_coverage_v1\best_adapter` with trained embeddings. The trained V4EA artifacts are **not included in this branch**: GitHub rejected the attempted Git LFS publication to this public fork. There is currently no repository download for them. See [artifact requirements](apps/smollm135/MostRecentOutput/README.md).
 
-For a Windows source build, use the MSYS2 MINGW64 shell and clone into an MSYS2 path without spaces, as described in the upstream guide.
+4. Launch the local bridge and Tweeter:
 
-### Python tools and model training
+   ```powershell
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\apps\L2Ork-Tweeter\Start-AIPercussion.ps1
+   ```
 
-Use Python 3.10 or newer. From the repository root, create a virtual environment:
+   If Pd-L2Ork is not on `PATH`, pass `-PdExecutable 'C:\path\to\pd-l2ork.exe'`. To stop the bridge, repeat the command with `-Stop`. Disconnect from multiplayer before using AI controls. The bridge listens on localhost and stores feedback outside the repository by default.
 
-```sh
-python -m venv .venv
-```
+On Linux or macOS, install/build Pd-L2Ork using the [upstream instructions](https://github.com/pd-l2ork/pd-l2ork) and open `apps/L2Ork-Tweeter/L2Ork-Tweeter.pd`. The PowerShell bridge launcher is Windows-specific. Native plugin GUI behavior on those platforms has not been tested.
 
-Activate it with `.venv\Scripts\Activate.ps1` in PowerShell or `source .venv/bin/activate` on Linux/macOS. Then install the model dependencies:
+## Plugin and model workflow
 
-```sh
-python -m pip install -r apps/smollm135/CustomTraining/requirements.txt
-```
+**RANDOM SESSION** requests five distinct generated candidates. The designated AI track is named `AI_A`; its rating window offers **SUBMIT** and **NEXT TRACK**. **AI TRAINING** opens collection statistics, recovery, and explicit DPO controls. Ratings are stored as durable event files. DPO preparation freezes submitted preferences; training begins only when requested, supports pause/resume, and saves every 10 successful optimizer steps. The supervised adapter remains the default until an approved DPO adapter is selected. Follow the [135M V4EA guide](apps/smollm135/V4EA-synth/README.md#local-ai-percussion-feedback-plugin) for commands and manual verification.
 
-The extractor can be installed separately with `python -m pip install -e apps/CustomExtractor`.
+V4EA's current target is **tracker positions from 0 to 63**, not a complete instrument track. Native export combines those positions with a fixed ElectricKick synthesizer preset. New generations use Tweeter factory #64's output volume, pan, and zero echo amplitude. Historical full-musical-target experiments and V3 outputs remain available.
 
-To prepare and train a new 135M percussion adapter using the original and augmented sessions:
+| Component | Purpose |
+| --- | --- |
+| [CustomExtractor](apps/CustomExtractor/README.md) | Parse, validate, and export native Tweeter sessions. |
+| [AugmentedSessions](apps/L2Ork-Tweeter/AugmentedSessions/README.md) | Lossless shifted copies of source sessions. |
+| [135M V4EA](apps/smollm135/V4EA-synth/README.md) | Selected plugin model and feedback/DPO bridge. |
+| [360M V4EA](apps/smollm360/V4EA-synth/README.md) and [1.7B V4EA](apps/smollm1b/V4EA-synth/README.md) | Trained comparison experiments. |
+| [Comparison](apps/Comparison/README.md) | Five-model held-out evaluation and native samples. |
 
-```sh
-cd apps/smollm135/V3
-python -m percussion_generation_v3 --output-dir output_augmented prepare
-python -m percussion_generation_v3 --output-dir output_augmented train
-```
-
-Preparation and training report progress about every three minutes. Training starts from the saved 135M feature adapter. The [135M](apps/smollm135/README.md) and [360M](apps/smollm360/README.md) READMEs have the other model commands and experiment details.
-
-## What this fork adds
-
-- [CustomExtractor](apps/CustomExtractor/README.md) parses native Tweeter session files into editable structured data and exports them back to Tweeter's format.
-- [AugmentedSessions](apps/L2Ork-Tweeter/AugmentedSessions/README.md) creates validated time shifts of the original sessions without changing their notes or instruments.
-- [SmolLM2 experiments](apps/smollm135/README.md) train feature and percussion adapters for 135M and 360M models; a separate [1.7B experiment](apps/smollm1b/README.md) is also prepared. The percussion trainers can add shifted examples from training sessions while keeping validation and test sessions held out.
-- [Comparison](apps/Comparison/README.md) measures the saved 135M and 360M percussion generators with greedy and constrained decoding.
-
-The original Pd-L2Ork project, its build requirements, and its license remain documented upstream. See [LICENSE.md](LICENSE.md) for this repository's license text.
+The [historical V3 experiment](apps/smollm135/V3/README.md), upstream build documentation, and [license](LICENSE.md) remain available.

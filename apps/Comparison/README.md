@@ -5,6 +5,16 @@ generators with the new **135MEA**, **360MEA**, and **17BEA** V4EA position
 generators. `EA` means the new V4EA experiment. The comparison uses the same
 five held-out target tracks and the original requested note count for each.
 
+The native feedback plugin selects **135MEA**. In the saved constrained test
+report it has 100% structural validity, exact count, and native export on all
+five requests, with the highest constrained rhythmic Jaccard (`0.202`) of the
+five models. That is a small held-out sample, not a demonstrated human
+preference advantage; 360MEA and 17BEA are comparison models and are not
+wired into the plugin. [Five-model results](five_model_comparison.md) describe
+this historical supervised benchmark. Future DPO evaluation must compare the
+approved adapter with its frozen supervised reference on matching prompts,
+sampling settings, and seeds, and needs human paired ratings for a win rate.
+
 Run this from `apps/Comparison` to build the report from saved evaluations:
 
 ```powershell

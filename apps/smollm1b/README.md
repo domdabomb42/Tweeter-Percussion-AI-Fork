@@ -1,8 +1,11 @@
 # 1.7B experiment
 
-The separate [V4EA-synth](V4EA-synth/README.md) experiment trains a fresh
-tokenizer and predicts a complete percussion track. Its new files go to
-`MostRecentOutput` and do not replace V3.
+The completed [V4EA-synth](V4EA-synth/README.md) positions-v1 experiment
+trains a fresh tokenizer and predicts percussion tracker positions (0–63).
+Native export supplies the rest of the track from a fixed ElectricKick preset.
+This 1.7B model is a comparison candidate and is not selected by the native
+feedback plugin. Its local artifacts live in `MostRecentOutput` and do not
+replace historical V3 output.
 
 The three-model V3 consistency, optimization, and V2 preparation notes are in
 [../SMOLLM_V3_EFFICIENCY.md](../SMOLLM_V3_EFFICIENCY.md).
@@ -32,4 +35,11 @@ python -m percussion_generation_v3 evaluate --partition test --cd2
 
 Omit `--cd2` for greedy decoding, or choose `--constrained` for ordered constraints. The rhythm target, fixed preset, loss masking, and detached-prefix cache match the 360M pipeline. No 360M weights or evaluation results are copied here.
 
-The approximately 6 GB RTX 3060 has not been shown to fit a 1.7B LoRA run on the current untruncated sequences. The 1.7B base weights alone require several GB in 16-bit precision, with activations and optimizer memory on top. This pipeline is configured for more capable hardware; it fails on out-of-memory rather than silently shortening or changing examples. No 1.7B training result is claimed.
+The preceding commands describe the historical V3 pipeline. They do not
+describe the completed V4EA positions-v1 run. Its best adapter, final
+checkpoint, evaluation, tokenizer, and dataset are present locally under
+`MostRecentOutput/V4EA-positions-v1`; the selected adapter and inference
+artifacts are excluded from this branch. A local V4EA
+4,096-token optimizer-step smoke test peaked at 5,338 MiB reserved on a 6 GiB
+RTX 3060; that measurement does not guarantee every run or concurrent GPU
+workload fits. See [V4EA-synth](V4EA-synth/README.md) for current commands.

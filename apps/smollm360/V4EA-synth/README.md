@@ -1,5 +1,15 @@
 # V4EA percussion generation
 
+The positions-v1 experiment has completed locally and is used in the
+[five-model comparison](../../Comparison/README.md). It predicts only tracker
+positions; a fixed preset supplies the full native percussion track. This
+360M model is **not** connected to the native Tweeter rating or DPO feedback
+plugin, which currently selects the 135M V4EA model. The large trained
+selected adapter and inference artifacts are local and excluded from this
+branch; see [MostRecentOutput](../MostRecentOutput/README.md).
+New ElectricKick exports use Tweeter factory #64's output volume `85.9649`,
+pan `0.765262`, and echo amplitude `0` without changing historical presets.
+
 The default new experiment writes to `../MostRecentOutput/V4EA-positions-v1`.
 The historical full musical target, its tokenizer, dataset, and checkpoints remain
 in `../MostRecentOutput/V4EA-music-v3`. The two output directories are separate.

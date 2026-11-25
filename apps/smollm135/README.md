@@ -1,8 +1,11 @@
 # 135M experiment
 
-The separate [V4EA-synth](V4EA-synth/README.md) experiment trains a fresh
-tokenizer and predicts a complete percussion track. Its new files go to
-`MostRecentOutput` and do not replace V3.
+The completed [V4EA-synth](V4EA-synth/README.md) positions-v1 experiment
+trains a fresh tokenizer and predicts percussion tracker positions (0–63).
+Native export supplies the rest of the track from a fixed ElectricKick preset.
+This trained 135M V4EA model is the one selected by the experimental native
+Tweeter feedback plugin. Its local artifacts live in `MostRecentOutput` and
+do not replace historical V3 output.
 
 The three-model V3 consistency, optimization, and benchmark notes are in
 [../SMOLLM_V3_EFFICIENCY.md](../SMOLLM_V3_EFFICIENCY.md).
