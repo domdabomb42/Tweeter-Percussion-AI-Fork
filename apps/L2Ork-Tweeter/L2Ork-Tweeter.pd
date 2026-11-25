@@ -2758,5 +2758,8 @@ first click:, f 82;
 #X obj 1441 40 ggee/image icons/folder.png 0 1 19 20 browse-session
 empty empty 19 20 0 0 10 #FF000000 0 -8 12.5 12.5 0 1 1;
 #X obj 1515 42 bng 16 250 50 0 ai-random-session empty RANDOM\ SESSION -20 -9 0 10 #ff80fc80 #ff008080 #fffcfcfc 1;
-#X obj 1010 4 bng 13 250 50 0 ai-open-training empty AI\ TRAINING 17 6 0 10 #fffcb46c #fffc6418 #fffcfcfc 1;
+#X obj 1515 23 bng 13 250 50 0 ai-open-training empty AI\ TRAINING 17 6 0 10 #fffcb46c #fffc6418 #fffcfcfc 1;
 #X obj 1750 200 core/ai-feedback-bridge;
+#X obj 1070 22 cnv 15 160 18 empty ai-status-label bridge_connecting 3 9 0 10 #ff6c6c6c #fffcfcfc 0;
+#X obj 1235 22 cnv 15 190 18 empty ai-progress-label generation_idle 3 9 0 10 #ff6c6c6c #fffcfcfc 0;
+#X obj 1070 42 cnv 15 330 18 empty ai-error-label empty 3 9 0 9 #ffbcbcdc #ff000000 0;

@@ -1,5 +1,6 @@
 """Focused regression tests for immutable feedback and resumable DPO."""
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -9,7 +10,7 @@ from unittest.mock import patch
 from unittest.mock import Mock
 
 from percussion_generation_v4ea import OUTPUT
-from percussion_generation_v4ea.plugin_bridge import _load_active_run, _save_active_run
+from percussion_generation_v4ea.plugin_bridge import Bridge, _load_active_run, _save_active_run
 from percussion_generation_v4ea.plugin_checkpoints import inspect, recover, verify
 from percussion_generation_v4ea.plugin_dpo import train_dpo, lora_optimizer
 from percussion_generation_v4ea.plugin_generation import (prepare_feedback_pair,
@@ -108,6 +109,107 @@ def tiny_loader(_output, adapter=None, cpu=False, trainable=True):
 
 
 class PluginTests(unittest.TestCase):
+    def test_bridge_candidate_switch_rating_ack_and_recovery(self):
+        import threading
+        with tempfile.TemporaryDirectory() as directory:
+            store = FeedbackStore(Path(directory) / "feedback")
+            group, sessions = fake_group(self.manifest)
+            group.update(target_track_id=5, pitch=55)
+            store.save_group(group, sessions)
+            bridge = object.__new__(Bridge)
+            bridge.store, bridge.group = store, group
+            bridge.active_index, bridge.pending_index = 0, None
+            bridge.draft_rating, bridge.warned_unsaved = None, False
+            bridge.offline, bridge.busy = True, False
+            bridge.lock, bridge.cancel_event = threading.RLock(), threading.Event()
+            events = []
+            bridge.broadcast = lambda *pieces: events.append(pieces)
+            bridge.handle(["choice", "8"])
+            bridge.handle(["next"])
+            self.assertIsNone(bridge.pending_index)
+            self.assertEqual(events[-1][0], "ai_warn")
+            bridge.handle(["rate", "8"])
+            self.assertEqual(events[-2][0], "ai_rating_ack")
+            self.assertEqual(store.current_ratings(group["group_id"])[group["candidates"][0]["candidate_id"]]["rating"], 8)
+            for index in (2, 3, 4, 5, 1):
+                bridge.handle(["next"])
+                if bridge.pending_index is None:  # Unsaved rating requires the explicit second click.
+                    self.assertEqual(events[-1][0], "ai_warn")
+                    bridge.handle(["next"])
+                self.assertEqual(bridge.pending_index, index-1)
+                self.assertEqual(events[-1][0], "ai_preview")
+                bridge.handle(["applied", str(index)])
+                self.assertEqual(bridge.active_index, index-1)
+            bridge.group = None
+            bridge.handle(["recover", group["group_id"]])
+            self.assertEqual(bridge.active_index, 0)
+            self.assertEqual(bridge.group["group_id"], group["group_id"])
+            self.assertIn(("ai_group", group["group_id"]), events)
+            bridge.handle(["next"])
+            if bridge.pending_index is None:
+                bridge.handle(["next"])
+            bridge._expire_switch(group["group_id"], 1)
+            self.assertIsNone(bridge.pending_index)
+            self.assertEqual(events[-1][0], "ai_error")
+            bridge.offline = False
+            with self.assertRaises(RuntimeError):
+                bridge.handle(["next"])
+            with self.assertRaises(RuntimeError):
+                bridge.handle(["rate", "9"])
+
+    def test_incomplete_group_uuid_is_advertised_after_bridge_restart(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = FeedbackStore(Path(directory) / "feedback")
+            group, sessions = fake_group(self.manifest)
+            store.save_group(group, sessions)
+            bridge = object.__new__(Bridge)
+            bridge.store, bridge.group = store, None
+            bridge.dpo_root = Path(directory) / "dpo"
+            bridge.dpo_root.mkdir()
+            bridge.training_run, bridge.training = None, None
+            bridge.service = SimpleNamespace(output_dir=OUTPUT, adapter=self.reference)
+            events = []
+            bridge.broadcast = lambda *pieces: events.append(pieces)
+            bridge.handle(["stats"])
+            self.assertIn(("ai_group", group["group_id"]), events)
+
+    def test_bridge_ready_status_clears_loading_progress(self):
+        bridge = object.__new__(Bridge)
+        bridge.training, bridge.training_run, bridge.offline = None, None, False
+        bridge.service = SimpleNamespace(model=None)
+        bridge.service.load = lambda: setattr(bridge.service, "model", object())
+        events = []
+        bridge.broadcast = lambda *pieces: events.append(pieces)
+        bridge.handle(["init"])
+        bridge.handle(["offline", "1"])
+        self.assertIn(("ai_progress", "idle", 0, 0, 5), events)
+        self.assertEqual(events[-1], ("ai_status", "model_ready_offline"))
+
+    def test_training_status_distinguishes_pause_completion_and_failure(self):
+        with tempfile.TemporaryDirectory() as directory:
+            run = Path(directory) / "round"
+            run.mkdir()
+            bridge = object.__new__(Bridge)
+            bridge.training_run, bridge.training = run, None
+            (run / "trainer.pid").write_text(str(os.getpid()), encoding="ascii")
+            self.assertTrue(bridge._training_active())
+            (run / "trainer.pid").write_text("2147483647", encoding="ascii")
+            self.assertFalse(bridge._training_active())
+            self.assertFalse((run / "trainer.pid").exists())
+            events = []
+            bridge.broadcast = lambda *pieces: events.append(pieces)
+            for stored, expected in (("paused", "paused"), ("complete", "complete"),
+                                     ("failed", "failed"), ("training", "failed")):
+                (run / "progress.json").write_text(json.dumps({"status": stored,
+                    "epoch": 2, "global_optimizer_step": 10, "examples": 40}), encoding="utf-8")
+                bridge._training_progress()
+                self.assertEqual(events[-2], ("ai_training", expected))
+                self.assertEqual(events[-1][0], "ai_training_progress")
+            with patch.object(bridge, "_training_active", return_value=True):
+                bridge.handle(["init"])
+            self.assertIn(("ai_status", "training_running"), events)
+            self.assertNotIn(("ai_progress", "loading_model", 0, 0, 5), events)
+
     def test_active_dpo_round_survives_bridge_restart(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

@@ -1,5 +1,6 @@
 """Local-only FUDI/TCP control bridge; model work never runs in Pd's GUI thread."""
 import json
+import hashlib
 import os
 from pathlib import Path
 import socketserver
@@ -42,6 +43,32 @@ def _load_active_run(root):
     return run
 
 
+def _pid_alive(pid):
+    if os.name == "nt":
+        import ctypes
+        kernel = ctypes.WinDLL("kernel32", use_last_error=True)
+        kernel.OpenProcess.argtypes = (ctypes.c_uint32, ctypes.c_int, ctypes.c_uint32)
+        kernel.OpenProcess.restype = ctypes.c_void_p
+        kernel.GetExitCodeProcess.argtypes = (ctypes.c_void_p, ctypes.POINTER(ctypes.c_ulong))
+        kernel.CloseHandle.argtypes = (ctypes.c_void_p,)
+        handle = kernel.OpenProcess(0x1000, False, pid)  # PROCESS_QUERY_LIMITED_INFORMATION
+        if not handle:
+            return ctypes.get_last_error() == 5  # Access denied means it exists.
+        try:
+            exit_code = ctypes.c_ulong()
+            return bool(kernel.GetExitCodeProcess(handle, ctypes.byref(exit_code)) and
+                        exit_code.value == 259)  # STILL_ACTIVE
+        finally:
+            kernel.CloseHandle(handle)
+    try:
+        os.kill(pid, 0)
+        return True
+    except PermissionError:
+        return True
+    except ProcessLookupError:
+        return False
+
+
 class Bridge:
     def __init__(self, output_dir=OUTPUT, feedback_dir=None, dpo_root=None, cpu=False):
         self.service = GenerationService(output_dir, feedback_dir, cpu)
@@ -51,6 +78,7 @@ class Bridge:
         self.group = None
         self.active_index = 0
         self.pending_index = None
+        self.pending_timer = None
         self.draft_rating = None
         self.warned_unsaved = False
         self.training = None
@@ -73,12 +101,58 @@ class Bridge:
                     self.clients.discard(client)
 
     def _training_active(self):
-        return self.training is not None and self.training.poll() is None
+        if self.training is not None and self.training.poll() is None:
+            return True
+        if self.training_run is None:
+            return False
+        pid_path = self.training_run / "trainer.pid"
+        if not pid_path.is_file():
+            return False
+        try:
+            if not _pid_alive(int(pid_path.read_text(encoding="ascii"))):
+                pid_path.unlink(missing_ok=True)
+                return False
+            return True
+        except (OSError, ValueError):
+            pid_path.unlink(missing_ok=True)
+            return False
+
+    def _training_progress(self):
+        if self.training_run is None:
+            self.broadcast("ai_training", "idle")
+            return
+        path = self.training_run / "progress.json"
+        state = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {}
+        status = state.get("status", "preparing")
+        if self._training_active():
+            status = "pause_requested" if (self.training_run / "pause.request").exists() else "running"
+        elif status == "training":
+            status = "failed"  # A process disappeared without writing a terminal state.
+        elif status == "epoch_complete":
+            status = "paused" if (self.training_run / "checkpoints/latest.json").exists() else "failed"
+        self.broadcast("ai_training", status)
+        self.broadcast("ai_training_progress", status,
+                       state.get("epoch", state.get("epochs", 0)),
+                       state.get("global_optimizer_step", 0),
+                       state.get("examples", 0), state.get("epoch_examples", 0))
 
     def _current(self):
         if self.group is None:
             raise ValueError("no feedback group is active")
         return self.group["candidates"][self.active_index]
+
+    def _clear_pending(self):
+        timer = getattr(self, "pending_timer", None)
+        if timer is not None:
+            timer.cancel()
+        self.pending_timer = None
+        self.pending_index = None
+
+    def _expire_switch(self, group_id, index):
+        with self.lock:
+            if self.group and self.group["group_id"] == group_id and self.pending_index == index:
+                self._clear_pending()
+                self.broadcast("ai_error", "candidate_switch_timed_out_retry_NEXT_TRACK")
 
     def _candidate_status(self):
         candidate = self._current()
@@ -95,15 +169,19 @@ class Bridge:
                 "ai_progress", p["phase"], p["attempt"], p["accepted"], p["total"]),
                 cancel_event=self.cancel_event)
             with self.lock:
-                self.group, self.active_index, self.pending_index = group, 0, None
+                self._clear_pending()
+                self.group, self.active_index = group, 0
                 self.draft_rating, self.warned_unsaved = None, False
             candidate = group["candidates"][0]
             path = self.store.groups / group["group_id"] / f"{candidate['candidate_id']}.txt"
             self.broadcast("ai_session", path)
             self.broadcast("ai_track", group["target_track_id"])
+            self.broadcast("ai_group", group["group_id"])
             self._candidate_status()
+            self.broadcast("ai_progress", "complete", 0, 5, 5)
             self.handle(["stats"])
         except Exception as exc:
+            self.broadcast("ai_progress", "failed", 0, 0, 5)
             self.broadcast("ai_error", str(exc))
         finally:
             self.busy = False
@@ -144,9 +222,23 @@ class Bridge:
                 command += ["--cpu"]
             self.training = subprocess.Popen(command, cwd=Path(__file__).resolve().parents[1],
                                               creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+            pid_path = run / "trainer.pid"
+            temporary_pid = run / f".trainer_pid_{uuid.uuid4().hex}"
+            temporary_pid.write_text(str(self.training.pid), encoding="ascii")
+            os.replace(temporary_pid, pid_path)
             status = self.training.wait()
-            self.broadcast("ai_training", "complete" if status == 0 else "failed", status)
+            pid_path.unlink(missing_ok=True)
+            if status != 0:
+                from .plugin_dpo import _atomic_progress
+                progress_path = run / "progress.json"
+                previous = json.loads(progress_path.read_text(encoding="utf-8")) if progress_path.is_file() else {}
+                _atomic_progress(progress_path, {**previous, "status": "failed", "exit_code": status})
+                self.broadcast("ai_training", "failed")
+                self.broadcast("ai_error", "DPO training exited with code", status)
+            else:
+                self._training_progress()
         except Exception as exc:
+            self.broadcast("ai_training", "failed")
             self.broadcast("ai_error", str(exc))
         finally:
             self.busy = False
@@ -157,13 +249,18 @@ class Bridge:
         command = parts[0]
         if command == "offline":
             self.offline = len(parts) == 2 and parts[1] == "1"
-            self.broadcast("ai_status", "offline" if self.offline else "disabled_online")
+            ready = getattr(self.service, "model", None) is not None
+            self.broadcast("ai_status", ("model_ready_offline" if ready else "offline_loading")
+                           if self.offline else "disabled_online")
         elif command == "init":
             if self._training_active():
-                raise RuntimeError("training owns the model device")
+                self.broadcast("ai_status", "training_running")
+                self._training_progress()
+                return
             self.broadcast("ai_progress", "loading_model", 0, 0, 5)
             self.service.load()
-            self.broadcast("ai_status", "model_ready")
+            self.broadcast("ai_progress", "idle", 0, 0, 5)
+            self.broadcast("ai_status", "model_ready_offline" if self.offline else "model_ready_online")
         elif command == "random":
             if not self.offline:
                 raise RuntimeError("AI feedback requires an offline local Tweeter session")
@@ -188,6 +285,11 @@ class Bridge:
                 self.broadcast("ai_warn", "unsubmitted_rating_click_NEXT_again")
                 return
             self.pending_index = (self.active_index + 1) % 5
+            timeout = max(10, 3 * self.group.get("loop_ms", 1500) / 1000)
+            self.pending_timer = threading.Timer(timeout, self._expire_switch,
+                                                 args=(self.group["group_id"], self.pending_index))
+            self.pending_timer.daemon = True
+            self.pending_timer.start()
             self.warned_unsaved = False
             candidate = self.group["candidates"][self.pending_index]
             positions = set(candidate["positions"])
@@ -197,7 +299,8 @@ class Bridge:
         elif command == "applied":
             if self.pending_index is None or len(parts) != 2 or int(parts[1]) != self.pending_index+1:
                 raise ValueError("unexpected candidate switch acknowledgment")
-            self.active_index, self.pending_index = self.pending_index, None
+            self.active_index = self.pending_index
+            self._clear_pending()
             self.draft_rating = None
             self._candidate_status()
         elif command == "choice":
@@ -227,15 +330,24 @@ class Bridge:
                 raise RuntimeError("AI feedback is disabled during multiplayer use")
             if len(parts) != 2:
                 raise ValueError("recover requires a group UUID")
+            self._clear_pending()
             self.group = self.store.get_group(parts[1])
-            self.active_index, self.pending_index = 0, None
+            self.active_index = 0
             self.draft_rating, self.warned_unsaved = None, False
             candidate = self._current()
             path = self.store.groups / self.group["group_id"] / f"{candidate['candidate_id']}.txt"
             self.broadcast("ai_session", path)
             self.broadcast("ai_track", self.group["target_track_id"])
+            self.broadcast("ai_group", self.group["group_id"])
             self._candidate_status()
         elif command == "stats":
+            if self.group is not None:
+                recovery_id = self.group["group_id"]
+            else:
+                incomplete = self.store.incomplete_groups()
+                recovery_id = (max(incomplete, key=lambda item: self.store.get_group(
+                    item["group_id"]).get("created_at", ""))["group_id"] if incomplete else "none")
+            self.broadcast("ai_group", recovery_id)
             snapshots = sorted(self.dpo_root.glob("round_*/snapshot.json"), key=lambda p: p.stat().st_mtime)
             previous = (json.loads(snapshots[-1].read_text(encoding="utf-8")).get("raw_rating_event_count", 0)
                         if snapshots else 0)
@@ -247,14 +359,7 @@ class Bridge:
                            round(100 * values["collection_progress"]))
             supervised = self.service.output_dir / "checkpoints/rhythm_coverage_v1/best_adapter"
             self.broadcast("ai_model", "supervised" if self.service.adapter == supervised else "approved_dpo")
-            if self.training_run:
-                progress = self.training_run / "progress.json"
-                if progress.is_file():
-                    state = json.loads(progress.read_text(encoding="utf-8"))
-                    self.broadcast("ai_training_progress", state.get("status", "unknown"),
-                                   state.get("epoch", state.get("epochs", 0)),
-                                   state.get("global_optimizer_step", 0),
-                                   state.get("examples", 0), state.get("epoch_examples", 0))
+            self._training_progress()
         elif command == "train":
             if self.busy or self._training_active():
                 raise RuntimeError("generation or training is busy")
@@ -269,6 +374,11 @@ class Bridge:
         elif command == "resume":
             if self.busy or self._training_active():
                 raise RuntimeError("generation or training is busy")
+            if self.training_run is None or not (self.training_run / "checkpoints/latest.json").is_file():
+                raise ValueError("no resumable DPO checkpoint is available")
+            progress = self.training_run / "progress.json"
+            if progress.is_file() and json.loads(progress.read_text(encoding="utf-8")).get("status") == "complete":
+                raise ValueError("DPO round already completed")
             self.service.release_model()
             self.busy = True
             threading.Thread(target=lambda: self._training_worker(resume=True), daemon=True).start()
@@ -308,6 +418,9 @@ def serve(bridge, port=19785):
                 return
             bridge.clients.add(self.request)
             bridge.broadcast("ai_status", "ready")
+            identity = (str(bridge.store.root).casefold() + "|" +
+                        str(bridge.dpo_root.resolve()).casefold()).encode("utf-8")
+            bridge.broadcast("ai_bridge", hashlib.sha256(identity).hexdigest())
             try:
                 for raw in self.rfile:
                     for segment in raw.decode("utf-8", errors="replace").split(";"):

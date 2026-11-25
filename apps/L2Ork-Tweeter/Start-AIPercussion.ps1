@@ -3,7 +3,9 @@ param(
     [string]$DpoRoot = '',
     [string]$PdExecutable = '',
     [int]$Port = 19785,
-    [switch]$Cpu
+    [switch]$Cpu,
+    [switch]$BridgeOnly,
+    [switch]$Stop
 )
 
 $ErrorActionPreference = 'Stop'
@@ -19,14 +21,46 @@ New-Item -ItemType Directory -Force -Path $DpoRoot | Out-Null
 $python = (Get-Command python -ErrorAction Stop).Source
 $stdout = Join-Path $FeedbackDir 'bridge.stdout.log'
 $stderr = Join-Path $FeedbackDir 'bridge.stderr.log'
+$identityText = $FeedbackDir.ToLowerInvariant() + '|' + $DpoRoot.ToLowerInvariant()
+$identityBytes = [Text.Encoding]::UTF8.GetBytes($identityText)
+$sha = [Security.Cryptography.SHA256]::Create()
+try { $identity = ([BitConverter]::ToString($sha.ComputeHash($identityBytes)) -replace '-', '').ToLowerInvariant() }
+finally { $sha.Dispose() }
+
+function Test-AIBridge {
+    $client = [Net.Sockets.TcpClient]::new()
+    try {
+        $client.Connect('127.0.0.1', $Port)
+        $client.ReceiveTimeout = 2000
+        $reader = [IO.StreamReader]::new($client.GetStream())
+        for ($i = 0; $i -lt 3; $i++) {
+            $line = $reader.ReadLine()
+            if ($line -match '^ai_bridge ([0-9a-f]{64});$') {
+                return ($Matches[1] -eq $identity)
+            }
+        }
+        return $false
+    } finally {
+        $client.Dispose()
+    }
+}
 
 $running = $false
 try {
-    $client = [Net.Sockets.TcpClient]::new()
-    $client.Connect('127.0.0.1', $Port)
-    $client.Dispose()
-    $running = $true
-} catch { }
+    $running = Test-AIBridge
+    if (-not $running) { throw "Port $Port is occupied by a different AI bridge or service." }
+} catch [Net.Sockets.SocketException] { }
+
+if ($Stop) {
+    if (-not $running) { Write-Host 'AI bridge is not running.'; return }
+    $client = [Net.Sockets.TcpClient]::new('127.0.0.1', $Port)
+    try {
+        $bytes = [Text.Encoding]::UTF8.GetBytes("shutdown;`n")
+        $client.GetStream().Write($bytes, 0, $bytes.Length)
+    } finally { $client.Dispose() }
+    Write-Host 'AI bridge shutdown requested.'
+    return
+}
 
 if (-not $running) {
     $arguments = @('-m', 'percussion_generation_v4ea', 'plugin-serve',
@@ -40,12 +74,10 @@ if (-not $running) {
     while ([DateTime]::UtcNow -lt $deadline) {
         if ($process.HasExited) { throw "AI bridge exited with code $($process.ExitCode). See $stderr" }
         try {
-            $client = [Net.Sockets.TcpClient]::new()
-            $client.Connect('127.0.0.1', $Port)
-            $client.Dispose()
-            $running = $true
+            $running = Test-AIBridge
+            if (-not $running) { throw "Port $Port is occupied by a different AI bridge or service." }
             break
-        } catch { Start-Sleep -Milliseconds 500 }
+        } catch [Net.Sockets.SocketException] { Start-Sleep -Milliseconds 500 }
     }
     if (-not $running) { throw "AI bridge did not become ready. See $stderr" }
     Write-Host "AI bridge started (PID $($process.Id))."
@@ -53,6 +85,7 @@ if (-not $running) {
     Write-Host "AI bridge is already listening on 127.0.0.1:$Port."
 }
 
+if ($BridgeOnly) { return }
 $patch = Join-Path $tweeterRoot 'L2Ork-Tweeter.pd'
 if (-not $PdExecutable) {
     $found = Get-Command pd-l2ork,pd -ErrorAction SilentlyContinue | Select-Object -First 1

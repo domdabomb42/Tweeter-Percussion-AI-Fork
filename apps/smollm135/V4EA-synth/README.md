@@ -100,7 +100,12 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\apps\L2Ork-Tweeter\Start-A
 If PD-L2Ork is not on `PATH`, pass `-PdExecutable 'C:\path\to\pd-l2ork.exe'`
 or open `apps\L2Ork-Tweeter\L2Ork-Tweeter.pd` manually. The script leaves
 the bridge running in a hidden process and writes bridge logs in the feedback
-directory. In Tweeter, disconnect from multiplayer, then click **RANDOM
+directory. Repeating the launcher reuses only a bridge with the same feedback
+and DPO directories; an unrelated listener on the port is rejected. To stop
+that bridge cleanly, run the same command with `-Stop`. Tweeter retries its
+local bridge connection every five seconds while disconnected.
+
+In Tweeter, disconnect from multiplayer, then click **RANDOM
 SESSION** at the upper right. The bridge picks an eligible augmented training
 pair uniformly by original composition, removes its designated percussion
 target, verifies the exact supervised prompt and token IDs, and generates five
@@ -114,9 +119,13 @@ first NEXT click warns if a candidate has no submitted rating or has an
 unsaved changed rating; click NEXT again to leave it. Revisiting a candidate
 shows its saved rating; submitting a different rating records a revision.
 Other tracks retain their ordinary controls and do not receive candidate
-switch messages. Click **AI TRAINING** in the header for collection stats,
-manual training controls, and a recovery UUID field. Paste an incomplete
-group UUID there and press Enter to reopen it. No training starts from a
+switch messages. While playing, the switch occurs at the next loop boundary;
+while stopped, it occurs immediately. A switch without a Pd acknowledgment
+times out with a visible error and can be retried. The header shows bridge
+status, generation phase, and errors. Click **AI TRAINING** in the header for collection stats,
+manual training controls, and a recovery UUID field. The latest incomplete
+group UUID is displayed after a bridge restart; enter that UUID in the
+recovery field and press Enter to reopen it. No training starts from a
 rating submission or from completion of five ratings.
 
 Raw feedback is stored at
@@ -185,6 +194,19 @@ configuration are restored on resume, so ratings submitted after a pause
 only enter a **new** round. The progress file is `$run\progress.json`.
 The bridge records the active round in `DPOPreferenceRuns\active_round.json`,
 so Tweeter's **RESUME TRAINING** control still finds it after restarting Pd.
+The training panel shows running, pause requested, paused, complete, or failed
+from the persisted progress file. It refreshes every five seconds while a
+round is active. Use **REFRESH STATS** for a one-time update while idle.
+
+Native GUI check after launching: load one RANDOM SESSION and confirm the
+`AI_A PERCUSSION` panel appears only on the generated track. Stop playback,
+click NEXT TRACK, and confirm the candidate number and notes change at once.
+Play the loop and click NEXT TRACK again; confirm notes change at the next
+boundary. Rate and revise one candidate, cycle through all five, then restart
+Tweeter and recover the group UUID shown in the training panel. Confirm other
+tracks' instruments, effects, and controls remain as loaded.
+For a headless native Pd check of switch timing and panel message handling,
+run `python tests\pd_switch_smoke.py` from `apps\smollm135\V4EA-synth`.
 
 Evaluate baseline and DPO on identical held-out inputs, sampling settings,
 and seeds. The comparison reports rhythmic diversity, native validity,
