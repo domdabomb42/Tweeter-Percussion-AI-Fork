@@ -15,8 +15,8 @@ playback settings during native export. The original `V4EA-MUSIC-TARGET-2`
 full musical target, its `[END_MUSIC]` marker, and named preset catalog remain
 available through the historical output directory.
 
-For newly generated ElectricKick tracks, export applies Tweeter factory #64's
-output volume `85.9649`, pan `0.765262`, and echo amplitude `0`. The other
+For newly generated ElectricKick tracks, export applies output volume `95`
+with Tweeter factory #64's pan `0.765262` and echo amplitude `0`. The other
 fixed synth, envelope, effect, and timing fields remain unchanged. This is a
 generation-time selection: stored V3 and V4EA presets, prepared datasets,
 tokenizers, and checkpoints remain historical. New feedback groups record

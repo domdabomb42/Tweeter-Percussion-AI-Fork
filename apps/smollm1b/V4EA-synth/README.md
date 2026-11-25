@@ -7,8 +7,8 @@ positions; a fixed preset supplies the full native percussion track. This
 plugin, which currently selects the 135M V4EA model. The large trained
 selected adapter and inference artifacts are local and excluded from this
 branch; see [MostRecentOutput](../MostRecentOutput/README.md).
-New ElectricKick exports use Tweeter factory #64's output volume `85.9649`,
-pan `0.765262`, and echo amplitude `0` without changing historical presets.
+New ElectricKick exports use output volume `95` with Tweeter factory #64's
+pan `0.765262` and echo amplitude `0` without changing historical presets.
 
 The default new experiment writes to `../MostRecentOutput/V4EA-positions-v1`.
 The historical full musical target, its tokenizer, dataset, and checkpoints remain

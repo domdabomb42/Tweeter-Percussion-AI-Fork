@@ -3,7 +3,7 @@
 **Historical experiment:** the saved V3 dataset, adapter, tokenizer, and
 evaluation results document their original training and decoding. They have
 not been rewritten for the native plugin. Current generation code applies
-Tweeter factory #64's ElectricKick output volume (`85.9649`), pan
+ElectricKick output volume `95` with Tweeter factory #64's pan
 (`0.765262`), and zero echo amplitude when constructing a **new** native
 track. Thus a newly exported file can differ in those three settings from a
 historical generated file even with identical predicted positions. Use saved

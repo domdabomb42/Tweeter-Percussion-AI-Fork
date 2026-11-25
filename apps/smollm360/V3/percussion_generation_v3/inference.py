@@ -280,11 +280,11 @@ def choose_loop_ms(composition, reference_track_id=None, loop_ms=None):
 
 
 def factory64_electrikick_preset(preset):
-    """Use Tweeter's factory #64 mix/effect values for generated ElectricKick."""
+    """Use output level 95 with Tweeter factory #64 pan and echo settings."""
     selected = deepcopy(preset)
     if selected.get("instrument_name") == "electrikick":
         track = selected["track"]
-        track["mixing"]["output_amplitude"] = 85.9649
+        track["mixing"]["output_amplitude"] = 95
         track["mixing"]["pan"] = 0.765262
         track["effects"]["echo"]["amplitude"] = 0
     return selected

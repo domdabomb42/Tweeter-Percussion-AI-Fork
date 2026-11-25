@@ -36,7 +36,7 @@ On Linux or macOS, install/build Pd-L2Ork using the [upstream instructions](http
 
 **RANDOM SESSION** requests five distinct generated candidates. The designated AI track is named `AI_A`; its rating window offers **SUBMIT** and **NEXT TRACK**. **AI TRAINING** opens collection statistics, recovery, and explicit DPO controls. Ratings are stored as durable event files. DPO preparation freezes submitted preferences; training begins only when requested, supports pause/resume, and saves every 10 successful optimizer steps. The supervised adapter remains the default until an approved DPO adapter is selected. Follow the [135M V4EA guide](apps/smollm135/V4EA-synth/README.md#local-ai-percussion-feedback-plugin) for commands and manual verification.
 
-V4EA's current target is **tracker positions from 0 to 63**, not a complete instrument track. Native export combines those positions with a fixed ElectricKick synthesizer preset. New generations use Tweeter factory #64's output volume, pan, and zero echo amplitude. Historical full-musical-target experiments and V3 outputs remain available.
+V4EA's current target is **tracker positions from 0 to 63**, not a complete instrument track. Native export combines those positions with a fixed ElectricKick synthesizer preset. New generations use output level **95** with Tweeter factory #64's pan and zero echo amplitude. Historical full-musical-target experiments and V3 outputs remain available.
 
 | Component | Purpose |
 | --- | --- |
