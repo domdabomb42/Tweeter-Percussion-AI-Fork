@@ -288,7 +288,7 @@ class Bridge:
                 if self.pending_index is not None:
                     raise ValueError("wait for candidate switch before generating again")
                 if command == "model" and self.group is None:
-                    raise ValueError("RANDOM MODEL needs a loaded AI composition; use RANDOM SESSION first")
+                    raise ValueError("REGENERATE needs a loaded AI composition; use RANDOM SESSION first")
                 source_row = None
                 if self.group is not None:
                     saved = self.store.current_ratings(self.group["group_id"]).get(
@@ -299,7 +299,7 @@ class Bridge:
                                     self.active_index, self.draft_rating)
                     if unsaved and self.generation_confirmation != confirmation:
                         self.generation_confirmation = confirmation
-                        warning = "save_rating_or_repeat_" + ("SESSION" if command == "random" else "MODEL")
+                        warning = "save_rating_or_repeat_" + ("SESSION" if command == "random" else "REGENERATE")
                         self.broadcast("ai_warn", warning)
                         self.broadcast("ai_error", warning)
                         return

@@ -1,5 +1,5 @@
-#N canvas 350 210 290 120 10;
-#X obj 0 0 cnv 15 268 108 empty empty AI_A\ PERCUSSION 8 12 0 12 #ffbcbcdc #ff404040 0;
+#N canvas 350 210 290 180 10;
+#X obj 0 0 cnv 15 268 168 empty empty AI_A\ PERCUSSION 8 12 0 12 #ffbcbcdc #ff404040 0;
 #X obj 15 35 bng 16 250 50 0 ai-next empty NEXT\ TRACK 18 8 0 10 #ff80fc80 #ff008080 #ff000000 1;
 #X obj 115 36 nbx 2 16 1 10 0 0 empty empty empty 0 -7 0 10 #fcfcfc #000000 #000000 1 256 0 1 1 0;
 #X obj 180 35 bng 16 250 50 0 \$0-submit empty SUBMIT 18 8 0 10 #fffcb46c #fffc6418 #ff000000 1;
@@ -56,6 +56,10 @@
 #X obj 300 350 symbol;
 #X obj 600 325 r ai-open-rating;
 #X obj 600 350 spigot 0;
+#X text 15 110 8\ —\ Great;
+#X text 15 124 6\ —\ Good;
+#X text 15 138 4\ —\ Doesn't\ add\ anything;
+#X text 15 152 2\ —\ Not\ rhythmic;
 #X connect 2 0 11 0;
 #X connect 9 0 10 0;
 #X connect 10 0 2 0;
@@ -104,4 +108,4 @@
 #X connect 48 0 27 0;
 #X connect 49 0 50 0;
 #X connect 50 0 51 0;
-#X coords 0 -1 1 1 268 108 2 850 0;
+#X coords 0 -1 1 1 268 168 2 850 0;

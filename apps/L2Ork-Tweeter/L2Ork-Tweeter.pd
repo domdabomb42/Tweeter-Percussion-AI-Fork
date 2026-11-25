@@ -2764,4 +2764,4 @@ empty empty 19 20 0 0 10 #FF000000 0 -8 12.5 12.5 0 1 1;
 #X obj 1235 22 cnv 15 275 18 empty ai-progress-label generation_idle 3 9 0 10 #ff6c6c6c #fffcfcfc 0;
 #X obj 1070 42 cnv 15 330 18 empty ai-error-label empty 3 9 0 9 #ffbcbcdc #ff000000 0;
 #X obj 1490 70 nbx 3 16 -1e+37 1e+37 0 1 ai-note-count empty NOTES 0 -8 0 10 #fcfcfc #000000 #000000 8 256 0 1 1 0;
-#X obj 1538 70 bng 16 250 50 0 ai-random-model empty RANDOM\ MODEL 18 8 0 10 #ff80fc80 #ff008080 #fffcfcfc 1;
+#X obj 1538 70 bng 16 250 50 0 ai-random-model empty REGENERATE 18 8 0 10 #ff80fc80 #ff008080 #fffcfcfc 1;

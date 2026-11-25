@@ -122,7 +122,7 @@ alternatives. The first is loaded into the target's original numeric track
 slot with native username `AI_A`. The status line updates during sampling,
 for example `Sampling | Attempt 8/30 | Candidates 3/5`.
 
-Change **NOTES** at any time before another generation. **RANDOM MODEL**
+Change **NOTES** at any time before another generation. **REGENERATE**
 generates five new candidates from the currently loaded AI composition and
 its original target slot; use RANDOM SESSION first (or recover a group) to
 establish that composition. Both buttons use the current note count. Inputs
@@ -136,7 +136,9 @@ prompt and token IDs used for later DPO. Earlier groups and ratings remain
 recoverable.
 
 On that track, choose a rating from 1–10 and press **SUBMIT**. A success
-indicator follows the durable storage acknowledgment. **NEXT TRACK** queues
+indicator follows the durable storage acknowledgment. The static rating guide
+labels 8 as Great, 6 as Good, 4 as Doesn't add anything, and 2 as Not
+rhythmic. **NEXT TRACK** queues
 the next candidate for the loop boundary and wraps from five to one. The
 first NEXT click warns if a candidate has no submitted rating or has an
 unsaved changed rating; click NEXT again to leave it. Revisiting a candidate
